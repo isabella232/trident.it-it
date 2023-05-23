@@ -1,0 +1,175 @@
+---
+sidebar: sidebar 
+permalink: trident-use/volume-share.html 
+keywords: volref, volume reference, share, pvc, pv, nfs, namespace, cvna, cross-namespace, sharing 
+summary: Utilizzando Astra Trident, è possibile creare un volume in uno spazio dei nomi primario e condividerlo in uno o più spazi dei nomi secondari. 
+---
+= Condividere un volume NFS tra spazi dei nomi
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Utilizzando Astra Trident, è possibile creare un volume in uno spazio dei nomi primario e condividerlo in uno o più spazi dei nomi secondari.
+
+
+
+== Caratteristiche
+
+Astra TridentVolumeReference CR consente di condividere in modo sicuro volumi NFS ReadWriteMany (RWX) in uno o più spazi dei nomi Kubernetes. Questa soluzione nativa di Kubernetes offre i seguenti vantaggi:
+
+* Diversi livelli di controllo degli accessi per garantire la sicurezza
+* Funziona con tutti i driver di volume NFS Trident
+* Nessuna dipendenza da tridentctl o da altre funzionalità Kubernetes non native
+
+
+Questo diagramma illustra la condivisione del volume NFS tra due spazi dei nomi Kubernetes.
+
+image::cross-namespace-sharing.png[Un diagramma concettuale della condivisione di spazi dei nomi incrociati.]
+
+
+
+== Avvio rapido
+
+Puoi configurare la condivisione dei volumi NFS in pochi passaggi.
+
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png["Uno"] Configurare il PVC di origine per la condivisione del volume
+[role="quick-margin-para"]
+Il proprietario dello spazio dei nomi di origine concede il permesso di accedere ai dati nel PVC di origine.
+
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-2.png["Due"] Concedere il permesso di creare una CR nello spazio dei nomi di destinazione
+[role="quick-margin-para"]
+L'amministratore del cluster concede l'autorizzazione al proprietario dello spazio dei nomi di destinazione per creare la CR di TridentVolumeReference.
+
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-3.png["Tre"] Creare TridentVolumeReference nello spazio dei nomi di destinazione
+[role="quick-margin-para"]
+Il proprietario dello spazio dei nomi di destinazione crea la CR di TridentVolumeReference per fare riferimento al PVC di origine.
+
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-4.png["Quattro"] Creare il PVC subordinato nello spazio dei nomi di destinazione
+[role="quick-margin-para"]
+Il proprietario dello spazio dei nomi di destinazione crea il PVC subordinato per utilizzare l'origine dati dal PVC di origine.
+
+
+
+== Configurare gli spazi dei nomi di origine e di destinazione
+
+Per garantire la sicurezza, la condivisione di spazi dei nomi incrociati richiede la collaborazione e l'azione del proprietario dello spazio dei nomi di origine, dell'amministratore del cluster e del proprietario dello spazio dei nomi di destinazione. Il ruolo dell'utente viene designato in ogni fase.
+
+.Fasi
+. *Source namespace owner:* Crea il PVC (`pvc1`) nello spazio dei nomi di origine che concede l'autorizzazione per la condivisione con lo spazio dei nomi di destinazione (`namespace2`) utilizzando `shareToNamespace` annotazione.
++
+[listing]
+----
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pvc1
+  namespace: namespace1
+  annotations:
+    trident.netapp.io/shareToNamespace: namespace2
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: trident-csi
+  resources:
+    requests:
+      storage: 100Gi
+----
++
+Astra Trident crea il PV e il suo volume di storage NFS back-end.
+
++
+[NOTE]
+====
+** È possibile condividere il PVC con più spazi dei nomi utilizzando un elenco delimitato da virgole. Ad esempio, `trident.netapp.io/shareToNamespace: namespace2,namespace3,namespace4`.
+** È possibile condividere con tutti gli spazi dei nomi utilizzando `*`. Ad esempio, `trident.netapp.io/shareToNamespace: *`
+** È possibile aggiornare il PVC per includere `shareToNamespace` annotazione in qualsiasi momento.
+
+
+====
+. *Cluster admin:* creare il ruolo personalizzato e il kubeconfig per concedere l'autorizzazione al proprietario dello spazio dei nomi di destinazione per creare il CR di TridentVolumeReference nello spazio dei nomi di destinazione.
+. *Destination namespace owner:* creare una CR di TridentVolumeReference nello spazio dei nomi di destinazione che si riferisce allo spazio dei nomi di origine `pvc1`.
++
+[listing]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentVolumeReference
+metadata:
+  name: my-first-tvr
+  namespace: namespace2
+spec:
+  pvcName: pvc1
+  pvcNamespace: namespace1
+----
+. *Proprietario dello spazio dei nomi di destinazione:* Crea un PVC (`pvc2`) nello spazio dei nomi di destinazione (`namespace2`) utilizzando `shareFromPVC` Annotazione per indicare il PVC di origine.
++
+[listing]
+----
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  annotations:
+    trident.netapp.io/shareFromPVC: namespace1/pvc1
+  name: pvc2
+  namespace: namespace2
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: trident-csi
+  resources:
+    requests:
+      storage: 100Gi
+----
++
+
+NOTE: La dimensione del PVC di destinazione deve essere inferiore o uguale al PVC di origine.
+
+
+
+.Risultati
+Astra Trident legge `shareFromPVC` Annotazione sul PVC di destinazione e crea il PV di destinazione come volume subordinato senza una propria risorsa di storage che punta al PV di origine e condivide la risorsa di storage PV di origine. Il PVC e il PV di destinazione appaiono associati come normali.
+
+
+
+== Eliminare un volume condiviso
+
+È possibile eliminare un volume condiviso tra più spazi dei nomi. Astra Trident rimuoverà l'accesso al volume nello spazio dei nomi di origine e manterrà l'accesso ad altri spazi dei nomi che condividono il volume. Una volta rimossi tutti gli spazi dei nomi che fanno riferimento al volume, Astra Trident elimina il volume.
+
+
+
+== Utilizzare `tridentctl get` per eseguire query sui volumi subordinati
+
+Utilizzando il[`tridentctl` è possibile eseguire `get` comando per ottenere volumi subordinati. Per ulteriori informazioni, fare riferimento al link:../trident-reference/tridentctl.html[`tridentctl` comandi e opzioni].
+
+[listing]
+----
+Usage:
+  tridentctl get [option]
+----
+Allarmi:
+
+* ``-h, --help`: Guida per i volumi.
+* `--parentOfSubordinate string`: Limita query al volume di origine subordinato.
+* `--subordinateOf string`: Limita la query alle subordinate del volume.
+
+
+
+
+== Limitazioni
+
+* Astra Trident non può impedire la scrittura degli spazi dei nomi di destinazione nel volume condiviso. È necessario utilizzare il blocco dei file o altri processi per impedire la sovrascrittura dei dati dei volumi condivisi.
+* Non è possibile revocare l'accesso al PVC di origine rimuovendo `shareToNamespace` oppure `shareFromNamespace` annotazioni o eliminazione di `TridentVolumeReference` CR. Per revocare l'accesso, è necessario eliminare il PVC subordinato.
+* Snapshot, cloni e mirroring non sono possibili sui volumi subordinati.
+
+
+
+
+== Per ulteriori informazioni
+
+Per ulteriori informazioni sull'accesso ai volumi tra spazi dei nomi:
+
+* Visitare il sito link:https://cloud.netapp.com/blog/astra-blg-sharing-volumes-between-namespaces-say-hello-to-cross-namespace-volume-access["Condivisione di volumi tra spazi dei nomi: Dai il benvenuto all'accesso a volumi tra spazi dei nomi"^].
+* Guarda la demo su link:http://netapp.tv/cloud/details/29594?playlist_id=81&mcid=63262890210074608700682715883688763007["NetAppTV"^].
+

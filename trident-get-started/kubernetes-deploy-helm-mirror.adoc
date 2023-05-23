@@ -1,0 +1,238 @@
+---
+sidebar: sidebar 
+permalink: trident-get-started/kubernetes-deploy-helm-mirror.html 
+keywords: deploy, astra trident, operator, helm, helm chart, configuration, values, offline, air gap, gap, registry 
+summary: 'È possibile implementare l"operatore Trident e installare Astra Trident utilizzando Helm. Questo processo si applica alle installazioni in cui le immagini container richieste da Astra Trident sono memorizzate in un registro privato.' 
+---
+= Implementare l'operatore Trident utilizzando Helm (modalità offline)
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+È possibile implementare l'operatore Trident e installare Astra Trident utilizzando Helm. Questo processo si applica alle installazioni in cui le immagini container richieste da Astra Trident sono memorizzate in un registro privato. Se non si dispone di un registro di immagini privato, utilizzare link:kubernetes-deploy-helm.html["processo per l'implementazione standard"].
+
+
+
+== Informazioni critiche su Astra Trident 23.04
+
+*È necessario leggere le seguenti informazioni critiche su Astra Trident.*
+
+.<strong> informazioni su Astra </strong>
+[%collapsible%open]
+====
+* Kubernetes 1.27 è ora supportato in Trident. Aggiornare Trident prima di aggiornare Kubernetes.
+* Astra Trident impone rigorosamente l'utilizzo della configurazione multipathing negli ambienti SAN, con un valore consigliato di `find_multipaths: no` nel file multipath.conf.
++
+Utilizzo di configurazioni o utilizzo non multipathing di `find_multipaths: yes` oppure `find_multipaths: smart` il valore nel file multipath.conf causerà errori di montaggio. Trident ha raccomandato l'uso di `find_multipaths: no` dalla release 21.07.
+
+
+
+====
+
+
+== Implementare l'operatore Trident e installare Astra Trident utilizzando Helm
+
+Utilizzo di Trident link:https://artifacthub.io/packages/helm/netapp-trident/trident-operator["Grafico di comando"^] È possibile implementare l'operatore Trident e installare Trident in un'unica fase.
+
+Revisione link:../trident-get-started/kubernetes-deploy.html["panoramica dell'installazione"] per assicurarsi di aver soddisfatto i prerequisiti di installazione e selezionato l'opzione di installazione corretta per il proprio ambiente.
+
+.Prima di iniziare
+Oltre a link:../trident-get-started/kubernetes-deploy.html#before-you-deploy["prerequisiti per l'implementazione"] di cui hai bisogno link:https://v3.helm.sh/["Helm versione 3"^].
+
+.Fasi
+. Aggiungere il repository Astra Trident Helm:
++
+[listing]
+----
+helm repo add netapp-trident https://netapp.github.io/trident-helm-chart
+----
+. Utilizzare `helm install` e specificare un nome per la distribuzione e la posizione del registro delle immagini. Il tuo link:../trident-get-started/requirements.html#container-images-and-corresponding-kubernetes-versions["Immagini Trident e CSI"] Può trovarsi in un registro o in registri diversi, ma tutte le immagini CSI devono trovarsi nello stesso registro. Negli esempi, `23.04.0` È la versione di Astra Trident che si sta installando.
++
+[role="tabbed-block"]
+====
+.Immagini in un registro
+--
+[listing]
+----
+helm install <name> netapp-trident/trident-operator --version 23.04.0 --set imageRegistry=<your-registry> --create-namespace --namespace <trident-namespace>
+----
+--
+.Immagini in diversi registri
+--
+È necessario aggiungere `sig-storage` al `imageRegistry` per utilizzare diverse posizioni del registro di sistema.
+
+[listing]
+----
+helm install <name> netapp-trident/trident-operator --version 23.04.0 --set imageRegistry=<your-registry>/sig-storage --set operatorImage=<your-registry>/netapp/trident-operator:23.04.0 --set tridentAutosupportImage=<your-registry>/netapp/trident-autosupport:23.04 --set tridentImage=<your-registry>/netapp/trident:23.04.0 --create-namespace --namespace <trident-namespace>
+----
+--
+====
++
+
+NOTE: Se è già stato creato uno spazio dei nomi per Trident, il `--create-namespace` il parametro non crea uno spazio dei nomi aggiuntivo.
+
+
+
+È possibile utilizzare `helm list` per rivedere i dettagli dell'installazione, ad esempio nome, spazio dei nomi, grafico, stato, versione dell'applicazione, e numero di revisione.
+
+
+
+== Passare i dati di configurazione durante l'installazione
+
+Esistono due modi per passare i dati di configurazione durante l'installazione:
+
+[cols="2"]
+|===
+| Opzione | Descrizione 
+
+
+| `--values` (o. `-f`)  a| 
+Specificare un file YAML con override. Questo valore può essere specificato più volte e il file più a destra avrà la precedenza.
+
+
+
+| `--set`  a| 
+Specificare le sostituzioni sulla riga di comando.
+
+|===
+Ad esempio, per modificare il valore predefinito di `debug`, eseguire quanto segue `--set` comando dove `23.04.0` È la versione di Astra Trident che si sta installando:
+
+[listing]
+----
+helm install <name> netapp-trident/trident-operator --version 23.04.0  --create-namespace --namespace --set tridentDebug=true
+----
+
+
+== Opzioni di configurazione
+
+Questa tabella e il `values.yaml` Il file, che fa parte del grafico Helm, fornisce l'elenco delle chiavi e i relativi valori predefiniti.
+
+[cols="3"]
+|===
+| Opzione | Descrizione | Predefinito 
+
+
+| `nodeSelector` | Etichette dei nodi per l'assegnazione dei pod |  
+
+
+| `podAnnotations` | Annotazioni Pod |  
+
+
+| `deploymentAnnotations` | Annotazioni di implementazione |  
+
+
+| `tolerations` | Pedaggi per l'assegnazione del pod |  
+
+
+| `affinity` | Affinità per l'assegnazione del pod |  
+
+
+| `tridentControllerPluginNodeSelector` | Selettori di nodi aggiuntivi per i pod. Fare riferimento a. <<Comprensione dei pod controller e dei pod di nodi>> per ulteriori informazioni. |  
+
+
+| `tridentControllerPluginTolerations` | Ignora le tolleranze Kubernetes per i pod. Fare riferimento a. <<Comprensione dei pod controller e dei pod di nodi>> per ulteriori informazioni. |  
+
+
+| `tridentNodePluginNodeSelector` | Selettori di nodi aggiuntivi per i pod. Fare riferimento a. <<Comprensione dei pod controller e dei pod di nodi>> per ulteriori informazioni. |  
+
+
+| `tridentNodePluginTolerations` | Ignora le tolleranze Kubernetes per i pod. Fare riferimento a. <<Comprensione dei pod controller e dei pod di nodi>> per ulteriori informazioni. |  
+
+
+| `imageRegistry` | Identifica il registro di sistema per `trident-operator`, `trident`e altre immagini. Lasciare vuoto per accettare l'impostazione predefinita. | "" 
+
+
+| `imagePullPolicy` | Imposta il criterio di pull dell'immagine per `trident-operator`. | `IfNotPresent` 
+
+
+| `imagePullSecrets` | Imposta i segreti di pull dell'immagine per `trident-operator`, `trident`e altre immagini. |  
+
+
+| `kubeletDir` | Consente di ignorare la posizione host dello stato interno del kubelet. | '"/var/lib/kubelet"` 
+
+
+| `operatorLogLevel` | Consente di impostare il livello di log dell'operatore Trident su: `trace`, `debug`, `info`, `warn`, `error`, o. `fatal`. | `"info"` 
+
+
+| `operatorDebug` | Consente di impostare il livello di log dell'operatore Trident su debug. | `true` 
+
+
+| `operatorImage` | Consente di eseguire l'override completo dell'immagine per `trident-operator`. | "" 
+
+
+| `operatorImageTag` | Consente di sovrascrivere il tag di `trident-operator` immagine. | "" 
+
+
+| `tridentIPv6` | Consente ad Astra Trident di funzionare nei cluster IPv6. | `false` 
+
+
+| `tridentK8sTimeout` | Esegue l'override del timeout predefinito di 30 secondi per la maggior parte delle operazioni API di Kubernetes (se diverso da zero, in secondi). | `0` 
+
+
+| `tridentHttpRequestTimeout` | Esegue l'override del timeout predefinito di 90 secondi per le richieste HTTP, con `0s` è una durata infinita per il timeout. Non sono consentiti valori negativi. | `"90s"` 
+
+
+| `tridentSilenceAutosupport` | Consente di disattivare il reporting periodico AutoSupport di Astra Trident. | `false` 
+
+
+| `tridentAutosupportImageTag` | Consente di ignorare il tag dell'immagine per il contenitore Astra Trident AutoSupport. | `<version>` 
+
+
+| `tridentAutosupportProxy` | Consente al container Astra Trident AutoSupport di telefonare a casa tramite un proxy HTTP. | "" 
+
+
+| `tridentLogFormat` | Imposta il formato di registrazione di Astra Trident (`text` oppure `json`). | `"text"` 
+
+
+| `tridentDisableAuditLog` | Disattiva l'audit logger Astra Trident. | `true` 
+
+
+| `tridentLogLevel` | Consente di impostare il livello di log di Astra Trident su: `trace`, `debug`, `info`, `warn`, `error`, o. `fatal`. | `"info"` 
+
+
+| `tridentDebug` | Consente di impostare il livello di log di Astra Trident su `debug`. | `false` 
+
+
+| `tridentLogWorkflows` | Consente di attivare specifici flussi di lavoro di Astra Trident per la registrazione delle tracce o la soppressione dei log. | "" 
+
+
+| `tridentLogLayers` | Consente di attivare specifici livelli Astra Trident per la registrazione delle tracce o la soppressione dei log. | "" 
+
+
+| `tridentImage` | Consente l'override completo dell'immagine per Astra Trident. | "" 
+
+
+| `tridentImageTag` | Consente di ignorare il tag dell'immagine per Astra Trident. | "" 
+
+
+| `tridentProbePort` | Consente di ignorare la porta predefinita utilizzata per le sonde liveness/readiness Kubernetes. | "" 
+
+
+| `windows` | Consente di installare Astra Trident sul nodo di lavoro Windows. | `false` 
+
+
+| `enableForceDetach` | Consente di attivare la funzione di distacco forzato. | `false` 
+
+
+| `excludePodSecurityPolicy` | Esclude la creazione della policy di sicurezza del pod operatore. | `false` 
+|===
+
+
+=== Comprensione dei pod controller e dei pod di nodi
+
+Astra Trident viene eseguito come singolo pod controller, più un pod di nodi su ciascun nodo di lavoro nel cluster. Il pod nodo deve essere in esecuzione su qualsiasi host in cui si desidera montare un volume Astra Trident.
+
+Kubernetes link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/["selettori di nodi"^] e. link:https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/["tollerazioni e contamini"^] vengono utilizzati per vincolare l'esecuzione di un pod su un nodo specifico o preferito. Utilizzo di`ControllerPlugin` e. `NodePlugin`, è possibile specificare vincoli e override.
+
+* Il plug-in del controller gestisce il provisioning e la gestione dei volumi, ad esempio snapshot e ridimensionamento.
+* Il plug-in del nodo gestisce il collegamento dello storage al nodo.
+
+
+
+
+== Cosa succederà
+
+Ora puoi link:kubernetes-postdeployment.html["creare un backend e una classe di storage, eseguire il provisioning di un volume e montare il volume in un pod"].

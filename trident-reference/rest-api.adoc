@@ -1,0 +1,58 @@
+---
+sidebar: sidebar 
+permalink: trident-reference/rest-api.html 
+keywords: rest api, get, post, json, object, backends 
+summary: 'È possibile utilizzare l"endpoint REST direttamente se si preferisce interagire con l"API REST di Astra Trident.' 
+---
+= API REST di Astra Trident
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Mentre link:tridentctl.html["comandi e opzioni tridentctl"] Sono il modo più semplice per interagire con l'API REST di Astra Trident, puoi utilizzare l'endpoint REST direttamente se preferisci.
+
+
+
+== Quando utilizzare l'API REST
+
+REST API è utile per le installazioni avanzate che utilizzano Astra Trident come binario standalone nelle implementazioni non Kubernetes.
+
+Per una maggiore sicurezza, Astra Trident `REST API` è limitato all'host locale per impostazione predefinita quando viene eseguito all'interno di un pod. Per modificare questo comportamento, devi impostare Astra Trident's. `-address` argomento nella configurazione del pod.
+
+
+
+== Utilizzo dell'API REST
+
+L'API funziona come segue:
+
+
+
+=== `GET`
+
+* `GET <trident-address>/trident/v1/<object-type>`: Elenca tutti gli oggetti di quel tipo.
+* `GET <trident-address>/trident/v1/<object-type>/<object-name>`: Ottiene i dettagli dell'oggetto denominato.
+
+
+
+
+=== `POST`
+
+`POST <trident-address>/trident/v1/<object-type>`: Crea un oggetto del tipo specificato.
+
+* Richiede una configurazione JSON per la creazione dell'oggetto. Per la specifica di ciascun tipo di oggetto, vedere il link:tridentctl.html[`tridentctl` comandi e opzioni].
+* Se l'oggetto esiste già, il comportamento varia: I backend aggiornano l'oggetto esistente, mentre tutti gli altri tipi di oggetto non riescono a eseguire l'operazione.
+
+
+
+
+=== `DELETE`
+
+`DELETE <trident-address>/trident/v1/<object-type>/<object-name>`: Elimina la risorsa indicata.
+
+
+NOTE: I volumi associati ai backend o alle classi di storage continueranno ad esistere; questi devono essere cancellati separatamente. Per ulteriori informazioni, consulta il link:tridentctl.html[`tridentctl` comandi e opzioni].
+
+Per esempi di come vengono chiamate queste API, passare il debug (`-d`). Per ulteriori informazioni, consulta il link:tridentctl.html[`tridentctl` comandi e opzioni].

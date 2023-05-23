@@ -1,0 +1,169 @@
+---
+sidebar: sidebar 
+permalink: troubleshooting.html 
+keywords: troubleshooting, trident 
+summary: 'Utilizzare i puntatori forniti qui per la risoluzione dei problemi che potrebbero verificarsi durante l"installazione e l"utilizzo di Astra Trident.' 
+---
+= Risoluzione dei problemi
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Utilizzare i puntatori forniti qui per la risoluzione dei problemi che potrebbero verificarsi durante l'installazione e l'utilizzo di Astra Trident.
+
+
+NOTE: Per assistenza con Astra Trident, creare un pacchetto di supporto utilizzando `tridentctl logs -a -n trident` e inviarla a. `NetApp Support <Getting Help>`.
+
+
+TIP: Per un elenco completo degli articoli per la risoluzione dei problemi, consultare https://kb.netapp.com/Advice_and_Troubleshooting/Cloud_Services/Trident_Kubernetes["Knowledge base di NetApp (accesso richiesto)"^]. È inoltre possibile trovare informazioni sulla risoluzione dei problemi relativi ad Astra https://kb.netapp.com/Advice_and_Troubleshooting/Cloud_Services/Astra["qui"^].
+
+
+
+== Risoluzione dei problemi generali
+
+* Se il pod Trident non si accende correttamente (ad esempio, quando il pod Trident è bloccato in `ContainerCreating` con meno di due container pronti), in esecuzione `kubectl -n trident describe deployment trident` e. `kubectl -n trident describe pod trident-********-****` può fornire ulteriori informazioni. Ottenere i log di kubelet (ad esempio, via `journalctl -xeu kubelet`) può anche essere utile.
+* Se i log di Trident non contengono informazioni sufficienti, provare ad attivare la modalità di debug per Trident passando il `-d` contrassegnare il parametro install in base all'opzione di installazione.
++
+Quindi confermare che il debug sia impostato utilizzando `./tridentctl logs -n trident` e alla ricerca `level=debug msg` nel log.
+
++
+Installato con l'operatore::
++
+--
+[listing]
+----
+kubectl patch torc trident -n <namespace> --type=merge -p '{"spec":{"debug":true}}'
+----
+In questo modo verranno riavviati tutti i pod Trident, che possono richiedere alcuni secondi. È possibile verificare questa condizione osservando la colonna 'ETÀ' nell'output di `kubectl get pod -n trident`.
+
+Per l'utilizzo di Astra Trident 20.07 e 20.10 `tprov` al posto di `torc`.
+
+--
+Installato con Helm::
++
+--
+[listing]
+----
+helm upgrade <name> trident-operator-21.07.1-custom.tgz --set tridentDebug=true`
+----
+--
+Installato con tridentctl::
++
+--
+[listing]
+----
+./tridentctl uninstall -n trident
+./tridentctl install -d -n trident
+----
+--
+
+
+* È inoltre possibile ottenere i log di debug per ciascun backend includendo `debugTraceFlags` nella definizione di back-end. Ad esempio, Includi `debugTraceFlags: {“api”:true, “method”:true,}` Per ottenere chiamate API e attraversamenti dei metodi nei log di Trident. I backend esistenti possono avere `debugTraceFlags` configurato con un `tridentctl backend update`.
+* Quando si utilizza RedHat CoreOS, assicurarsi che `iscsid` è attivato sui nodi di lavoro e avviato per impostazione predefinita. Questa operazione può essere eseguita utilizzando OpenShift MachineConfigs o modificando i modelli di accensione.
+* Si tratta di un problema comune che potrebbe verificarsi quando si utilizza Trident con https://azure.microsoft.com/en-us/services/netapp/["Azure NetApp Files"] è quando i segreti del tenant e del client provengono da una registrazione dell'applicazione con autorizzazioni insufficienti. Per un elenco completo dei requisiti Trident, vedere link:../trident-use/anf.html["Azure NetApp Files"] configurazione.
+* In caso di problemi con il montaggio di un PV su un container, assicurarsi che `rpcbind` è installato e in esecuzione. Utilizzare il gestore dei pacchetti richiesto per il sistema operativo host e verificare se `rpcbind` è in esecuzione. È possibile controllare lo stato di `rpcbind` eseguire un `systemctl status rpcbind` o equivalente.
+* Se un backend Trident segnala che si trova in `failed` stato nonostante abbia lavorato in precedenza, è probabile che sia causato dalla modifica delle credenziali SVM/admin associate al backend. Aggiornamento delle informazioni di back-end tramite `tridentctl update backend` O rimbalzare il pod Trident risolverà questo problema.
+* Se stai aggiornando il tuo cluster Kubernetes e/o Trident per utilizzare le snapshot dei volumi beta, assicurati che tutti i CRS di snapshot alfa esistenti siano completamente rimossi. È quindi possibile utilizzare `tridentctl obliviate alpha-snapshot-crd` Comando per eliminare i CRD snapshot alfa. Vedere https://netapp.io/2020/01/30/alpha-to-beta-snapshots/["questo blog"] comprendere i passaggi necessari per la migrazione delle snapshot alfa.
+* Se si riscontrano problemi di autorizzazione durante l'installazione di Trident con Docker come runtime del container, tentare l'installazione di Trident con `--in cluster=false` allarme. Questo non utilizzerà un pod di installazione ed eviterà i problemi di autorizzazione causati da `trident-installer` utente.
+* Utilizzare `uninstall parameter <Uninstalling Trident>` per la pulizia dopo un'esecuzione non riuscita. Per impostazione predefinita, lo script non rimuove i CRD creati da Trident, rendendo sicuro disinstallare e installare di nuovo anche in una distribuzione in esecuzione.
+* Se si desidera eseguire il downgrade a una versione precedente di Trident, eseguire prima il `tridentctl uninstall` Comando per rimuovere Trident. Scaricare il desiderato https://github.com/NetApp/trident/releases["Versione di Trident"] e installare utilizzando `tridentctl install` comando. Considerare un downgrade solo se non sono stati creati nuovi PVS e se non sono state apportate modifiche alle classi di storage/backend/PVS già esistenti. Poiché Trident utilizza ora i CRD per mantenere lo stato, tutte le entità di storage create (backend, classi di storage, PVS e snapshot dei volumi) ne hanno `associated CRD objects <Kubernetes CustomResourceDefinition Objects>` Invece dei dati scritti nel PV utilizzati dalla versione precedente di Trident. *Il PVS appena creato non sarà utilizzabile quando si torna a una versione precedente.* *le modifiche apportate agli oggetti, come backend, PVS, classi di storage e snapshot di volumi (creati/aggiornati/cancellati) non saranno visibili a Trident quando si esegue il downgrade*. Il PV utilizzato dalla versione precedente di Trident installata sarà ancora visibile a Trident. Il ritorno a una versione precedente non interrompe l'accesso ai PVS già creati utilizzando la versione precedente, a meno che non siano stati aggiornati.
+* Per rimuovere completamente Trident, eseguire `tridentctl obliviate crd` comando. In questo modo verranno rimossi tutti gli oggetti CRD e i CRD non saranno definiti. Trident non gestirà più i PVS già forniti.
++
+
+NOTE: Trident dovrà essere riconfigurato da zero.
+
+* Una volta completata correttamente l'installazione, se un PVC è bloccato in `Pending` fase, esecuzione `kubectl describe pvc` Può fornire ulteriori informazioni sul motivo per cui Trident non ha eseguito il provisioning di un PV per questo PVC.
+
+
+
+
+== Risoluzione dei problemi di un'implementazione Trident non riuscita utilizzando l'operatore
+
+Se si sta implementando Trident utilizzando l'operatore, lo stato di `TridentOrchestrator` modifiche da `Installing` a. `Installed`. Se si osserva `Failed` e l'operatore non è in grado di eseguire il ripristino da solo, controllare i log dell'operatore eseguendo il seguente comando:
+
+[listing]
+----
+tridentctl logs -l trident-operator
+----
+L'uscita dei log del container trident-operator può indicare dove si trova il problema. Ad esempio, uno di questi problemi potrebbe essere l'impossibilità di estrarre le immagini container richieste dai registri upstream in un ambiente Airgapped.
+
+Per capire perché l'installazione di Trident non è riuscita, consultare `TridentOrchestrator` stato.
+
+[listing]
+----
+kubectl describe torc trident-2
+Name:         trident-2
+Namespace:
+Labels:       <none>
+Annotations:  <none>
+API Version:  trident.netapp.io/v1
+Kind:         TridentOrchestrator
+...
+Status:
+  Current Installation Params:
+    IPv6:
+    Autosupport Hostname:
+    Autosupport Image:
+    Autosupport Proxy:
+    Autosupport Serial Number:
+    Debug:
+    Image Pull Secrets:         <nil>
+    Image Registry:
+    k8sTimeout:
+    Kubelet Dir:
+    Log Format:
+    Silence Autosupport:
+    Trident Image:
+  Message:                      Trident is bound to another CR 'trident'
+  Namespace:                    trident-2
+  Status:                       Error
+  Version:
+Events:
+  Type     Reason  Age                From                        Message
+  ----     ------  ----               ----                        -------
+  Warning  Error   16s (x2 over 16s)  trident-operator.netapp.io  Trident is bound to another CR 'trident'
+----
+Questo errore indica che esiste già un `TridentOrchestrator`Utilizzato per installare Trident. Poiché ogni cluster Kubernetes può avere una sola istanza di Trident, l'operatore garantisce che in qualsiasi momento esista una sola istanza attiva `TridentOrchestrator` che può creare.
+
+Inoltre, osservare lo stato dei pod Trident può spesso indicare se qualcosa non è giusto.
+
+[listing]
+----
+kubectl get pods -n trident
+
+NAME                                READY   STATUS             RESTARTS   AGE
+trident-csi-4p5kq                   1/2     ImagePullBackOff   0          5m18s
+trident-csi-6f45bfd8b6-vfrkw        4/5     ImagePullBackOff   0          5m19s
+trident-csi-9q5xc                   1/2     ImagePullBackOff   0          5m18s
+trident-csi-9v95z                   1/2     ImagePullBackOff   0          5m18s
+trident-operator-766f7b8658-ldzsv   1/1     Running            0          8m17s
+----
+È possibile notare che i pod non sono in grado di inizializzare completamente perché una o più immagini container non sono state recuperate.
+
+Per risolvere il problema, modificare `TridentOrchestrator` CR. In alternativa, è possibile eliminare `TridentOrchestrator`e crearne uno nuovo con la definizione modificata e precisa.
+
+
+
+== Risoluzione dei problemi di un'implementazione Trident non riuscita utilizzando `tridentctl`
+
+Per capire cosa è andato storto, è possibile eseguire di nuovo il programma di installazione utilizzando ``-d`` argomento, che attiverà la modalità di debug e ti aiuterà a capire qual è il problema:
+
+[listing]
+----
+./tridentctl install -n trident -d
+----
+Dopo aver risolto il problema, è possibile eseguire l'installazione come segue, quindi eseguire `tridentctl install` di nuovo comando:
+
+[listing]
+----
+./tridentctl uninstall -n trident
+INFO Deleted Trident deployment.
+INFO Deleted cluster role binding.
+INFO Deleted cluster role.
+INFO Deleted service account.
+INFO Removed Trident user from security context constraint.
+INFO Trident uninstallation succeeded.
+----

@@ -1,0 +1,168 @@
+---
+sidebar: sidebar 
+permalink: trident-get-started/kubernetes-customize-deploy.html 
+keywords: deploy, trident, methods, operator, tridentctl, helm, attributes, customize, tridentorchestrator, smb, windows 
+summary: 'L"operatore Trident consente di personalizzare il modo in cui Astra Trident viene installato utilizzando gli attributi in `TridentOrchestrator` spec.' 
+---
+= Personalizzare l'installazione dell'operatore Trident
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+L'operatore Trident consente di personalizzare l'installazione di Astra Trident utilizzando gli attributi in `TridentOrchestrator` spec. Se si desidera personalizzare l'installazione oltre ciò che si desidera `TridentOrchestrator` gli argomenti lo consentono, valutare l'utilizzo `tridentctl` Per generare manifesti YAML personalizzati da modificare in base alle necessità.
+
+
+
+== Comprensione dei pod controller e dei pod di nodi
+
+Astra Trident viene eseguito come singolo pod controller, più un pod di nodi su ciascun nodo di lavoro nel cluster. Il pod nodo deve essere in esecuzione su qualsiasi host in cui si desidera montare un volume Astra Trident.
+
+Kubernetes link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/["selettori di nodi"^] e. link:https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/["tollerazioni e contamini"^] vengono utilizzati per vincolare l'esecuzione di un pod su un nodo specifico o preferito. Utilizzo di`ControllerPlugin` e. `NodePlugin`, è possibile specificare vincoli e override.
+
+* Il plug-in del controller gestisce il provisioning e la gestione dei volumi, ad esempio snapshot e ridimensionamento.
+* Il plug-in del nodo gestisce il collegamento dello storage al nodo.
+
+
+
+
+== Opzioni di configurazione
+
+
+WARNING: `spec.namespace` è specificato in `TridentOrchestrator` Per indicare lo spazio dei nomi in cui è installato Astra Trident. Questo parametro *non può essere aggiornato dopo l'installazione di Astra Trident*. Il tentativo di eseguire questa operazione causa il `TridentOrchestrator` stato in cui passare `Failed`. Astra Trident non deve essere migrato tra spazi dei nomi.
+
+Questa tabella è dettagliata `TridentOrchestrator` attributi.
+
+[cols="3"]
+|===
+| Parametro | Descrizione | Predefinito 
+
+
+| `autosupportImage` | L'immagine del contenitore per la telemetria AutoSupport | "netapp/trident-autosupport:23.04.0" 
+
+
+| `autosupportProxy` | Indirizzo/porta di un proxy per l'invio di telemetria AutoSupport | "http://proxy.example.com:8888"[] 
+
+
+| `controllerPluginNodeSelector` | Selettori di nodi aggiuntivi per i pod che eseguono il Plugin CSI del controller Trident. Segue lo stesso formato di `pod.spec.nodeSelector`. | Nessuna impostazione predefinita; opzionale 
+
+
+| `controllerPluginTolerations` | Ignora le tolleranze per i pod che eseguono il Plugin CSI del controller Trident. Segue lo stesso formato di `pod.spec.Tolerations`. | Nessuna impostazione predefinita; opzionale 
+
+
+| `debug` | Attiva il debug per Astra Trident | `false` 
+
+
+| `enableForceDetach` | `ontap-san` e. `ontap-san-economy` solo. Funziona con Kubernetes non-Graged Node Shutdown (NGNS) per consentire agli amministratori del cluster di migrare in sicurezza i carichi di lavoro con volumi montati su nuovi nodi in caso di problemi di integrità di un nodo. *Questa è una funzionalità sperimentale di 23.04.* fare riferimento a. <<Dettagli sulla forza di distacco>> per dettagli importanti. | `false` 
+
+
+| `imagePullPolicy` | Imposta il criterio di pull dell'immagine per l'operatore Trident. I valori validi sono:
+`Always` per estrarre sempre l'immagine.
+`IfNotPresent` per estrarre l'immagine solo se non esiste già nel nodo.
+`Never` per non tirare mai l'immagine. | `IfNotPresent` 
+
+
+| `controllerPluginNodeSelector` | Selettori di nodi aggiuntivi per i pod. Segue lo stesso formato di pod.spec.nodeSelector. | Nessuna impostazione predefinita; opzionale 
+
+
+| `controllerPluginTolerations` | Ignora le tolleranze Kubernetes per i pod. Segue lo stesso formato di pod.spec.Tolerations. | Nessuna impostazione predefinita; opzionale 
+
+
+| `nodePluginNodeSelector` | Selettori di nodi aggiuntivi per i pod. Segue lo stesso formato di pod.spec.nodeSelector. | Nessuna impostazione predefinita; opzionale 
+
+
+| `nodePluginTolerations` | Ignora le tolleranze Kubernetes per i pod. Segue lo stesso formato di pod.spec.Tolerations. | Nessuna impostazione predefinita; opzionale 
+|===
+
+NOTE: Per ulteriori informazioni sulla formattazione dei parametri del pod, vedere link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/["Assegnazione di pod ai nodi"^].
+
+
+
+=== Dettagli sulla forza di distacco
+
+Forza distacco disponibile per `ontap-san` e. `ontap-san-economy` solo. Prima di attivare la funzione di force stach, è necessario attivare la funzione NGNS (non-aggraziate node shutdown) sul cluster Kubernetes. Per ulteriori informazioni, fare riferimento a. link:https://kubernetes.io/docs/concepts/architecture/nodes/#non-graceful-node-shutdown["Kubernetes: Shutdown del nodo non aggraziato"^].
+
+
+WARNING: Poiché Astra Trident si affida a Kubernetes NGNS, non rimuovere `out-of-service` esegue il tinding da un nodo non integro fino a quando tutti i carichi di lavoro non tollerabili non vengono ripianificati. L'applicazione o la rimozione sconsiderata della contaminazione può compromettere la protezione dei dati back-end.
+
+Quando l'amministratore del cluster Kubernetes ha applicato il `node.kubernetes.io/out-of-service=nodeshutdown:NoExecute` al nodo e. `enableForceDetach` è impostato su `true`, Astra Trident determinerà lo stato del nodo e:
+
+. Interrompere l'accesso i/o back-end per i volumi montati su quel nodo.
+. Contrassegna l'oggetto nodo Astra Trident come `dirty` (non sicuro per le nuove pubblicazioni).
++
+
+NOTE: Il controller Trident rifiuterà le nuove richieste di volumi di pubblicazione fino a quando il nodo non viene riqualificato (dopo essere stato contrassegnato come) `dirty`) Dal pod di nodi Trident. Tutti i carichi di lavoro pianificati con un PVC montato (anche dopo che il nodo del cluster è integro e pronto) non saranno accettati fino a quando Astra Trident non sarà in grado di verificare il nodo `clean` (sicuro per le nuove pubblicazioni).
+
+
+
+Quando lo stato del nodo viene ripristinato e la contaminazione viene rimossa, Astra Trident:
+
+. Identificare e pulire i percorsi pubblicati obsoleti sul nodo.
+. Se il nodo si trova in una `cleanable` stato (la manutenzione fuori servizio è stata rimossa e il nodo si trova in `Ready` state) e tutti i percorsi pubblicati e obsoleti sono puliti, Astra Trident riporterà il nodo come `clean` e consentire nuovi volumi pubblicati al nodo.
+
+
+
+
+== Configurazioni di esempio
+
+È possibile utilizzare gli attributi menzionati in precedenza per la definizione `TridentOrchestrator` per personalizzare l'installazione.
+
+.Esempio 1: Configurazione personalizzata di base
+[%collapsible%open]
+====
+Questo è un esempio per una configurazione personalizzata di base.
+
+[listing]
+----
+cat deploy/crds/tridentorchestrator_cr_imagepullsecrets.yaml
+apiVersion: trident.netapp.io/v1
+kind: TridentOrchestrator
+metadata:
+  name: trident
+spec:
+  debug: true
+  namespace: trident
+  imagePullSecrets:
+  - thisisasecret
+----
+====
+.Esempio 2: Implementazione con selettori di nodo
+[%collapsible%open]
+====
+Questo esempio illustra come può essere implementato Trident con i selettori di nodo:
+
+[listing]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentOrchestrator
+metadata:
+  name: trident
+spec:
+  debug: true
+  namespace: trident
+  controllerPluginNodeSelector:
+    nodetype: master
+  nodePluginNodeSelector:
+    storage: netapp
+----
+====
+.Esempio 3: Implementazione su nodi di lavoro Windows
+[%collapsible%open]
+====
+In questo esempio viene illustrata la distribuzione su un nodo di lavoro Windows.
+
+[listing]
+----
+cat deploy/crds/tridentorchestrator_cr.yaml
+apiVersion: trident.netapp.io/v1
+kind: TridentOrchestrator
+metadata:
+  name: trident
+spec:
+  debug: true
+  namespace: trident
+  windows: true
+----
+====

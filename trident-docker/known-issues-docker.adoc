@@ -1,0 +1,64 @@
+---
+sidebar: sidebar 
+permalink: trident-docker/known-issues-docker.html 
+keywords: known issues, trident, trident for docker, docker 
+summary: 'Informazioni su problemi noti durante l"utilizzo di Astra Trident con Docker.' 
+---
+= Problemi noti e limitazioni
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Informazioni su problemi e limitazioni noti durante l'utilizzo di Astra Trident con Docker.
+
+
+
+== L'aggiornamento del plug-in Trident Docker Volume alla versione 20.10 e successive da versioni precedenti comporta un errore di aggiornamento con l'errore NO tali file o directory.
+
+.Soluzione alternativa
+. Disattivare il plug-in.
++
+[listing]
+----
+docker plugin disable -f netapp:latest
+----
+. Rimuovere il plug-in.
++
+[listing]
+----
+docker plugin rm -f netapp:latest
+----
+. Reinstallare il plug-in fornendo il plug-in extra `config` parametro.
++
+[listing]
+----
+docker plugin install netapp/trident-plugin:20.10 --alias netapp --grant-all-permissions config=config.json
+----
+
+
+
+
+== I nomi dei volumi devono contenere almeno 2 caratteri.
+
+
+NOTE: Si tratta di una limitazione del client Docker. Il client interpreta un nome di singolo carattere come percorso Windows. https://github.com/moby/moby/issues/25773["Vedere il bug 25773"^].
+
+
+
+== Docker Swarm ha alcuni comportamenti che impediscono ad Astra Trident di supportarlo con ogni combinazione di storage e driver.
+
+* Docker Swarm utilizza attualmente il nome del volume anziché l'ID del volume come identificatore univoco del volume.
+* Le richieste di volume vengono inviate simultaneamente a ciascun nodo di un cluster Swarm.
+* I plug-in dei volumi (incluso Astra Trident) devono essere eseguiti in modo indipendente su ciascun nodo di un cluster Swarm. Grazie al funzionamento di ONTAP e al modo in cui funziona `ontap-nas` e. `ontap-san` i driver funzionano, sono gli unici ad essere in grado di funzionare entro questi limiti.
+
+
+Il resto dei piloti è soggetto a problemi come le condizioni di gara che possono comportare la creazione di un gran numero di volumi per una singola richiesta senza un "vincitore" chiaro; ad esempio, Element ha una funzione che consente ai volumi di avere lo stesso nome ma ID diversi.
+
+NetApp ha fornito feedback al team Docker, ma non ha alcuna indicazione di ricorso futuro.
+
+
+
+== Se viene eseguito il provisioning di un FlexGroup, ONTAP non esegue il provisioning di un secondo FlexGroup se il secondo FlexGroup ha uno o più aggregati in comune con il FlexGroup sottoposto a provisioning.

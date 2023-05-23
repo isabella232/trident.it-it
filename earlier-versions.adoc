@@ -1,0 +1,36 @@
+---
+sidebar: sidebar 
+permalink: earlier-versions.html 
+keywords: earlier versions, astra trident versions 
+summary: La documentazione relativa alle release precedenti di Astra Trident è disponibile nel caso in cui non si utilizzi la versione più recente. 
+---
+= Versioni precedenti della documentazione
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+È possibile utilizzare il selettore della versione per passare dalla versione più recente alle quattro versioni precedenti o utilizzare i collegamenti riportati di seguito.
+
+
+
+== Versioni precedenti
+
+Se non si utilizza Astra Trident 23.04, la documentazione per le release precedenti è disponibile in base a. link:https://mysupport.netapp.com/site/info/trident-support["Ciclo di vita del supporto e della release di Astra Trident"^].
+
+* https://docs.netapp.com/us-en/trident-2301/index.html["Astra Trident 23.01"^]
+* https://docs.netapp.com/us-en/trident-2210/index.html["Astra Trident 22.10"^]
+* https://docs.netapp.com/us-en/trident-2207/index.html["Astra Trident 22.07"^]
+* https://docs.netapp.com/us-en/trident-2204/index.html["Astra Trident 22.04"^]
+* https://docs.netapp.com/us-en/trident-2201/index.html["Astra Trident 22.01"^]
+* https://docs.netapp.com/us-en/trident-2110/index.html["Astra Trident 21.10"^]
+* https://docs.netapp.com/us-en/trident-2107/index.html["Astra Trident 21.07"^]
+
+
+Versioni precedenti alla 21.07, reindirizzare al sito di documentazione legacy.
+
+* https://netapp-trident.readthedocs.io/en/stable-v21.04/["Astra Trident 21.04"^]
+* https://netapp-trident.readthedocs.io/en/stable-v21.01/["Astra Trident 21.01"^]
+

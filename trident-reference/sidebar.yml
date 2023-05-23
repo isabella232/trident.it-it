@@ -1,0 +1,18 @@
+---
+section: trident-reference
+title: Riferimento
+entries:
+- title: Porte Astra Trident
+  url: "/trident-reference/ports.html"
+- title: API REST di Astra Trident
+  url: "/trident-reference/rest-api.html"
+- title: Opzioni della riga di comando
+  url: "/trident-reference/trident-cl.html"
+- title: Prodotti NetApp integrati con Kubernetes
+  url: "/trident-reference/k8s-netapp.html"
+- title: Kubernetes e Astra Trident Objects
+  url: "/trident-reference/objects.html"
+- title: comandi e opzioni tridentctl
+  url: "/trident-reference/tridentctl.html"
+- title: Pod Security Standards (PSS) e Security Context Constraints (SCC)
+  url: "/trident-reference/pod-security.html"

@@ -1,0 +1,281 @@
+---
+sidebar: sidebar 
+permalink: trident-get-started/requirements.html 
+keywords: trident requirements, supported front ends, supported backends, kubernetes cluster, cluster requirements, version requirements, supported versions, host configuration, host os, system configuration, host operating system, fsx, ports, csi, images, orchestrators, storage systems, feature, kubernetes 
+summary: Prima di installare Astra Trident, è necessario esaminare questi requisiti generali di sistema. I backend specifici potrebbero avere requisiti aggiuntivi. 
+---
+= Requisiti
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Prima di installare Astra Trident, è necessario esaminare questi requisiti generali di sistema. I backend specifici potrebbero avere requisiti aggiuntivi.
+
+
+
+== Informazioni critiche su Astra Trident 23.01
+
+*È necessario leggere le seguenti informazioni critiche su Astra Trident.*
+
+.<strong> informazioni su Astra </strong>
+[%collapsible%open]
+====
+* Kubernetes 1.27 è ora supportato in Trident. Aggiornare Trident prima di aggiornare Kubernetes.
+* Astra Trident impone rigorosamente l'utilizzo della configurazione multipathing negli ambienti SAN, con un valore consigliato di `find_multipaths: no` nel file multipath.conf.
++
+Utilizzo di configurazioni o utilizzo non multipathing di `find_multipaths: yes` oppure `find_multipaths: smart` il valore nel file multipath.conf causerà errori di montaggio. Trident ha raccomandato l'uso di `find_multipaths: no` dalla release 21.07.
+
+
+
+====
+
+
+== Frontend supportati (orchestratori)
+
+Astra Trident supporta diversi motori e orchestratori di container, tra cui:
+
+* Anthos on-Prem (VMware) e anthos on Bare Metal 1.12
+* Kubernetes 1.21 - 1.27
+* Motore di Mirantis Kubernetes 3.5
+* OpenShift 4.9 - 4.12
+
+
+L'operatore Trident è supportato con le seguenti versioni:
+
+* Anthos on-Prem (VMware) e anthos on Bare Metal 1.12
+* Kubernetes 1.21 - 1.27
+* OpenShift 4.9 - 4.12
+
+
+Astra Trident lavora anche con una serie di altre offerte Kubernetes completamente gestite e autogestite, tra cui Google Kubernetes Engine (GKE), Amazon Elastic Kubernetes Services (EKS), Azure Kubernetes Service (AKS), Rancher e VMware Tanzu Portfolio.
+
+
+WARNING: Prima di aggiornare un cluster Kubernetes dalla versione 1.24 alla 1.25 o successiva su cui è installato Astra Trident, vedere link:../trident-managing-k8s/upgrade-operator.html#upgrade-a-helm-based-operator-installation["Aggiornare un'installazione basata su Helm"].
+
+
+
+== Back-end supportati (storage)
+
+Per utilizzare Astra Trident, sono necessari uno o più dei seguenti backend supportati:
+
+* Amazon FSX per NetApp ONTAP
+* Azure NetApp Files
+* Cloud Volumes ONTAP
+* Cloud Volumes Service per GCP
+* FAS/AFF/Select 9.5 o versione successiva
+* Array All SAN (ASA) NetApp
+* Software NetApp HCI/Element 11 o superiore
+
+
+
+
+== Requisiti delle funzionalità
+
+La tabella seguente riassume le funzionalità disponibili con questa release di Astra Trident e le versioni di Kubernetes supportate.
+
+[cols="3"]
+|===
+| Funzione | Versione di Kubernetes | Sono richiesti i gate delle funzionalità? 
+
+
+| Trident CSI  a| 
+1.21 - 1.27
+ a| 
+No
+
+
+
+| Snapshot dei volumi  a| 
+1.21 - 1.27
+ a| 
+No
+
+
+
+| PVC dalle istantanee dei volumi  a| 
+1.21 - 1.27
+ a| 
+No
+
+
+
+| Ridimensionamento di iSCSI PV  a| 
+1.21 - 1.27
+ a| 
+No
+
+
+
+| CHAP bidirezionale ONTAP  a| 
+1.21 - 1.27
+ a| 
+No
+
+
+
+| Policy di esportazione dinamiche  a| 
+1.21 - 1.27
+ a| 
+No
+
+
+
+| Operatore Trident  a| 
+1.21 - 1.27
+ a| 
+No
+
+
+
+| Topologia CSI  a| 
+1.21 - 1.27
+ a| 
+No
+
+|===
+
+
+== Sistemi operativi host testati
+
+Sebbene Astra Trident non supporti ufficialmente sistemi operativi specifici, sono noti i seguenti elementi:
+
+* Versioni di RedHat CoreOS (RHCOS) supportate da OpenShift Container Platform (AMD64 e ARM64)
+* RHEL 8+ (AMD64 E ARM64)
+* Ubuntu 22.04 o versione successiva (AMD64 e ARM64)
+* Windows Server 2019 (AMD64)
+
+
+Per impostazione predefinita, Astra Trident viene eseguito in un container e, di conseguenza, viene eseguito su qualsiasi worker Linux. Tuttavia, questi lavoratori devono essere in grado di montare i volumi forniti da Astra Trident utilizzando il client NFS standard o iSCSI Initiator, a seconda dei backend utilizzati.
+
+Il `tridentctl` Utility può essere eseguita anche su una qualsiasi di queste distribuzioni di Linux.
+
+
+
+== Configurazione dell'host
+
+Tutti i nodi di lavoro nel cluster Kubernetes devono essere in grado di montare i volumi forniti per i pod. Per preparare i nodi di lavoro, è necessario installare gli strumenti NFS o iSCSI in base alla selezione del driver.
+
+link:../trident-use/worker-node-prep.html["Preparare il nodo di lavoro"]
+
+
+
+== Configurazione del sistema storage
+
+Astra Trident potrebbe richiedere modifiche a un sistema storage prima che possa essere utilizzato da una configurazione di back-end.
+
+link:../trident-use/backends.html["Configurare i backend"]
+
+
+
+== Porte Astra Trident
+
+Astra Trident richiede l'accesso a porte specifiche per la comunicazione.
+
+link:../trident-reference/ports.html["Porte Astra Trident"]
+
+
+
+== Immagini container e corrispondenti versioni di Kubernetes
+
+Per le installazioni a gapping d'aria, l'elenco seguente è un riferimento alle immagini dei container necessarie per installare Astra Trident. Utilizzare `tridentctl images` per verificare l'elenco delle immagini container necessarie.
+
+[cols="2"]
+|===
+| Versione di Kubernetes | Immagine container 
+
+
+| v1.21.1.0  a| 
+* netapp/tridente:23.04.0
+* netapp/trident-autosupport:23.04
+* k8s.io/sig-storage/csi-provisioner:v3.4.1
+* k8s.io/sig-storage/csi-attacher:v4.2.0
+* k8s.io/sig-storage/csi-resizer:v1.7.0
+* k8s.io/sig-storage/csi-snapshotter:v6.2.1
+* k8s.io/sig-storage/csi-node-driver-registrar:v2.7.0
+* netapp/trident-operator:23.04.0 (opzionale)
+
+
+
+
+| v1.22.0  a| 
+* netapp/tridente:23.04.0
+* netapp/trident-autosupport:23.04
+* k8s.io/sig-storage/csi-provisioner:v3.4.1
+* k8s.io/sig-storage/csi-attacher:v4.2.0
+* k8s.io/sig-storage/csi-resizer:v1.7.0
+* k8s.io/sig-storage/csi-snapshotter:v6.2.1
+* k8s.io/sig-storage/csi-node-driver-registrar:v2.7.0
+* netapp/trident-operator:23.04.0 (opzionale)
+
+
+
+
+| v1.23.0  a| 
+* netapp/tridente:23.04.0
+* netapp/trident-autosupport:23.04
+* k8s.io/sig-storage/csi-provisioner:v3.4.1
+* k8s.io/sig-storage/csi-attacher:v4.2.0
+* k8s.io/sig-storage/csi-resizer:v1.7.0
+* k8s.io/sig-storage/csi-snapshotter:v6.2.1
+* k8s.io/sig-storage/csi-node-driver-registrar:v2.7.0
+* netapp/trident-operator:23.04.0 (opzionale)
+
+
+
+
+| v1.24.0  a| 
+* netapp/tridente:23.04.0
+* netapp/trident-autosupport:23.04
+* k8s.io/sig-storage/csi-provisioner:v3.4.1
+* k8s.io/sig-storage/csi-attacher:v4.2.0
+* k8s.io/sig-storage/csi-resizer:v1.7.0
+* k8s.io/sig-storage/csi-snapshotter:v6.2.1
+* k8s.io/sig-storage/csi-node-driver-registrar:v2.7.0
+* netapp/trident-operator:23.04.0 (opzionale)
+
+
+
+
+| v1.25.0  a| 
+* netapp/tridente:23.04.0
+* netapp/trident-autosupport:23.04
+* k8s.io/sig-storage/csi-provisioner:v3.4.1
+* k8s.io/sig-storage/csi-attacher:v4.2.0
+* k8s.io/sig-storage/csi-resizer:v1.7.0
+* k8s.io/sig-storage/csi-snapshotter:v6.2.1
+* k8s.io/sig-storage/csi-node-driver-registrar:v2.7.0
+* netapp/trident-operator:23.04.0 (opzionale)
+
+
+
+
+| v1.26.0  a| 
+* netapp/tridente:23.04.0
+* netapp/trident-autosupport:23.04
+* k8s.io/sig-storage/csi-provisioner:v3.4.1
+* k8s.io/sig-storage/csi-attacher:v4.2.0
+* k8s.io/sig-storage/csi-resizer:v1.7.0
+* k8s.io/sig-storage/csi-snapshotter:v6.2.1
+* k8s.io/sig-storage/csi-node-driver-registrar:v2.7.0
+* netapp/trident-operator:23.04.0 (opzionale)
+
+
+
+
+| v1.27.0  a| 
+* netapp/tridente:23.04.0
+* netapp/trident-autosupport:23.04
+* k8s.io/sig-storage/csi-provisioner:v3.4.1
+* k8s.io/sig-storage/csi-attacher:v4.2.0
+* k8s.io/sig-storage/csi-resizer:v1.7.0
+* k8s.io/sig-storage/csi-snapshotter:v6.2.1
+* k8s.io/sig-storage/csi-node-driver-registrar:v2.7.0
+* netapp/trident-operator:23.04.0 (opzionale)
+
+
+|===
+
+NOTE: Su Kubernetes versione 1.21 e successive, utilizzare il validato `registry.k8s.gcr.io/sig-storage/csi-snapshotter:v6.x` immagine solo se `v1` la versione di sta servendo `volumesnapshots.snapshot.storage.k8s.gcr.io` CRD. Se il `v1beta1` La versione sta servendo il CRD con/senza `v1` versione, utilizzare il validato `registry.k8s.gcr.io/sig-storage/csi-snapshotter:v3.x` immagine.

@@ -1,0 +1,40 @@
+---
+sidebar: sidebar 
+permalink: trident-reference/ports.html 
+keywords: astra trident, port, ports 
+summary: Scopri di più sulle porte su cui Astra Trident comunica. 
+---
+= Porte Astra Trident
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Scopri di più sulle porte utilizzate da Astra Trident per le comunicazioni.
+
+
+
+== Porte Astra Trident
+
+Astra Trident comunica tramite le seguenti porte:
+
+[cols="2,4"]
+|===
+| Porta | Scopo 
+
+
+| 8443 | HTTPS backchannel 
+
+
+| 8001 | Endpoint delle metriche Prometheus 
+
+
+| 8000 | Server REST Trident 
+
+
+| 17546 | Porta della sonda liveness/readiness utilizzata dai pod demonset di Trident 
+|===
+
+NOTE: La porta della sonda liveness/Readiness può essere modificata durante l'installazione utilizzando `--probe-port` allarme. È importante assicurarsi che questa porta non venga utilizzata da un altro processo sui nodi di lavoro.

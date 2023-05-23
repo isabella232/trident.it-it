@@ -1,0 +1,17 @@
+---
+sidebar: sidebar 
+permalink: get-help.html 
+keywords: get help, get support, knowledgebase, discord, phone, web, ticket, contact support, support ticket 
+summary: NetApp offre supporto per Trident in diversi modi. Sono disponibili numerose opzioni di supporto self-service gratuite 24 ore su 24, 7 giorni su 7, come ad esempio un canale di discording. 
+---
+= Supporto
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Astra Trident è un progetto NetApp ufficialmente supportato. Puoi contattare NetApp utilizzando uno qualsiasi dei meccanismi standard e ottenere il supporto di livello Enterprise di cui hai bisogno.
+
+Sul nostro Astra esiste anche una vivace community pubblica di utenti di container (inclusi gli sviluppatori di Astra Trident) link:https://discord.gg/NetApp["Discordare il canale"^]. Questo è un ottimo posto per porre domande generali sul progetto e discutere argomenti correlati con colleghi che condividono la stessa opinione.

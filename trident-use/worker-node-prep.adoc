@@ -1,0 +1,230 @@
+---
+sidebar: sidebar 
+permalink: trident-use/worker-node-prep.html 
+keywords: storage class, manage storage class, storage classes, kubernetes storage classes, worker node, nfs, iscsi, kubernetes clusters, self-healing, healing 
+summary: Tutti i nodi di lavoro nel cluster Kubernetes devono essere in grado di montare i volumi di cui si è eseguito il provisioning per i pod. Se si utilizzano i driver ontap-nas, ontap-nas-Economy, ontap-nas-flexgroup per uno dei backend, i nodi di lavoro necessitano degli strumenti NFS. In caso contrario, richiedono gli strumenti iSCSI. 
+---
+= Preparare il nodo di lavoro
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Tutti i nodi di lavoro nel cluster Kubernetes devono essere in grado di montare i volumi forniti per i pod. Per preparare i nodi di lavoro, è necessario installare gli strumenti NFS o iSCSI in base alla selezione del driver.
+
+
+
+== Selezionare gli strumenti giusti
+
+Se si utilizza una combinazione di driver, è necessario installare i tool NFS e iSCSI.
+
+.Strumenti NFS
+Installa gli strumenti NFS se utilizzi: `ontap-nas`, `ontap-nas-economy`, `ontap-nas-flexgroup`, `azure-netapp-files`, `gcp-cvs`
+
+.Strumenti iSCSI
+Installare gli strumenti iSCSI se si utilizzano: `ontap-san`, `ontap-san-economy`, `solidfire-san`
+
+
+NOTE: Le versioni recenti di RedHat CoreOS hanno NFS e iSCSI installati per impostazione predefinita.
+
+
+
+== Rilevamento del servizio del nodo
+
+Astra Trident tenta di rilevare automaticamente se il nodo può eseguire servizi iSCSI o NFS.
+
+
+NOTE: Il rilevamento del servizio nodo identifica i servizi rilevati ma non garantisce che i servizi siano configurati correttamente. Al contrario, l'assenza di un servizio rilevato non garantisce il mancato funzionamento del montaggio del volume.
+
+.Rivedere gli eventi
+Astra Trident crea eventi per il nodo per identificare i servizi rilevati. Per rivedere questi eventi, eseguire:
+
+[listing]
+----
+kubectl get event -A --field-selector involvedObject.name=<Kubernetes node name>
+----
+.Esaminare i servizi rilevati
+Astra Trident identifica i servizi abilitati per ciascun nodo sul nodo Trident CR. Per visualizzare i servizi rilevati, eseguire:
+
+[listing]
+----
+tridentctl get node -o wide -n <Trident namespace>
+----
+
+
+== Volumi NFS
+
+Installa gli strumenti NFS utilizzando i comandi del tuo sistema operativo. Assicurarsi che il servizio NFS venga avviato durante l'avvio.
+
+[role="tabbed-block"]
+====
+.RHEL 8+
+--
+[listing]
+----
+sudo yum install -y nfs-utils
+----
+--
+.Ubuntu
+--
+[listing]
+----
+sudo apt-get install -y nfs-common
+----
+--
+====
+
+WARNING: Riavviare i nodi di lavoro dopo aver installato gli strumenti NFS per evitare errori durante il collegamento dei volumi ai container.
+
+
+
+== Volumi iSCSI
+
+Astra Trident può stabilire automaticamente una sessione iSCSI, eseguire la scansione delle LUN e rilevare i dispositivi multipath, formattarli e montarli su un pod.
+
+
+
+=== Funzionalità di riparazione automatica di iSCSI
+
+Per i sistemi ONTAP, Astra Trident esegue la riparazione automatica di iSCSI ogni cinque minuti per:
+
+. *Identificare* lo stato della sessione iSCSI desiderato e lo stato della sessione iSCSI corrente.
+. *Confrontare* lo stato desiderato con quello corrente per identificare le riparazioni necessarie. Astra Trident determina le priorità di riparazione e quando anticipare le riparazioni.
+. *Eseguire le riparazioni* necessarie per riportare lo stato della sessione iSCSI corrente allo stato della sessione iSCSI desiderato.
+
+
+
+NOTE: I registri delle attività di riparazione automatica si trovano in `trident-main` Container sul rispettivo pod Demonset. Per visualizzare i registri, è necessario aver impostato `debug` "True" durante l'installazione di Astra Trident.
+
+Le funzionalità di riparazione automatica iSCSI di Astra Trident possono contribuire a prevenire:
+
+* Sessioni iSCSI obsolete o non funzionanti che potrebbero verificarsi dopo un problema di connettività di rete. In caso di sessione obsoleta, Astra Trident attende sette minuti prima di disconnettersi per ristabilire la connessione con un portale.
++
+
+NOTE: Ad esempio, se i segreti CHAP sono stati ruotati sul controller di storage e la rete perde la connettività, i vecchi segreti CHAP (_stale_) potrebbero persistere. L'autoriparazione è in grado di riconoscerlo e ristabilire automaticamente la sessione per applicare i segreti CHAP aggiornati.
+
+* Sessioni iSCSI mancanti
+* LUN mancanti
+
+
+
+
+=== Installare gli strumenti iSCSI
+
+Installare gli strumenti iSCSI utilizzando i comandi del sistema operativo.
+
+.Prima di iniziare
+* Ogni nodo del cluster Kubernetes deve avere un IQN univoco. *Questo è un prerequisito necessario*.
+* Se si utilizza RHCOS versione 4.5 o successiva, o un'altra distribuzione Linux compatibile con RHEL, con `solidfire-san` Driver ed Element OS 12.5 o versioni precedenti, assicurarsi che l'algoritmo di autenticazione CHAP sia impostato su MD5 in `/etc/iscsi/iscsid.conf`. Gli algoritmi CHAP conformi a FIPS sicuri SHA1, SHA-256 e SHA3-256 sono disponibili con Element 12.7.
++
+[listing]
+----
+sudo sed -i 's/^\(node.session.auth.chap_algs\).*/\1 = MD5/' /etc/iscsi/iscsid.conf
+----
+* Quando si utilizzano nodi di lavoro che eseguono RHEL/RedHat CoreOS con iSCSI PVS, specificare `discard` MountOption in StorageClass per eseguire la rigenerazione dello spazio inline. Vedere https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/managing_file_systems/discarding-unused-blocks_managing-file-systems["La documentazione di RedHat"^].
+
+
+[role="tabbed-block"]
+====
+.RHEL 8+
+--
+. Installare i seguenti pacchetti di sistema:
++
+[listing]
+----
+sudo yum install -y lsscsi iscsi-initiator-utils sg3_utils device-mapper-multipath
+----
+. Verificare che la versione di iscsi-initiator-utils sia 6.2.0.874-2.el7 o successiva:
++
+[listing]
+----
+rpm -q iscsi-initiator-utils
+----
+. Impostare la scansione su manuale:
++
+[listing]
+----
+sudo sed -i 's/^\(node.session.scan\).*/\1 = manual/' /etc/iscsi/iscsid.conf
+----
+. Abilitare il multipathing:
++
+[listing]
+----
+sudo mpathconf --enable --with_multipathd y --find_multipaths n
+----
++
+
+NOTE: Assicurarsi `etc/multipath.conf` contiene `find_multipaths no` sotto `defaults`.
+
+. Assicurarsi che `iscsid` e. `multipathd` sono in esecuzione:
++
+[listing]
+----
+sudo systemctl enable --now iscsid multipathd
+----
+. Attivare e avviare `iscsi`:
++
+[listing]
+----
+sudo systemctl enable --now iscsi
+----
+
+
+--
+.Ubuntu
+--
+. Installare i seguenti pacchetti di sistema:
++
+[listing]
+----
+sudo apt-get install -y open-iscsi lsscsi sg3-utils multipath-tools scsitools
+----
+. Verificare che la versione Open-iscsi sia 2.0.874-5ubuntu2.10 o successiva (per il bionico) o 2.0.874-7.1ubuntu6.1 o successiva (per il focale):
++
+[listing]
+----
+dpkg -l open-iscsi
+----
+. Impostare la scansione su manuale:
++
+[listing]
+----
+sudo sed -i 's/^\(node.session.scan\).*/\1 = manual/' /etc/iscsi/iscsid.conf
+----
+. Abilitare il multipathing:
++
+[listing]
+----
+sudo tee /etc/multipath.conf <<-'EOF
+defaults {
+    user_friendly_names yes
+    find_multipaths no
+}
+EOF
+sudo systemctl enable --now multipath-tools.service
+sudo service multipath-tools restart
+----
++
+
+NOTE: Assicurarsi `etc/multipath.conf` contiene `find_multipaths no` sotto `defaults`.
+
+. Assicurarsi che `open-iscsi` e. `multipath-tools` sono abilitati e in esecuzione:
++
+[listing]
+----
+sudo systemctl status multipath-tools
+sudo systemctl enable --now open-iscsi.service
+sudo systemctl status open-iscsi
+----
++
+
+NOTE: Per Ubuntu 18.04, è necessario rilevare le porte di destinazione con `iscsiadm` prima di iniziare `open-iscsi` Per avviare il daemon iSCSI. In alternativa, è possibile modificare `iscsi` servizio da avviare `iscsid` automaticamente.
+
+
+
+--
+====
+
+WARNING: Riavviare i nodi di lavoro dopo aver installato gli strumenti iSCSI per evitare errori durante il collegamento dei volumi ai container.

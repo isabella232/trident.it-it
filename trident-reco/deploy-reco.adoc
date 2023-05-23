@@ -1,0 +1,31 @@
+---
+sidebar: sidebar 
+permalink: trident-reco/deploy-reco.html 
+keywords: deployment, deploy, trident, namespace 
+summary: Quando si implementa Astra Trident, utilizzare i consigli elencati di seguito. 
+---
+= Implementazione
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Quando si implementa Astra Trident, utilizzare i consigli elencati di seguito.
+
+
+
+== Eseguire l'implementazione in uno spazio dei nomi dedicato
+
+https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/["Spazi dei nomi"^] fornire una separazione amministrativa tra diverse applicazioni e costituire una barriera per la condivisione delle risorse. Ad esempio, un PVC di uno spazio dei nomi non può essere utilizzato da un altro. Astra Trident fornisce risorse PV a tutti gli spazi dei nomi nel cluster Kubernetes e sfrutta di conseguenza un account di servizio con privilegi elevati.
+
+Inoltre, l'accesso al pod Trident potrebbe consentire a un utente di accedere alle credenziali del sistema di storage e ad altre informazioni sensibili. È importante assicurarsi che gli utenti delle applicazioni e le applicazioni di gestione non abbiano la possibilità di accedere alle definizioni degli oggetti Trident o ai pod stessi.
+
+
+
+== Utilizza quote e limiti di intervallo per controllare il consumo dello storage
+
+Kubernetes dispone di due funzionalità che, se combinate, offrono un potente meccanismo per limitare il consumo di risorse da parte delle applicazioni. Il https://kubernetes.io/docs/concepts/policy/resource-quotas/#storage-resource-quota["meccanismo di quota dello storage"^] consente all'amministratore di implementare limiti di consumo di capacità e numero di oggetti globali e specifici per classe di storage in base allo spazio dei nomi. Inoltre, utilizzando un https://kubernetes.io/docs/tasks/administer-cluster/limit-storage-consumption/#limitrange-to-limit-requests-for-storage["limite di intervallo"^] Garantisce che le richieste PVC rientrino in un valore minimo e massimo prima che la richiesta venga inoltrata al provisioning.
+
+Questi valori sono definiti in base allo spazio dei nomi, il che significa che ogni spazio dei nomi deve avere valori definiti che sono in linea con i requisiti delle risorse. Vedere qui per informazioni su https://netapp.io/2017/06/09/self-provisioning-storage-kubernetes-without-worry["come sfruttare le quote"^].
