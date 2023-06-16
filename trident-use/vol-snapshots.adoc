@@ -38,7 +38,7 @@ metadata:
 driver: csi.trident.netapp.io
 deletionPolicy: Delete
 ----
-Il `driver` Indica il driver CSI di Astra Trident. `deletionPolicy` può essere `Delete` oppure `Retain`. Quando è impostato su `Retain`, lo snapshot fisico sottostante sul cluster di storage viene conservato anche quando `VolumeSnapshot` oggetto eliminato.
+Il `driver` Indica il driver Astra Trident CSI. `deletionPolicy` può essere `Delete` oppure `Retain`. Quando è impostato su `Retain`, lo snapshot fisico sottostante sul cluster di storage viene conservato anche quando `VolumeSnapshot` oggetto eliminato.
 
 Per ulteriori informazioni, fare riferimento al link:./trident-reference/objects.html_kubernetes-volumesnapshotclass-objects[`VolumeSnapshotClass`].
 
