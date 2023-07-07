@@ -2419,9 +2419,7 @@
   <block id="320e7c242b569ab5bbdaa490b3df817e" category="paragraph">È possibile identificare<block ref="d6a1ae997b76c43d7aaf3b22e620401e" prefix=" " category="inline-code"></block> oggetto per<block ref="2599ab7993e15386327b6345bc1cc4e1" prefix=" " category="inline-code"></block> VolumeSnapshot descrivendolo.</block>
   <block id="b3841b02d7da01fde480332e3295a08e" category="paragraph">Il<block ref="25fb031d6a134e0fb5a240d6d4c12b01" prefix=" " category="inline-code"></block> Identifica l'oggetto VolumeSnapshotContent che fornisce questa snapshot. Il<block ref="a701d928aada0f89c8ad0abc16ccdfcc" prefix=" " category="inline-code"></block> Il parametro indica che l'istantanea può essere utilizzata per creare un nuovo PVC.</block>
   <block id="7957320b126678e9b713ef146b3ac009" category="section-title">Fase 3: Creazione di PVC da VolumeSnapshots</block>
-  <block id="b2b2f8b28370c274887f8aa2f82bb5d4" category="paragraph">Questo esempio crea un PVC utilizzando uno snapshot:</block>
   <block id="2592284f87bba60e4c05337a134ef047" category="paragraph"><block ref="d9d448f70687a1aa1f12b2f5ddaa4977" prefix="" category="inline-code"></block> Mostra che il PVC deve essere creato utilizzando un VolumeSnapshot denominato<block ref="2599ab7993e15386327b6345bc1cc4e1" prefix=" " category="inline-code"></block> come origine dei dati. Questo indica ad Astra Trident di creare un PVC dall'istantanea. Una volta creato, il PVC può essere collegato a un pod e utilizzato come qualsiasi altro PVC.</block>
-  <block id="bda01e3aa44c411129a6fbf29445bfb4" category="admonition">Quando si elimina un volume persistente con snapshot associate, il volume Trident corrispondente viene aggiornato a uno stato di eliminazione. Per eliminare il volume Astra Trident, è necessario rimuovere le snapshot del volume.</block>
   <block id="387492c079b6cb13a8ba91c4a60f67b7" category="section-title">Implementazione di un controller di snapshot di volume</block>
   <block id="9c87569b835a8f66b7490390d350d9a4" category="paragraph">Se la distribuzione Kubernetes non include lo snapshot controller e i CRD, è possibile implementarli come segue.</block>
   <block id="469f7ca16938508b5dcb777767828b70" category="list-text">Creare CRD snapshot di volume.</block>
@@ -3665,4 +3663,8 @@
   <block id="ad90b7d29d0d8a9c746868fe1f38ca90" category="paragraph">RWO, ROX, RWX, RWOP</block>
   <block id="96b38cb92e67a8f09c2d13169b8bb555" category="paragraph">RWO, ROX, RWOP</block>
   <block id="a38f7647d54be4cddc3f0b8e4c746caa" category="admonition">I backend ONTAP possono essere autenticati utilizzando le credenziali di accesso per un ruolo di protezione (nome utente/password) o la chiave privata e il certificato installati sul cluster ONTAP. È possibile aggiornare i backend esistenti per passare da una modalità di autenticazione all'altra con<block ref="defd1e55f93269ac9278afc086951ba8" prefix=" " category="inline-code"></block>.</block>
+  <block id="ec777b0a7c2a3d6602a440dae083b7c3" category="paragraph">In questo esempio viene creato un PVC utilizzando uno snapshot.</block>
+  <block id="5e4708ea6e1c08a91834bc9405f43f5d" category="admonition">Il PVC deve essere creato nello stesso namespace di ITS<block ref="d9d448f70687a1aa1f12b2f5ddaa4977" prefix=" " category="inline-code"></block>.</block>
+  <block id="32945bec28dab31706e6de80b1c28cc4" category="section-title">Eliminazione di un PV con snapshot</block>
+  <block id="f28228f84cb57be6c4037bf94a6afbd2" category="paragraph">Quando si elimina un volume persistente con snapshot associate, il volume Trident corrispondente viene aggiornato a uno stato di eliminazione. Rimuovere le snapshot del volume per eliminare il volume Astra Trident.</block>
 </blocks>
