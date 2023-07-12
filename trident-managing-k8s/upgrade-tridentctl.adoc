@@ -16,27 +16,36 @@ summary: 'È possibile aggiornare facilmente un"installazione Astra Trident util
 
 
 
-== Considerazioni prima dell'aggiornamento
+== Aggiorna Astra Trident usando `tridentctl`
 
-Quando si esegue l'aggiornamento all'ultima release di Astra Trident, considerare quanto segue:
+La disinstallazione e la reinstallazione di Astra Trident funge da aggiornamento. Quando si disinstalla Trident, i PVC (Persistent Volume Claim) e PV (Persistent Volume) utilizzati dall'implementazione di Astra Trident non vengono cancellati. I PVS già forniti resteranno disponibili mentre Astra Trident è offline e Astra Trident effettuerà il provisioning dei volumi per i PVC creati nel frattempo una volta tornati online.
 
-* A partire da Trident 20.01, solo la versione beta di https://kubernetes.io/docs/concepts/storage/volume-snapshots/["snapshot dei volumi"^] è supportato. Gli amministratori di Kubernetes devono fare attenzione a eseguire il backup o la conversione degli oggetti snapshot alfa in versione beta in modo sicuro per conservare le snapshot alfa legacy.
-* La versione beta delle snapshot dei volumi introduce un set modificato di CRD e un controller di snapshot, entrambi da configurare prima di installare Astra Trident. https://netapp.io/2020/01/30/alpha-to-beta-snapshots/["Questo blog"^] vengono illustrate le fasi della migrazione delle snapshot dei volumi alpha al formato beta.
-* La disinstallazione e la reinstallazione di Astra Trident funge da aggiornamento. Quando si disinstalla Trident, i PVC (Persistent Volume Claim) e PV (Persistent Volume) utilizzati dall'implementazione di Astra Trident non vengono cancellati. I PVS già forniti resteranno disponibili mentre Astra Trident è offline e Astra Trident effettuerà il provisioning dei volumi per i PVC creati nel frattempo una volta tornati online.
+.Prima di iniziare
+Revisione link:upgrade-trident.html#select-an-upgrade-method["Selezionare un metodo di aggiornamento"] prima di eseguire l'aggiornamento con `tridentctl`.
+
+.Fasi
+. Eseguire il comando di disinstallazione in `tridentctl` Rimuovere tutte le risorse associate ad Astra Trident, ad eccezione dei CRD e degli oggetti correlati.
++
+[listing]
+----
+./tridentctl uninstall -n <namespace>
+----
+. Reinstallare Astra Trident. Fare riferimento a. link:..trident-get-started/kubernetes-deploy-tridentctl.html["Installare Astra Trident usando tridentctl"].
 
 
 
-IMPORTANT: Durante l'aggiornamento di Astra Trident, non interrompere il processo di aggiornamento. Assicurarsi che il programma di installazione venga completato.
+IMPORTANT: Non interrompere il processo di aggiornamento. Assicurarsi che il programma di installazione venga completato.
 
 
 
-== Passi successivi dopo l'aggiornamento
+== Aggiornare i volumi utilizzando `tridentctl`
 
-Per utilizzare l'insieme completo di funzionalità disponibili nelle versioni più recenti di Trident (ad esempio, le snapshot dei volumi on-Demand), è possibile aggiornare i volumi utilizzando `tridentctl upgrade` comando.
+Dopo l'aggiornamento, è possibile utilizzare il ricco set di funzionalità disponibili nelle versioni più recenti di Trident (ad esempio, on-Demand Volume Snapshots) e aggiornare i volumi utilizzando `tridentctl upgrade` comando.
 
-Se sono presenti volumi legacy, è necessario aggiornarli da un tipo NFS/iSCSI al tipo CSI per poter utilizzare il set completo di nuove funzionalità di Astra Trident. Un PV legacy che è stato fornito da Trident supporta il set tradizionale di funzionalità.
+Se sono presenti volumi legacy, è necessario aggiornarli da un tipo NFS o iSCSI al tipo CSI per utilizzare il set completo di nuove funzionalità di Astra Trident. Un PV legacy che è stato fornito da Trident supporta il set tradizionale di funzionalità.
 
-Quando si decide di aggiornare i volumi al tipo CSI, considerare quanto segue:
+.Prima di iniziare
+Prima di decidere di aggiornare i volumi al tipo CSI, considerare quanto segue:
 
 * Potrebbe non essere necessario aggiornare tutti i volumi. I volumi creati in precedenza continueranno ad essere accessibili e funzioneranno normalmente.
 * Un PV può essere montato come parte di un'implementazione/StatefulSet durante l'aggiornamento. Non è necessario mettere fuori servizio il deployment/StatefulSet.
@@ -44,12 +53,7 @@ Quando si decide di aggiornare i volumi al tipo CSI, considerare quanto segue:
 * È possibile aggiornare solo un volume associato a un PVC. I volumi che non sono associati a PVC devono essere rimossi e importati prima dell'aggiornamento.
 
 
-
-
-=== Esempio di aggiornamento del volume
-
-Ecco un esempio che mostra come viene eseguito un aggiornamento di un volume.
-
+.Fasi
 . Eseguire `kubectl get pv` Per elencare il PVS.
 +
 [listing]
@@ -145,7 +149,4 @@ Source:
                            protocol=file
 Events:                <none>
 ----
-+
-In questo modo, è possibile aggiornare i volumi di tipo NFS/iSCSI creati da Astra Trident al tipo CSI, in base al volume.
-
 
