@@ -99,7 +99,30 @@ Il programma di installazione di Astra Trident fornisce un file bundle che può 
 * Per i cluster che eseguono Kubernetes 1.25 o versioni successive, utilizzare `bundle_post_1_25.yaml`.
 
 
-Il programma di installazione di Trident implementa l'operatore in `trident` namespace. Se il `trident` spazio dei nomi inesistente, utilizzare `kubectl apply -f deploy/namespace.yaml` per crearlo.
+.Prima di iniziare
+* Per impostazione predefinita, il programma di installazione di Trident implementa l'operatore in `trident` namespace. Se il `trident` namespace inesistente, crearlo utilizzando:
++
+[listing]
+----
+kubectl apply -f deploy/namespace.yaml
+----
+* Per implementare l'operatore in uno spazio dei nomi diverso da `trident` namespace, aggiornamento `serviceaccount.yaml`, `clusterrolebinding.yaml` e. `operator.yaml` e generare il file bundle utilizzando `kustomization.yaml`.
++
+.. Creare il `kustomization.yaml` usando il seguente comando dove si trova _<bundle>_ `bundle_pre_1_25` oppure `bundle_post_1_25` In base alla versione di Kubernetes.
++
+[listing]
+----
+cp kustomization_<bundle>.yaml kustomization.yaml
+----
+.. Compilare il bundle usando il seguente comando dove _<bundle>_ è `bundle_pre_1_25` oppure `bundle_post_1_25` In base alla versione di Kubernetes.
++
+[listing]
+----
+kubectl kustomize deploy/ > deploy/<bundle>.yaml
+----
+
+
+
 
 .Fasi
 . Creare le risorse e implementare l'operatore:
@@ -108,24 +131,11 @@ Il programma di installazione di Trident implementa l'operatore in `trident` nam
 ----
 kubectl create -f deploy/<bundle>.yaml
 ----
-+
-[NOTE]
-====
-Per implementare l'operatore in uno spazio dei nomi diverso da `trident` namespace, aggiornamento `serviceaccount.yaml`, `clusterrolebinding.yaml` e. `operator.yaml` e generare il file bundle utilizzando `kustomization.yaml`:
-
-[listing]
-----
-kubectl kustomize deploy/ > deploy/<bundle>.yaml
-----
-====
-. Verificare che l'operatore sia stato implementato.
+. Verificare che l'operatore, l'implementazione e i replicaset siano stati creati.
 +
 [listing]
 ----
-kubectl get deployment -n <operator-namespace>
-
-NAME               READY   UP-TO-DATE   AVAILABLE   AGE
-trident-operator   1/1     1            1           3m
+kubectl get all -n <operator-namespace>
 ----
 
 
