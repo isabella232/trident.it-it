@@ -94,7 +94,11 @@ Per le opzioni di configurazione del backend, consultare la tabella seguente:
 | `qtreesPerFlexvol` | Qtree massimi per FlexVol, devono essere compresi nell'intervallo [50, 300] | "200" 
 
 
-| `smbShare` | È possibile specificare il nome della condivisione SMB creata utilizzando la console di gestione Microsoft Shared Folder o specificare un nome di condivisione per consentire ad Astra Trident di creare la condivisione SMB. In alternativa, è possibile lasciare vuoto il parametro per impedire l'accesso condiviso ai volumi. | `smb-share` 
+| `smbShare` | È possibile specificare una delle seguenti opzioni: Il nome di una condivisione SMB creata utilizzando la console di gestione Microsoft o l'interfaccia utente di ONTAP; un nome per consentire ad Astra Trident di creare la condivisione SMB; oppure è possibile lasciare vuoto il parametro per impedire l'accesso condiviso ai volumi.
+
+Questo parametro è facoltativo per ONTAP on-premise.
+
+Questo parametro è obbligatorio per i backend Amazon FSX per ONTAP e non può essere vuoto. | `smb-share` 
 
 
 | `useREST` | Parametro booleano per l'utilizzo delle API REST di ONTAP. *Anteprima tecnica*
@@ -210,11 +214,9 @@ Gli esempi seguenti mostrano le configurazioni di base che lasciano la maggior p
 
 NOTE: Se si utilizza Amazon FSX su NetApp ONTAP con Trident, si consiglia di specificare i nomi DNS per le LIF anziché gli indirizzi IP.
 
-.Esempio di configurazione minima del NAS ONTAP
+.Configurazione minima per <code>ontap-nas-economy</code>
 [%collapsible%open]
 ====
-Si tratta di una configurazione di base che utilizza `ontap-nas-economy` driver.
-
 [listing]
 ----
 ---
@@ -224,14 +226,12 @@ managementLIF: 10.0.0.1
 dataLIF: 10.0.0.2
 svm: svm_nfs
 username: vsadmin
-password: <password>
+password: password
 ----
 ====
-.Esempio di configurazione minima del NAS FlexGroup ONTAP
+.Configurazione minima per <code>ontap-nas-flexgroup</code>
 [%collapsible%open]
 ====
-Si tratta di una configurazione di base che utilizza `ontap-nas-flexgroup` driver.
-
 [listing]
 ----
 ---
@@ -241,13 +241,33 @@ managementLIF: 10.0.0.1
 dataLIF: 10.0.0.2
 svm: svm_nfs
 username: vsadmin
-password: <password>
+password: password
 ----
 ====
-.Esempio di autenticazione basata su certificato
+.Configurazione minima per volumi SMB
 [%collapsible%open]
 ====
-In questo esempio di configurazione di base `clientCertificate`, `clientPrivateKey`, e. `trustedCACertificate` (Facoltativo, se si utilizza una CA attendibile) sono inseriti in `backend.json` E prendere rispettivamente i valori codificati base64 del certificato client, della chiave privata e del certificato CA attendibile.
+[listing]
+----
+
+---
+version: 1
+backendName: ExampleBackend
+storageDriverName: ontap-nas
+managementLIF: 10.0.0.1
+nasType: smb
+securityStyle: ntfs
+unixPermissions: ""
+dataLIF: 10.0.0.2
+svm: svm_nfs
+username: vsadmin
+password: password
+----
+====
+.Autenticazione basata su certificato
+[%collapsible%open]
+====
+Si tratta di un esempio minimo di configurazione di back-end. `clientCertificate`, `clientPrivateKey`, e. `trustedCACertificate` (Facoltativo, se si utilizza una CA attendibile) sono inseriti in `backend.json` E prendere rispettivamente i valori codificati base64 del certificato client, della chiave privata e del certificato CA attendibile.
 
 [listing]
 ----
@@ -264,10 +284,10 @@ trustedCACertificate: zcyBbaG...b3Igb3duIGNsYXNz
 storagePrefix: myPrefix_
 ----
 ====
-.Esempio di policy di esportazione automatica
+.Policy di esportazione automatica
 [%collapsible%open]
 ====
-Questo esempio indica ad Astra Trident di utilizzare policy di esportazione dinamiche per creare e gestire automaticamente le policy di esportazione. Questo funziona allo stesso modo per `ontap-nas-economy` e. `ontap-nas-flexgroup` driver.
+Questo esempio mostra come impostare Astra Trident a utilizzare policy di esportazione dinamiche per creare e gestire automaticamente le policy di esportazione. Questo funziona allo stesso modo per `ontap-nas-economy` e. `ontap-nas-flexgroup` driver.
 
 [listing]
 ----
@@ -284,11 +304,11 @@ autoExportPolicy: true
 autoExportCIDRs:
 - 10.0.0.0/24
 username: admin
-password: <password>
+password: password
 nfsMountOptions: nfsvers=4
 ----
 ====
-.Esempio di utilizzo degli indirizzi IPv6
+.Utilizzo degli indirizzi IPv6
 [%collapsible%open]
 ====
 Questo esempio mostra `managementLIF` Utilizzando un indirizzo IPv6.
@@ -305,14 +325,13 @@ labels:
   backend: test1-ontap-ipv6
 svm: nas_ipv6_svm
 username: vsadmin
-password: <password>
-
+password: password
 ----
 ====
-.Esempio di Amazon FSX per ONTAP con volumi SMB
+.Amazon FSX per ONTAP con volumi SMB
 [%collapsible%open]
 ====
-Questo esempio crea un backend Amazon FSX per ONTAP utilizzando volumi SMB.
+Il `smbShare` Il parametro è obbligatorio per FSX per ONTAP che utilizza volumi SMB.
 
 [listing]
 ----
@@ -324,6 +343,7 @@ managementLIF: example.mgmt.fqdn.aws.com
 nasType: smb
 dataLIF: 10.0.0.15
 svm: nfs_svm
+smbShare: smb-share
 clientCertificate: ZXR0ZXJwYXB...ICMgJ3BhcGVyc2
 clientPrivateKey: vciwKIyAgZG...0cnksIGRlc2NyaX
 trustedCACertificate: zcyBbaG...b3Igb3duIGNsYXNz

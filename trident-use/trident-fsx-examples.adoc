@@ -91,7 +91,9 @@ Per le opzioni di configurazione del backend, consultare la tabella seguente:
 | `qtreesPerFlexvol` | Qtree massimi per FlexVol, devono essere compresi nell'intervallo [50, 300] | `200` 
 
 
-| `smbShare` | È possibile specificare il nome della condivisione SMB creata utilizzando la console di gestione Microsoft Shared Folder o specificare un nome di condivisione per consentire ad Astra Trident di creare la condivisione SMB. In alternativa, è possibile lasciare vuoto il parametro per impedire l'accesso condiviso ai volumi. | `smb-share` 
+| `smbShare` | È possibile specificare una delle seguenti opzioni: Il nome di una condivisione SMB creata utilizzando la console di gestione Microsoft o l'interfaccia utente di ONTAP o un nome per consentire ad Astra Trident di creare la condivisione SMB.
+
+Questo parametro è obbligatorio per i backend Amazon FSX per ONTAP. | `smb-share` 
 
 
 | `useREST` | Parametro booleano per l'utilizzo delle API REST di ONTAP. *Anteprima tecnica*

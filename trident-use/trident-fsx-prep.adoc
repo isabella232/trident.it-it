@@ -14,27 +14,20 @@ summary: 'Puoi integrare il file system Amazon FSX per NetApp ONTAP con Astra Tr
 [role="lead"]
 Puoi integrare il file system Amazon FSX per NetApp ONTAP con Astra Trident per garantire che i cluster Kubernetes in esecuzione in Amazon Elastic Kubernetes Service (EKS) possano eseguire il provisioning di volumi persistenti di blocchi e file supportati da ONTAP.
 
-.Prima di iniziare
+
+
+== Requisiti
+
 Oltre a link:../trident-get-started/requirements.html["Requisiti di Astra Trident"]Per integrare FSX per ONTAP con Astra Trident, sono necessari:
 
 * Un cluster Amazon EKS esistente o un cluster Kubernetes autogestito con `kubectl` installato.
-* Una macchina virtuale per lo storage e il file system Amazon FSX per NetApp ONTAP, raggiungibile dai nodi di lavoro del cluster.
+* Una macchina virtuale di storage e file system Amazon FSX per NetApp ONTAP esistente raggiungibile dai nodi di lavoro del cluster.
 * Nodi di lavoro preparati per link:worker-node-prep.html["NFS o iSCSI"].
 +
 
 NOTE: Assicurati di seguire la procedura di preparazione del nodo richiesta per Amazon Linux e Ubuntu https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.html["Immagini Amazon Machine"^] (Amis) a seconda del tipo di AMI EKS.
 
-
-
-.Requisiti aggiuntivi per i volumi SMB
-* Un cluster Kubernetes con un nodo controller Linux e almeno un nodo di lavoro Windows che esegue Windows Server 2019. Astra Trident supporta volumi SMB montati su pod eseguiti solo su nodi Windows.
-* Almeno un segreto Astra Trident contenente le credenziali Active Directory. Per generare un segreto `smbcreds`:
-+
-[listing]
-----
-kubectl create secret generic smbcreds --from-literal username=user --from-literal password='password'
-----
-* Proxy CSI configurato come servizio Windows. Per configurare un `csi-proxy`, fare riferimento a. link:https://github.com/kubernetes-csi/csi-proxy["GitHub: Proxy CSI"^] oppure link:https://github.com/Azure/aks-engine/blob/master/docs/topics/csi-proxy-windows.md["GitHub: Proxy CSI per Windows"^] Per i nodi Kubernetes in esecuzione su Windows.
+* Astra Trident supporta volumi SMB montati su pod eseguiti solo su nodi Windows. Fare riferimento a. <<Preparatevi al provisioning dei volumi SMB>> per ulteriori informazioni.
 
 
 
@@ -113,6 +106,19 @@ Dopo l'implementazione, è possibile creare un link:../trident-get-started/kuber
 
 È possibile eseguire il provisioning dei volumi SMB utilizzando `ontap-nas` driver. Prima di completare <<Integrazione dei driver ONTAP SAN e NAS>> completare i seguenti passaggi.
 
+.Prima di iniziare
+Prima di eseguire il provisioning di volumi SMB utilizzando `ontap-nas` driver, è necessario disporre di quanto segue.
+
+* Un cluster Kubernetes con un nodo controller Linux e almeno un nodo di lavoro Windows che esegue Windows Server 2019. Astra Trident supporta volumi SMB montati su pod eseguiti solo su nodi Windows.
+* Almeno un segreto Astra Trident contenente le credenziali Active Directory. Per generare un segreto `smbcreds`:
++
+[listing]
+----
+kubectl create secret generic smbcreds --from-literal username=user --from-literal password='password'
+----
+* Proxy CSI configurato come servizio Windows. Per configurare un `csi-proxy`, fare riferimento a. link:https://github.com/kubernetes-csi/csi-proxy["GitHub: Proxy CSI"^] oppure link:https://github.com/Azure/aks-engine/blob/master/docs/topics/csi-proxy-windows.md["GitHub: Proxy CSI per Windows"^] Per i nodi Kubernetes in esecuzione su Windows.
+
+
 .Fasi
 . Creare condivisioni SMB. È possibile creare le condivisioni amministrative SMB in due modi utilizzando link:https://learn.microsoft.com/en-us/troubleshoot/windows-server/system-management-components/what-is-microsoft-management-console["Console di gestione Microsoft"^] Snap-in cartelle condivise o utilizzo dell'interfaccia CLI di ONTAP. Per creare le condivisioni SMB utilizzando la CLI ONTAP:
 +
@@ -145,7 +151,9 @@ NOTE: Fare riferimento a. link:https://docs.netapp.com/us-en/ontap/smb-config/cr
 | Parametro | Descrizione | Esempio 
 
 
-| `smbShare` | È possibile specificare il nome della condivisione SMB creata utilizzando la console di gestione Microsoft Shared Folder o specificare un nome di condivisione per consentire ad Astra Trident di creare la condivisione SMB. In alternativa, è possibile lasciare vuoto il parametro per impedire l'accesso condiviso ai volumi. | `smb-share` 
+| `smbShare` | È possibile specificare una delle seguenti opzioni: Il nome di una condivisione SMB creata utilizzando la console di gestione Microsoft o l'interfaccia utente di ONTAP o un nome per consentire ad Astra Trident di creare la condivisione SMB.
+
+Questo parametro è obbligatorio per i backend Amazon FSX per ONTAP. | `smb-share` 
 
 
 | `nasType` | *Deve essere impostato su `smb`.* se null, il valore predefinito è `nfs`. | `smb` 

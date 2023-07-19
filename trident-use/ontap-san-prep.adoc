@@ -12,11 +12,11 @@ summary: Scopri come preparare la configurazione di un backend ONTAP con i drive
 
 
 [role="lead"]
-Scopri come preparare la configurazione di un backend ONTAP con i driver SAN ONTAP.
+Comprendere i requisiti e le opzioni di autenticazione per la configurazione di un backend ONTAP con i driver SAN ONTAP.
 
 
 
-== Panoramica
+== Requisiti
 
 Per tutti i backend ONTAP, Astra Trident richiede almeno un aggregato assegnato alla SVM.
 
@@ -26,7 +26,7 @@ Tutti i nodi di lavoro di Kubernetes devono disporre dei tool iSCSI appropriati.
 
 
 
-== Autenticazione
+== Autenticare il backend ONTAP
 
 Astra Trident offre due modalità di autenticazione di un backend ONTAP.
 
