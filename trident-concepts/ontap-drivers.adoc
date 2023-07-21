@@ -56,7 +56,7 @@ NFS
  a| 
 Filesystem
  a| 
-RWO, ROX, RWX
+RWO, ROX, RWX, RWOP
  a| 
 "", nfs
 
