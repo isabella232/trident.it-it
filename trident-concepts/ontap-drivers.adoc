@@ -42,34 +42,37 @@ Astra Trident fornisce i seguenti driver di storage per comunicare con il cluste
 
 | `ontap-nas`  a| 
 NFS
+PMI
  a| 
 Filesystem
  a| 
 RWO, ROX, RWX, RWOP
  a| 
-"", nfs
+"", nfs, smb
 
 
 
 | `ontap-nas-economy`  a| 
 NFS
+PMI
  a| 
 Filesystem
  a| 
 RWO, ROX, RWX, RWOP
  a| 
-"", nfs
+"", nfs, smb
 
 
 
 | `ontap-nas-flexgroup`  a| 
 NFS
+PMI
  a| 
 Filesystem
  a| 
 RWO, ROX, RWX, RWOP
  a| 
-"", nfs
+"", nfs, smb
 
 
 

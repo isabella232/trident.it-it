@@ -77,7 +77,6 @@
   <block id="1d1a594959ec615f56516f5d0f5e8ddb" category="paragraph">NFS</block>
   <block id="ac52cf637478f3656a1fdee5c02324fd" category="paragraph">Filesystem</block>
   <block id="aa91b58ced7ef060eb0e27ac4e1d18a8" category="paragraph">RWO, ROX, RWX</block>
-  <block id="9f47e55b538b64923f2ee8c19bc6887a" category="paragraph">"", nfs</block>
   <block id="cecdaed309330a9e7dea16b2076957ee" category="cell"><block ref="caafdf62a2c609bfa5316118231a1007" prefix="" category="inline-code"></block></block>
   <block id="2b8ac774302bd45e0ad531e434d8cd6d" category="cell"><block ref="844e84da8e822b4a33c4d8188da97937" prefix="" category="inline-code"></block></block>
   <block id="cd17e7ed84c40a0ff5ecb8b625b1f186" category="cell"><block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix="" category="inline-code"></block></block>
@@ -3740,4 +3739,7 @@ Questo parametro è obbligatorio per i backend Amazon FSX per ONTAP e non può e
   <block id="7d159230ccaa721872f31bf9be31afeb" category="paragraph">Sebbene sia possibile creare un ruolo più restrittivo all'interno di ONTAP che un driver Trident può utilizzare, non lo consigliamo. La maggior parte delle nuove release di Trident chiamerà API aggiuntive che dovrebbero essere considerate, rendendo gli aggiornamenti difficili e soggetti a errori.</block>
   <block id="37a679c38162162811d93d22ba8f5b4a" category="paragraph">Comprendere i requisiti e le opzioni di autenticazione per la configurazione di un backend ONTAP con i driver SAN ONTAP.</block>
   <block id="7fbe6e40125b7d1b2f5c5c05044e7526" category="section-title">Abilitare l'autenticazione basata su certificato</block>
+  <block id="3262251091b863054cfabf046c0e3493" category="paragraph">NFS
+PMI</block>
+  <block id="7f4a1ee6a22ce0658ba6215c997ba8d8" category="paragraph">"", nfs, smb</block>
 </blocks>
