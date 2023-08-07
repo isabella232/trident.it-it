@@ -249,7 +249,6 @@
   <block id="7afe0c73e341cee7c90b4d4dda4600d9" category="paragraph">Nella configurazione precedente, sono disponibili tre definizioni di policy: Bronze, Silver e Gold. Questi nomi sono arbitrari.</block>
   <block id="cb5b68dacb07bd02a5152bf4ad1de8c6" category="list-text">Crea un volume Gold da 10 GiB:</block>
   <block id="89014c611c13195dc852587ef9d2bb16" category="list-text">Crea un volume Bronze da 100 GiB:</block>
-  <block id="82720d84ad009f069fd0b2cfaf6c3dac" category="summary">Astra Trident per Docker offre un'integrazione diretta con l'ecosistema Docker per le piattaforme storage NetApp. Supporta il provisioning e la gestione delle risorse di storage dalla piattaforma di storage agli host Docker, con un framework per aggiungere altre piattaforme in futuro.</block>
   <block id="486632f7d2196e772b742db4a4a0ad7c" category="doc">Implementare Astra Trident</block>
   <block id="d2eb05d1990246a079aeb2f56e3a4237" category="paragraph">Più istanze di Astra Trident possono essere eseguite contemporaneamente sullo stesso host. Ciò consente connessioni simultanee a più sistemi di storage e tipi di storage, con l'abilità di personalizzare lo storage utilizzato per i volumi Docker.</block>
   <block id="d59db7846bd10b6d60d21543df9faa9e" category="paragraph-title">Di cosa hai bisogno</block>
@@ -3806,4 +3805,5 @@ Yesfootnote:5[]: Supportato da Astra Trident</block>
   <block id="62486fa65fc31c383ace8989549632ad" category="sidebar">Utilizzare le snapshot</block>
   <block id="143c9ea21ac76ba425aa94411fbba07b" category="sidebar">Panoramica di Astra Trident</block>
   <block id="ab09b43d2faaea1b49257d5a973eae0e" category="sidebar">Gestisci e monitora Astra Trident</block>
+  <block id="ee4c63201b5c5c6c9da139c0a39bcb7b" category="summary">Astra Trident per Docker offre un'integrazione diretta con l'ecosistema Docker per le piattaforme di storage NetApp. Supporta il provisioning e la gestione delle risorse di storage dalla piattaforma di storage agli host Docker, con un framework per aggiungere altre piattaforme in futuro.</block>
 </blocks>
