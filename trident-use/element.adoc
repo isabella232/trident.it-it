@@ -80,18 +80,6 @@ RWO, ROX
 
 |===
 
-NOTE: Astra Trident utilizza CHAP quando funziona come provider CSI avanzato. Se si utilizza CHAP (che è l'impostazione predefinita per CSI), non sono necessarie ulteriori operazioni di preparazione. Si consiglia di impostare in modo esplicito `UseCHAP` Opzione per utilizzare CHAP con Trident non CSI. In caso contrario, vedere link:../trident-concepts/vol-access-groups.html["qui"^].
-
-
-WARNING: I gruppi di accesso ai volumi sono supportati solo dal framework convenzionale non CSI per Astra Trident. Se configurato per funzionare in modalità CSI, Astra Trident utilizza CHAP.
-
-In caso contrario `AccessGroups` oppure `UseCHAP` viene impostata una delle seguenti regole:
-
-* Se l'impostazione predefinita `trident` viene rilevato un gruppo di accesso, vengono utilizzati i gruppi di accesso.
-* Se non viene rilevato alcun gruppo di accesso e Kubernetes versione 1.7 o successiva, viene utilizzato CHAP.
-
-
-
 
 == Opzioni di configurazione back-end
 
@@ -126,7 +114,7 @@ Per le opzioni di configurazione del backend, consultare la tabella seguente:
 | `InitiatorIFace` | Limitare il traffico iSCSI a un'interfaccia host specifica | "predefinito" 
 
 
-| `UseCHAP` | Utilizzare CHAP per autenticare iSCSI | vero 
+| `UseCHAP` | Utilizzare CHAP per autenticare iSCSI. Astra Trident utilizza il protocollo CHAP. | vero 
 
 
 | `AccessGroups` | Elenco degli ID del gruppo di accesso da utilizzare | Trova l'ID di un gruppo di accesso denominato "tridente" 

@@ -1,8 +1,8 @@
 ---
 sidebar: sidebar 
 permalink: trident-use/vol-snapshots.html 
-keywords: volumes, on-demand volume snapshots, create snapshots, backends, kubernetes, create PVCs, PVCs 
-summary: 'È possibile creare Kubernetes VolumeSnapshots (snapshot del volume) di volumi persistenti (PVS) per mantenere le copie point-in-time dei volumi Astra Trident. Inoltre, è possibile creare un nuovo volume, noto anche come _clone_, da uno snapshot di volume esistente. Lo snapshot del volume è supportato da `ontap-nas`, `ontap-nas-flexgroup`, `ontap-san`, `ontap-san-economy`, `solidfire-san`, `gcp-cvs`, e. `azure-netapp-files` driver.' 
+keywords: volumes, on-demand volume snapshots, create snapshots, backends, kubernetes, create PVCs, PVCs, snapshot, volume snapshot, import snapshot, recover data 
+summary: 'Le snapshot del volume di Kubernetes dei volumi persistenti (PVS) consentono copie point-in-time dei volumi. Puoi creare una snapshot di un volume creato utilizzando Astra Trident, importare uno snapshot creato all"esterno di Astra Trident, creare un nuovo volume da una snapshot esistente e recuperare i dati del volume da snapshot.' 
 ---
 = Lavorare con le istantanee
 :hardbreaks:
@@ -12,22 +12,33 @@ summary: 'È possibile creare Kubernetes VolumeSnapshots (snapshot del volume) d
 
 
 [role="lead"]
-È possibile creare Kubernetes VolumeSnapshots (snapshot del volume) di volumi persistenti (PVS) per mantenere le copie point-in-time dei volumi Astra Trident. Inoltre, è possibile creare un nuovo volume, noto anche come _clone_, da uno snapshot di volume esistente. Lo snapshot del volume è supportato da `ontap-nas`, `ontap-nas-flexgroup`, `ontap-san`, `ontap-san-economy`, `solidfire-san`, `gcp-cvs`, e. `azure-netapp-files` driver.
+Le snapshot del volume di Kubernetes dei volumi persistenti (PVS) consentono copie point-in-time dei volumi. Puoi creare una snapshot di un volume creato utilizzando Astra Trident, importare uno snapshot creato all'esterno di Astra Trident, creare un nuovo volume da una snapshot esistente e recuperare i dati del volume da snapshot.
+
+
+
+== Panoramica
+
+Lo snapshot del volume è supportato da `ontap-nas`, `ontap-nas-flexgroup`, `ontap-san`, `ontap-san-economy`, `solidfire-san`, `gcp-cvs`, e. `azure-netapp-files` driver.
 
 .Prima di iniziare
-È necessario disporre di uno snapshot controller esterno e di Custom Resource Definitions (CRD). Questa è la responsabilità del Kubernetes orchestrator (ad esempio: Kubeadm, GKE, OpenShift).
+Per utilizzare gli snapshot, è necessario disporre di un controller snapshot esterno e di CRD (Custom Resource Definitions). Questa è la responsabilità del Kubernetes orchestrator (ad esempio: Kubeadm, GKE, OpenShift).
 
-Se la distribuzione Kubernetes non include il controller di snapshot e i CRD, fare riferimento a. <<Implementazione di un controller di snapshot di volume>>.
+Se la distribuzione Kubernetes non include il controller di snapshot e i CRD, fare riferimento a. <<Implementare un controller per lo snapshot dei volumi>>.
 
 
 NOTE: Non creare un controller di snapshot se si creano snapshot di volumi on-demand in un ambiente GKE. GKE utilizza un controller di snapshot integrato e nascosto.
 
 
 
-== Fase 1: Creare un `VolumeSnapshotClass`
+== Creare un'istantanea del volume
 
-In questo esempio viene creata una classe di snapshot del volume.
-
+.Fasi
+. Creare un `VolumeSnapshotClass`. Per ulteriori informazioni, fare riferimento a. link:../trident-reference/objects.html#kubernetes-volumesnapshotclass-objects["VolumeSnapshotClass"].
++
+** Il `driver` Indica il driver Astra Trident CSI.
+** `deletionPolicy` può essere `Delete` oppure `Retain`. Quando è impostato su `Retain`, lo snapshot fisico sottostante sul cluster di storage viene conservato anche quando `VolumeSnapshot` oggetto eliminato.
++
+.Esempio
 [listing]
 ----
 cat snap-sc.yaml
@@ -38,16 +49,13 @@ metadata:
 driver: csi.trident.netapp.io
 deletionPolicy: Delete
 ----
-Il `driver` Indica il driver Astra Trident CSI. `deletionPolicy` può essere `Delete` oppure `Retain`. Quando è impostato su `Retain`, lo snapshot fisico sottostante sul cluster di storage viene conservato anche quando `VolumeSnapshot` oggetto eliminato.
-
-Per ulteriori informazioni, fare riferimento al link:./trident-reference/objects.html_kubernetes-volumesnapshotclass-objects[`VolumeSnapshotClass`].
 
 
-
-== Fase 2: Creare un'istantanea di un PVC esistente
-
-Questo esempio crea un'istantanea di un PVC esistente.
-
+. Creare un'istantanea di un PVC esistente.
++
+.Esempi
+** Questo esempio crea un'istantanea di un PVC esistente.
++
 [listing]
 ----
 cat snap.yaml
@@ -60,8 +68,8 @@ spec:
   source:
     persistentVolumeClaimName: pvc1
 ----
-In questo esempio, lo snapshot viene creato per un PVC denominato `pvc1` e il nome dello snapshot è impostato su `pvc1-snap`.
-
+** Questo esempio crea un oggetto snapshot di volume per un PVC denominato `pvc1` e il nome dello snapshot è impostato su `pvc1-snap`. Un'istantanea VolumeSnapshot è analoga a un PVC ed è associata a un `VolumeSnapshotContent` oggetto che rappresenta lo snapshot effettivo.
++
 [listing]
 ----
 kubectl create -f snap.yaml
@@ -71,10 +79,8 @@ kubectl get volumesnapshots
 NAME                   AGE
 pvc1-snap              50s
 ----
-Questo ha creato un `VolumeSnapshot` oggetto. Un'istantanea VolumeSnapshot è analoga a un PVC ed è associata a un `VolumeSnapshotContent` oggetto che rappresenta lo snapshot effettivo.
-
-È possibile identificare `VolumeSnapshotContent` oggetto per `pvc1-snap` VolumeSnapshot descrivendolo.
-
+** È possibile identificare `VolumeSnapshotContent` oggetto per `pvc1-snap` VolumeSnapshot descrivendolo. Il `Snapshot Content Name` Identifica l'oggetto VolumeSnapshotContent che fornisce questa snapshot. Il `Ready To Use` Parametro indica che l'istantanea può essere utilizzata per creare un nuovo PVC.
++
 [listing]
 ----
 kubectl describe volumesnapshots pvc1-snap
@@ -97,13 +103,17 @@ Status:
 .
 .
 ----
-Il `Snapshot Content Name` Identifica l'oggetto VolumeSnapshotContent che fornisce questa snapshot. Il `Ready To Use` Il parametro indica che l'istantanea può essere utilizzata per creare un nuovo PVC.
 
 
 
-== Fase 3: Creazione di PVC da VolumeSnapshots
 
-In questo esempio viene creato un PVC utilizzando uno snapshot.
+
+
+== Creare un PVC da uno snapshot di volume
+
+È possibile utilizzare `dataSource` Per creare un PVC utilizzando un VolumeSnapshot denominato `<pvc-name>` come origine dei dati. Una volta creato, il PVC può essere collegato a un pod e utilizzato come qualsiasi altro PVC.
+
+Nell'esempio seguente viene creato il PVC utilizzando `pvc1-snap` come origine dei dati.
 
 [listing]
 ----
@@ -124,20 +134,127 @@ spec:
     kind: VolumeSnapshot
     apiGroup: snapshot.storage.k8s.io
 ----
-`dataSource` Mostra che il PVC deve essere creato utilizzando un VolumeSnapshot denominato `pvc1-snap` come origine dei dati. Questo indica ad Astra Trident di creare un PVC dall'istantanea. Una volta creato, il PVC può essere collegato a un pod e utilizzato come qualsiasi altro PVC.
-
 
 WARNING: Il PVC deve essere creato nello stesso namespace di ITS `dataSource`.
 
 
 
-== Eliminazione di un PV con snapshot
+== Importare uno snapshot di volume
+
+Astra Trident supporta a. link:https://kubernetes.io/docs/concepts/storage/volume-snapshots/#static["Processo Snapshot con pre-provisioning di Kubernetes"^] per consentire all'amministratore del cluster di creare un `VolumeSnapshotContent` Inoltre, Rendi disponibili le snapshot create all'esterno di Astra Trident.
+
+Per importare lo snapshot del volume, Astra Trident utilizza il nome PV e l'annotazione VolumeSnapshotContent per individuare lo snapshot interno e denominare lo snapshot CR TridentSnapshot creato.
+
+
+NOTE: Lo snapshot deve avere un volume principale.
+
+.Fasi
+. *Cluster admin:* creare il `VolumeSnapshotContent` che fa riferimento all'istantanea backend.
++
+** Il `VolumeSnapshotContent` l'annotazione deve essere `trident.netapp.io/internalSnapshotName: <backend-snapshot-name>`.
+** Il `snapshotHandle` deve essere `<pv-name>/<VolumeSnapshotContent-name>`. Queste sono le uniche informazioni fornite a Astra Trident dallo snap-ter esterno in `ListSnapshots` chiamata.
++
+.Esempio
+Nell'esempio seguente viene creato `VolumeSnapshotContent` per l'istantanea backend denominata `snap-01` e. `volumeSnapshotRef` con nome `test-snapshot`.
+
++
+[listing]
+----
+apiVersion: snapshot.storage.k8s.io/v1
+kind: VolumeSnapshotContent
+metadata:
+  name: my-trident-snapshot-content
+  annotations:
+    trident.netapp.io/internalSnapshotName: snap-01  # This represents the name of the snapshot on the backend
+spec:
+  deletionPolicy: Retain
+  driver: csi.trident.netapp.io
+  source:
+    snapshotHandle: pvc-3e5cda7a-200b-46ab-b5d0-c9cd8db2cc01/my-trident-snapshot-content  # This is the only information provided to Trident in the ListSnapshots call
+  volumeSnapshotRef:
+    name: test-snapshot
+    namespace: default
+----
++
+
+NOTE: Il `volumeSnapshotRef` Il nome non può sempre corrispondere al nome dell'istantanea backend a causa di vincoli di denominazione CR.
+
+
+
+. *Cluster admin:* Binding the `VolumeSnapshot` al `VolumeSnapshotContent` dove `volumeSnapshotContentName` è il nome specificato in `volumeSnapshotRef`.
++
+.Esempio
+Nell'esempio riportato di seguito viene eseguita l'associazione dello snapshot del volume `test-snapshot` al `VolumeSnapshotContent` con nome `my-trident-snapshot-content`.
+
++
+[listing]
+----
+apiVersion: snapshot.storage.k8s.io/v1
+kind: VolumeSnapshot
+metadata:
+  name: test-snapshot
+  namespace: default
+spec:
+  source:
+    volumeSnapshotContentName: my-trident-snapshot-content
+----
+. *Elaborazione interna (nessuna azione richiesta):* lo snapshot esterno vede il VolumeSnapshotContent appena creato ed esegue `ListSnapshots` chiamata. Astra Trident crea l' `TridentSnapshot`.
++
+** Lo snapshot esterno imposta `VolumeSnapshotContent` a. `readyToUse` e lo snapshot del volume su `true`.
+** Trident ritorna `readyToUse=true`.
+
+
+. *Qualsiasi utente:* creare un `PersistentVolumeClaim` per fare riferimento al nuovo `VolumeSnapshot`, dove il `spec.dataSource` (o. `spec.dataSourceRef`) è il `VolumeSnapshot` nome.
++
+.Esempio
+Nell'esempio seguente viene creato un PVC che fa riferimento a. `test-snapshot` snapshot di un volume.
+
++
+[listing]
+----
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-from-snap
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: simple-sc
+  resources:
+    requests:
+      storage: 1Gi
+  dataSource:
+    name: test-snapshot
+    namespace: default
+    kind: VolumeSnapshot
+    apiGroup: snapshot.storage.k8s.io
+----
+
+
+
+
+== Ripristinare i dati del volume utilizzando le snapshot
+
+La directory Snapshot è nascosta per impostazione predefinita per facilitare la massima compatibilità dei volumi con cui viene eseguito il provisioning mediante `ontap-nas` e. `ontap-nas-economy` driver. Attivare il `.snapshot` directory per ripristinare i dati direttamente dalle snapshot.
+
+Utilizzare la CLI ONTAP per il ripristino dello snapshot del volume per ripristinare uno stato di un volume registrato in uno snapshot precedente.
+
+[listing]
+----
+cluster1::*> volume snapshot restore -vserver vs0 -volume vol3 -snapshot vol3_snap_archive
+----
+
+NOTE: Quando si ripristina una copia snapshot, la configurazione del volume esistente viene sovrascritta. Le modifiche apportate ai dati del volume dopo la creazione della copia snapshot andranno perse.
+
+
+
+== Eliminare un PV con gli snapshot associati
 
 Quando si elimina un volume persistente con snapshot associate, il volume Trident corrispondente viene aggiornato a uno stato di eliminazione. Rimuovere le snapshot del volume per eliminare il volume Astra Trident.
 
 
 
-== Implementazione di un controller di snapshot di volume
+== Implementare un controller per lo snapshot dei volumi
 
 Se la distribuzione Kubernetes non include lo snapshot controller e i CRD, è possibile implementarli come segue.
 
@@ -165,21 +282,6 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snaps
 NOTE: Se necessario, aprire `deploy/kubernetes/snapshot-controller/rbac-snapshot-controller.yaml` e aggiornare `namespace` allo spazio dei nomi.
 
 
-
-
-
-== Ripristinare i dati del volume utilizzando le snapshot
-
-La directory Snapshot è nascosta per impostazione predefinita per facilitare la massima compatibilità dei volumi con cui viene eseguito il provisioning mediante `ontap-nas` e. `ontap-nas-economy` driver. Attivare il `.snapshot` directory per ripristinare i dati direttamente dalle snapshot.
-
-Utilizzare la CLI ONTAP per il ripristino dello snapshot del volume per ripristinare uno stato di un volume registrato in uno snapshot precedente.
-
-[listing]
-----
-cluster1::*> volume snapshot restore -vserver vs0 -volume vol3 -snapshot vol3_snap_archive
-----
-
-NOTE: Quando si ripristina una copia snapshot, la configurazione del volume esistente viene sovrascritta. Le modifiche apportate ai dati del volume dopo la creazione della copia snapshot andranno perse.
 
 
 

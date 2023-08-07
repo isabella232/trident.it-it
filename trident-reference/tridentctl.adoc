@@ -162,13 +162,12 @@ Usage:
 ----
 Allarmi:
 
-* ``--autosupport-image string`: L'immagine container per il sistema di Telemetria AutoSupport (impostazione predefinita "netapp/Trident autosupport:20.07.0").
+* ``--autosupport-image string`: L'immagine contenitore per la telemetria AutoSupport (predefinita "netapp/trident autosupport:<current-version>").
 * ``--autosupport-proxy string`Indirizzo/porta di un proxy per l'invio di telemetria AutoSupport.
-* ``--csi`: Installare CSI Trident (override solo per Kubernetes 1.13, richiede feature gate).
 * ``--enable-node-prep`: Tentare di installare i pacchetti richiesti sui nodi.
 * ``--generate-custom-yaml`: Generare file YAML senza installare nulla.
 * ``-h, --help`: Guida all'installazione.
-* ``--http-request-timeout`: Consente di sovrascrivere il timeout della richiesta HTTP per l'API REST del controller Trident (valore predefinito 1 m30s).
+* ``--http-request-timeout`: Ignorare il timeout della richiesta HTTP per l'API REST del controller Trident (valore predefinito 1m30).
 * ``--image-registry string`: L'indirizzo/porta di un registro di immagini interno.
 * ``--k8s-timeout duration`: Il timeout per tutte le operazioni Kubernetes (valore predefinito: 3 m0s).
 * ``--kubelet-dir string`: La posizione host dello stato interno di kubelet (default "/var/lib/kubelet").
@@ -243,20 +242,6 @@ Usage:
 ----
 Opzioni disponibili:
 `backend`: Aggiornare un backend in Astra Trident.
-
-
-
-== `upgrade`
-
-È possibile eseguire `upgrade` Comandi per aggiornare una risorsa in Astra Trident.
-
-[listing]
-----
-Usage:
-tridentctl upgrade [option]
-----
-Opzione disponibile:
-`volume`: Aggiornare uno o più volumi persistenti da NFS/iSCSI a CSI.
 
 
 

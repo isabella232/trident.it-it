@@ -97,9 +97,6 @@ Per informazioni sulla creazione di backend, consulta i seguenti link:
 
 
 
-.Risultati
-Dopo l'implementazione, è possibile creare un link:../trident-get-started/kubernetes-postdeployment.html["classe di storage, provisioning di un volume e montaggio del volume in un pod"].
-
 
 
 == Preparatevi al provisioning dei volumi SMB

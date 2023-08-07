@@ -16,7 +16,7 @@ Per garantire che Astra Trident possa essere installato in una vasta gamma di am
 
 
 
-== Informazioni critiche su Astra Trident 23.04
+== Informazioni critiche su Astra Trident 23,07
 
 *È necessario leggere le seguenti informazioni critiche su Astra Trident.*
 
@@ -74,6 +74,12 @@ L'operatore Trident crea automaticamente i seguenti oggetti per la versione di K
 
 
 ====
+.<strong> accountability</strong>
+[%collapsible]
+====
+L'operatore Trident, definito dall'ambito del cluster, gestisce le risorse associate a un'installazione di Astra Trident a livello del cluster. In questo modo è possibile ridurre gli errori che potrebbero verificarsi quando si mantengono le risorse raggruppate nell'ambito del cluster utilizzando un operatore con ambito dello spazio dei nomi. Ciò è essenziale per auto-healing e patching.
+
+====
 .<strong> capabilitàdi </strong>
 [%collapsible]
 ====
@@ -91,7 +97,13 @@ Ad esempio, si consideri uno scenario in cui è necessario abilitare Astra Tride
 ----
 kubectl patch torc <trident-orchestrator-name> -n trident --type=merge -p '{"spec":{"debug":true}}'
 ----
-Dopo `TridentOrchestrator` viene aggiornato, l'operatore elabora gli aggiornamenti e le patch dell'installazione esistente. Questo potrebbe attivare la creazione di nuovi pod per modificare l'installazione di conseguenza.
+Dopo `TridentOrchestrator` viene aggiornato, l'operatore elabora gli aggiornamenti e le patch dell'installazione esistente. Ciò potrebbe innescare la creazione di nuovi pod per modificare l'installazione di conseguenza.
+
+====
+.<strong> ha installato un tag </strong>
+[%collapsible]
+====
+L'operatore Trident, definito dall'ambito del cluster, consente la rimozione definitiva delle risorse definite dall'ambito del cluster. Gli utenti possono disinstallare completamente Astra Trident e reinstallarlo facilmente.
 
 ====
 .<strong> aggiornamento handlate </strong>

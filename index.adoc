@@ -2,9 +2,9 @@
 layout: landing-page 
 sidebar: sidebar 
 permalink: index.html 
-summary: 'Astra Trident è un provider di storage open source e orchestrator gestito da NetApp. Consente di creare volumi di storage per applicazioni containerizzate gestite da Docker e Kubernetes. **Leggi le note di rilascio per informazioni critiche sull"aggiornamento ad Astra Trident 23.04.**' 
+summary: 'Astra Trident è un provider di storage open source e orchestrator gestito da NetApp. Consente di creare volumi di storage per applicazioni containerizzate gestite da Docker e Kubernetes. **Leggere le note di rilascio per informazioni critiche sull"aggiornamento a Astra Trident 23,07.**' 
 ---
-= Documentazione di Astra Trident 23.04
+= Documentazione di Astra Trident 23,07
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 

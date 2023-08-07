@@ -16,7 +16,7 @@ summary: 'È possibile implementare manualmente l"operatore Trident per installa
 
 
 
-== Informazioni critiche su Astra Trident 23.04
+== Informazioni critiche su Astra Trident 23,07
 
 *È necessario leggere le seguenti informazioni critiche su Astra Trident.*
 
@@ -75,8 +75,8 @@ Il pacchetto di installazione di Astra Trident contiene tutto il necessario per 
 
 [listing]
 ----
-wget https://github.com/NetApp/trident/releases/download/v23.04.0/trident-installer-23.04.0.tar.gz
-tar -xf trident-installer-23.04.0.tar.gz
+wget https://github.com/NetApp/trident/releases/download/v23.07.0/trident-installer-23.07.0.tar.gz
+tar -xf trident-installer-23.07.0.tar.gz
 cd trident-installer
 ----
 
@@ -93,10 +93,10 @@ kubectl create -f deploy/crds/<VERSION>.yaml
 
 === Fase 3: Aggiornare la posizione del registro nell'operatore
 
-Poll `/deploy/operator.yaml`, aggiornare `image: docker.io/netapp/trident-operator:23.04.0` per riflettere la posizione del registro delle immagini. Il tuo link:../trident-get-started/requirements.html#container-images-and-corresponding-kubernetes-versions["Immagini Trident e CSI"] Può trovarsi in un registro o in registri diversi, ma tutte le immagini CSI devono trovarsi nello stesso registro. Ad esempio:
+Poll `/deploy/operator.yaml`, aggiornare `image: docker.io/netapp/trident-operator:23.07.0` per riflettere la posizione del registro delle immagini. Il tuo link:../trident-get-started/requirements.html#container-images-and-corresponding-kubernetes-versions["Immagini Trident e CSI"] Può trovarsi in un registro o in registri diversi, ma tutte le immagini CSI devono trovarsi nello stesso registro. Ad esempio:
 
-* `image: <your-registry>/trident-operator:23.04.0` se tutte le immagini si trovano in un unico registro.
-* `image: <your-registry>/netapp/trident-operator:23.04.0` Se l'immagine Trident si trova in un registro diverso dalle immagini CSI.
+* `image: <your-registry>/trident-operator:23.07.0` se tutte le immagini si trovano in un unico registro.
+* `image: <your-registry>/netapp/trident-operator:23.07.0` Se l'immagine Trident si trova in un registro diverso dalle immagini CSI.
 
 
 
@@ -165,8 +165,8 @@ Il tuo link:../trident-get-started/requirements.html#container-images-and-corres
 [listing]
 ----
 imageRegistry: "<your-registry>"
-autosupportImage: "<your-registry>/trident-autosupport:23.04"
-tridentImage: "<your-registry>/trident:23.04.0"
+autosupportImage: "<your-registry>/trident-autosupport:23.07"
+tridentImage: "<your-registry>/trident:23.07.0"
 ----
 --
 .Immagini in diversi registri
@@ -176,8 +176,8 @@ tridentImage: "<your-registry>/trident:23.04.0"
 [listing]
 ----
 imageRegistry: "<your-registry>/sig-storage"
-autosupportImage: "<your-registry>/netapp/trident-autosupport:23.04"
-tridentImage: "<your-registry>/netapp/trident:23.04.0"
+autosupportImage: "<your-registry>/netapp/trident-autosupport:23.07"
+tridentImage: "<your-registry>/netapp/trident:23.07.0"
 ----
 --
 ====
@@ -202,16 +202,16 @@ API Version: trident.netapp.io/v1
 Kind:        TridentOrchestrator
 ...
 Spec:
-  Autosupport Image:  <your-registry>/netapp/trident-autosupport:23.04
+  Autosupport Image:  <your-registry>/netapp/trident-autosupport:23.07
   Debug:              true
   Image Registry:     <your-registry>/sig-storage
   Namespace:          trident
-  Trident Image:      <your-registry>/netapp/trident:23.04.0
+  Trident Image:      <your-registry>/netapp/trident:23.07.0
 Status:
   Current Installation Params:
     IPv6:                       false
     Autosupport Hostname:
-    Autosupport Image:          <your-registry>/netapp/trident-autosupport:23.04
+    Autosupport Image:          <your-registry>/netapp/trident-autosupport:23.07
     Autosupport Proxy:
     Autosupport Serial Number:
     Debug:                      true
@@ -223,11 +223,11 @@ Status:
     Log Format:           text
     Probe Port:           17546
     Silence Autosupport:  false
-    Trident Image:        <your-registry>/netapp/trident:23.04.0
+    Trident Image:        <your-registry>/netapp/trident:23.07.0
   Message:                Trident installed
   Namespace:              trident
   Status:                 Installed
-  Version:                v23.04.0
+  Version:                v23.07.0
 Events:
     Type Reason Age From Message ---- ------ ---- ---- -------Normal
     Installing 74s trident-operator.netapp.io Installing Trident Normal
@@ -301,11 +301,6 @@ trident-operator-766f7b8658-ldzsv          1/1     Running   0           3m
 +----------------+----------------+
 | SERVER VERSION | CLIENT VERSION |
 +----------------+----------------+
-| 23.04.0        | 23.04.0      |
+| 23.07.0        | 23.07.0        |
 +----------------+----------------+
 ----
-
-
-== Cosa succederà
-
-Ora puoi link:kubernetes-postdeployment.html["creare un backend e una classe di storage, eseguire il provisioning di un volume e montare il volume in un pod"].

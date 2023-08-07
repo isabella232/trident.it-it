@@ -23,24 +23,11 @@ Astra Trident offre agli utenti Kubernetes la possibilità di espandere i propri
 
 NOTE: L'espansione del volume iSCSI è supportata da `ontap-san`, `ontap-san-economy`, `solidfire-san` Driver e richiede Kubernetes 1.16 e versioni successive.
 
-.Panoramica
-L'espansione di un PV iSCSI include i seguenti passaggi:
-
-* Modifica della definizione di StorageClass per impostare `allowVolumeExpansion` campo a. `true`.
-* Modifica della definizione PVC e aggiornamento di `spec.resources.requests.storage` per riflettere le nuove dimensioni desiderate, che devono essere superiori alle dimensioni originali.
-* Il collegamento del PV deve essere collegato a un pod per poter essere ridimensionato. Esistono due scenari quando si ridimensiona un PV iSCSI:
-+
-** Se il PV è collegato a un pod, Astra Trident espande il volume sul backend dello storage, esegue di nuovo la scansione del dispositivo e ridimensiona il file system.
-** Quando si tenta di ridimensionare un PV non collegato, Astra Trident espande il volume sul backend dello storage. Dopo aver associato il PVC a un pod, Trident esegue nuovamente la scansione del dispositivo e ridimensiona il file system. Kubernetes aggiorna quindi le dimensioni del PVC dopo il completamento dell'operazione di espansione.
-
-
-
-
-L'esempio seguente mostra come funziona l'espansione del PVS iSCSI.
-
 
 
 === Fase 1: Configurare StorageClass per supportare l'espansione dei volumi
+
+Modificare la definizione StorageClass per impostare `allowVolumeExpansion` campo a. `true`.
 
 [listing]
 ----
@@ -60,6 +47,8 @@ Per un StorageClass già esistente, modificarlo per includere `allowVolumeExpans
 
 
 === Fase 2: Creare un PVC con la StorageClass creata
+
+Modificare la definizione PVC e aggiornare `spec.resources.requests.storage` per riflettere le nuove dimensioni desiderate, che devono essere superiori alle dimensioni originali.
 
 [listing]
 ----
@@ -91,6 +80,12 @@ pvc-8a814d62-bd58-4253-b0d1-82f2885db671   1Gi        RWO            Delete     
 
 
 === Fase 3: Definire un pod che colleghi il PVC
+
+Collegare il PV a un pod affinché venga ridimensionato. Esistono due scenari quando si ridimensiona un PV iSCSI:
+
+* Se il PV è collegato a un pod, Astra Trident espande il volume sul backend dello storage, esegue di nuovo la scansione del dispositivo e ridimensiona il file system.
+* Quando si tenta di ridimensionare un PV non collegato, Astra Trident espande il volume sul backend dello storage. Dopo aver associato il PVC a un pod, Trident esegue nuovamente la scansione del dispositivo e ridimensiona il file system. Kubernetes aggiorna quindi le dimensioni del PVC dopo il completamento dell'operazione di espansione.
+
 
 In questo esempio, viene creato un pod che utilizza `san-pvc`.
 
