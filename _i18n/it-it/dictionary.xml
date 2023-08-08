@@ -666,7 +666,6 @@
   <block id="21021ea0e52be8e9c599f4dff41e5be0" category="cell">Funzione</block>
   <block id="80afba45eb055fc9bdc48c90d1debd06" category="cell">Versione di Kubernetes</block>
   <block id="10f295a61d2a793ac8936a69cf458654" category="cell">Sono richiesti i gate delle funzionalità?</block>
-  <block id="fe74bcccaeacaddf91b58dec28fef5be" category="paragraph">1.21 - 1.27</block>
   <block id="bafd7322c6e97d25b6299b5d6fe8920b" category="paragraph">No</block>
   <block id="e830b7e4d1fb7f84600876af87cb4381" category="cell">Snapshot dei volumi</block>
   <block id="ea8ed249117e76cb53766e218fe2b7c7" category="cell">PVC dalle istantanee dei volumi</block>
@@ -3806,4 +3805,5 @@ Yesfootnote:5[]: Supportato da Astra Trident</block>
   <block id="143c9ea21ac76ba425aa94411fbba07b" category="sidebar">Panoramica di Astra Trident</block>
   <block id="ab09b43d2faaea1b49257d5a973eae0e" category="sidebar">Gestisci e monitora Astra Trident</block>
   <block id="ee4c63201b5c5c6c9da139c0a39bcb7b" category="summary">Astra Trident per Docker offre un'integrazione diretta con l'ecosistema Docker per le piattaforme di storage NetApp. Supporta il provisioning e la gestione delle risorse di storage dalla piattaforma di storage agli host Docker, con un framework per aggiungere altre piattaforme in futuro.</block>
+  <block id="5d22e3d2d8e7ef4a3b8d79728779c6d8" category="paragraph">1,22 - 1,27</block>
 </blocks>
