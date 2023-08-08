@@ -113,6 +113,9 @@ Status:
 
 È possibile utilizzare `dataSource` Per creare un PVC utilizzando un VolumeSnapshot denominato `<pvc-name>` come origine dei dati. Una volta creato, il PVC può essere collegato a un pod e utilizzato come qualsiasi altro PVC.
 
+
+WARNING: Il PVC deve essere creato nello stesso namespace di ITS `dataSource`.
+
 Nell'esempio seguente viene creato il PVC utilizzando `pvc1-snap` come origine dei dati.
 
 [listing]
@@ -134,9 +137,6 @@ spec:
     kind: VolumeSnapshot
     apiGroup: snapshot.storage.k8s.io
 ----
-
-WARNING: Il PVC deve essere creato nello stesso namespace di ITS `dataSource`.
-
 
 
 == Importare uno snapshot di volume
