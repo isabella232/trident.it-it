@@ -3300,7 +3300,6 @@
   <block id="412d430c2de2722ad4f878fba9145e3f" category="paragraph">Quando si utilizza<block ref="e2b9359adf7cdd62fc784b5090c3c452" prefix=" " category="inline-code"></block> Argomento: Astra Trident non rinomina il volume.</block>
   <block id="30690ec57cb4844d007f7d2e2c9393a2" category="paragraph">L'esempio seguente importa<block ref="60d9e6d88af815fe67aed90572f53184" prefix=" " category="inline-code"></block> su<block ref="b0253ee501e433d48faea12f8e40ef28" prefix=" " category="inline-code"></block> back-end:</block>
   <block id="548fedaf4074fe2826e3c53dfd92a19e" category="section-title">ONTAP SAN</block>
-  <block id="d18d16cddcd0f06bf7df2391e6b26e69" category="paragraph">Astra Trident supporta l'importazione di volumi utilizzando<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> driver.</block>
   <block id="30bb262b9fe2f6c714c560a0608899dc" category="paragraph">Astra Trident può importare SAN FlexVol ONTAP che contengono una singola LUN. Ciò è coerente con<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> Driver, che crea un FlexVol per ogni PVC e un LUN all'interno di FlexVol. Astra Trident importa il FlexVol e lo associa alla definizione del PVC.</block>
   <block id="854d516b7e1eddbead5cbea0b17dac88" category="paragraph-title">Esempi DI SAN ONTAP</block>
   <block id="eb87428bc7ec6d211f503b31240aec94" category="paragraph">Per i volumi gestiti, Astra Trident rinomina FlexVol in<block ref="b1a57c8f543d163276a264ab84f98485" prefix=" " category="inline-code"></block> E il LUN all'interno di FlexVol a.<block ref="1793051c27c3288cfb3a1c86e4e41b41" prefix=" " category="inline-code"></block>.</block>
@@ -3806,4 +3805,5 @@ Yesfootnote:5[]: Supportato da Astra Trident</block>
   <block id="ab09b43d2faaea1b49257d5a973eae0e" category="sidebar">Gestisci e monitora Astra Trident</block>
   <block id="ee4c63201b5c5c6c9da139c0a39bcb7b" category="summary">Astra Trident per Docker offre un'integrazione diretta con l'ecosistema Docker per le piattaforme di storage NetApp. Supporta il provisioning e la gestione delle risorse di storage dalla piattaforma di storage agli host Docker, con un framework per aggiungere altre piattaforme in futuro.</block>
   <block id="5d22e3d2d8e7ef4a3b8d79728779c6d8" category="paragraph">1,22 - 1,27</block>
+  <block id="3e0f4d44c9c86926852e66ee127c5d3d" category="paragraph">Astra Trident supporta l'importazione di volumi utilizzando<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> driver. L'importazione di un volume non è supportata con<block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block> driver.</block>
 </blocks>
