@@ -114,7 +114,7 @@ Status:
 È possibile utilizzare `dataSource` Per creare un PVC utilizzando un VolumeSnapshot denominato `<pvc-name>` come origine dei dati. Una volta creato, il PVC può essere collegato a un pod e utilizzato come qualsiasi altro PVC.
 
 
-WARNING: Il PVC deve essere creato nello stesso namespace di ITS `dataSource`.
+WARNING: Il PVC verrà creato nello stesso backend del volume di origine. Fare riferimento a. link:https://kb.netapp.com/Cloud/Astra/Trident/Creating_a_PVC_from_a_Trident_PVC_Snapshot_cannot_be_created_in_an_alternate_backend["KB: La creazione di un PVC da uno snapshot PVC Trident non può essere creata in un backend alternativo"^].
 
 Nell'esempio seguente viene creato il PVC utilizzando `pvc1-snap` come origine dei dati.
 
