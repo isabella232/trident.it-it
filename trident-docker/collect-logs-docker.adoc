@@ -29,7 +29,7 @@ ID                  NAME                DESCRIPTION                          ENA
 journalctl -u docker | grep 4fb97d2b956b
 ----
 +
-Il livello di registrazione standard dovrebbe consentire di diagnosticare la maggior parte dei problemi. Se non è sufficiente, è possibile attivare la registrazione del debug.
+Il livello di registrazione standard dovrebbe consentire di diagnosticare la maggior parte dei problemi. Se non è sufficiente, è possibile attivare la registrazione di debug.
 
 . Per abilitare la registrazione del debug, installare il plug-in con la registrazione del debug attivata:
 +
@@ -47,7 +47,7 @@ docker plugin disable <plugin>
 docker plugin set <plugin> debug=true
 docker plugin enable <plugin>
 ----
-. Se si esegue il file binario sull'host, i registri sono disponibili in quello dell'host `/var/log/netappdvp` directory. Per attivare la registrazione di debug, specificare `-debug` quando si esegue il plug-in.
+. Se si esegue il file binario stesso sull'host, i registri sono disponibili nell'host `/var/log/netappdvp` directory. Per attivare la registrazione di debug, specificare `-debug` quando si esegue il plug-in.
 
 
 

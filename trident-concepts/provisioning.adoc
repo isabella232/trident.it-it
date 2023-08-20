@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-concepts/provisioning.html 
 keywords: provisioning, astra trident 
-summary: 'Il provisioning in Astra Trident prevede due fasi principali. La prima fase associa una classe di storage all"insieme di pool di storage di back-end adatti e si verifica come preparazione necessaria prima del provisioning. La seconda fase include la creazione del volume e richiede la scelta di un pool di storage tra quelli associati alla classe di storage del volume in sospeso.' 
+summary: 'Il provisioning in Astra Trident prevede due fasi principali. La prima fase associa una classe di storage all"insieme di pool di storage di back-end adatti e si verifica come preparazione necessaria prima del provisioning. La seconda fase include la creazione stessa di un volume e richiede la scelta di un pool di storage tra quelli associati alla classe di storage del volume in sospeso.' 
 ---
 = Provisioning
 :hardbreaks:
@@ -12,7 +12,7 @@ summary: 'Il provisioning in Astra Trident prevede due fasi principali. La prima
 
 
 [role="lead"]
-Il provisioning in Astra Trident prevede due fasi principali. La prima fase associa una classe di storage all'insieme di pool di storage di back-end adatti e si verifica come preparazione necessaria prima del provisioning. La seconda fase include la creazione del volume e richiede la scelta di un pool di storage tra quelli associati alla classe di storage del volume in sospeso.
+Il provisioning in Astra Trident prevede due fasi principali. La prima fase associa una classe di storage all'insieme di pool di storage di back-end adatti e si verifica come preparazione necessaria prima del provisioning. La seconda fase include la creazione stessa di un volume e richiede la scelta di un pool di storage tra quelli associati alla classe di storage del volume in sospeso.
 
 
 

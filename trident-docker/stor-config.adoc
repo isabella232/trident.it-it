@@ -418,7 +418,7 @@ Vedere l'esempio riportato di seguito
 
 
 | `LegacyNamePrefix`  a| 
-Prefisso per installazioni Trident aggiornate. Se è stata utilizzata una versione di Trident precedente alla 1.3.2 ed è stato eseguito un aggiornamento con i volumi esistenti, è necessario impostare questo valore per accedere ai volumi precedenti che sono stati mappati tramite il metodo del nome del volume.
+Prefisso per installazioni Trident aggiornate. Se è stata utilizzata una versione di Trident precedente alla 1.3.2 ed è stato eseguito un aggiornamento con volumi esistenti, sarà necessario impostare questo valore per accedere ai vecchi volumi mappati tramite il metodo del nome del volume.
  a| 
 `netappdvp-`
 

@@ -32,7 +32,7 @@ In questa sezione vengono descritte le procedure necessarie per gestire i backen
 
 Questo si applica ai seguenti scenari:
 
-* Backend preesistenti, che non dispongono di `TridentBackendConfig` perché sono stati creati con `tridentctl`.
+* Backend preesistenti, che non hanno un `TridentBackendConfig` perché sono stati creati con `tridentctl`.
 * Nuovi backend creati con `tridentctl`, mentre altri `TridentBackendConfig` esistono oggetti.
 
 

@@ -38,7 +38,7 @@ NOTE: Per impostazione predefinita, le metriche di Trident sono esposte sulla po
 
 == Fase 1: Definire un target Prometheus
 
-Devi definire un target Prometheus per raccogliere le metriche e ottenere informazioni sui backend gestiti da Astra Trident, sui volumi creati e così via. Questo https://netapp.io/2020/02/20/prometheus-and-trident/["blog"^] Spiega come utilizzare Prometheus e Grafana con Astra Trident per recuperare le metriche. Il blog spiega come eseguire Prometheus come operatore nel cluster Kubernetes e come creare un ServiceMonitor per ottenere le metriche di Astra Trident.
+Devi definire un target Prometheus per raccogliere le metriche e ottenere informazioni sui backend gestiti da Astra Trident, sui volumi creati e così via. Questo https://netapp.io/2020/02/20/prometheus-and-trident/["blog"^] Spiega come utilizzare Prometheus e Grafana con Astra Trident per recuperare le metriche. Il blog spiega come eseguire Prometheus come operatore nel cluster Kubernetes e la creazione di un ServiceMonitor per ottenere le metriche Astra Trident.
 
 
 

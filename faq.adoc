@@ -86,7 +86,7 @@ Astra Trident legge dal Kubernetes API Server per determinare quando le applicaz
 
 === Quali sono i ruoli e i privilegi utilizzati da Astra Trident?
 
-Il programma di installazione di Trident crea Kubernetes ClusterRole, che ha accesso specifico alle risorse PersistentVolume, PersistentVolumeClaim, StorageClass e Secret del cluster Kubernetes. Vedere link:https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-customize-deploy-tridentctl.html["qui"].
+Il programma di installazione Trident crea un Kubernetes ClusterRole, che ha accesso specifico alle risorse PersistentVolume, PersistentVolumeClaim, StorageClass e Secret del cluster Kubernetes. Vedere link:https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-customize-deploy-tridentctl.html["qui"].
 
 
 
@@ -164,7 +164,7 @@ In caso di domande, problemi o richieste, contattaci tramite Astra link:https://
 
 
 
-=== La password del sistema di storage è cambiata e Astra Trident non funziona più, come posso ripristinarla?
+=== La password del mio sistema storage è cambiata e Astra Trident non funziona più. Come posso eseguire il ripristino?
 
 Aggiornare la password del backend con `tridentctl update backend myBackend -f </path/to_new_backend.json> -n trident`. Sostituire `myBackend` nell'esempio con il nome backend, e. ``/path/to_new_backend.json` con il percorso verso il corretto `backend.json` file.
 
@@ -178,7 +178,7 @@ Ci sono due scenari probabili per cui Astra Trident non riesce a trovare un nodo
 
 === Se il pod Trident viene distrutto, perderò i dati?
 
-I dati non andranno persi se il pod Trident viene distrutto. I metadati di Trident vengono memorizzati negli oggetti CRD. Tutti i PVS forniti da Trident funzioneranno normalmente.
+I dati non andranno persi se il pod Trident viene distrutto. I metadati Trident vengono memorizzati in oggetti CRD. Tutti i PVS forniti da Trident funzioneranno normalmente.
 
 
 

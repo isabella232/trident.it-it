@@ -48,7 +48,7 @@ In questo modo si imposta la riserva di snapshot sulla percentuale desiderata. I
 
 
 | `splitOnClone`  a| 
-Durante il cloning di un volume, ONTAP suddividerà immediatamente il clone dal suo padre. L'impostazione predefinita è `false`. Alcuni casi di utilizzo per il cloning dei volumi sono meglio serviti dalla suddivisione del clone dal suo padre immediatamente dopo la creazione, perché è improbabile che vi siano opportunità di efficienza dello storage. Ad esempio, il cloning di un database vuoto può offrire notevoli risparmi di tempo, ma anche uno storage ridotto, pertanto è meglio suddividere immediatamente il clone.
+Durante il cloning di un volume, ONTAP suddividerà immediatamente il clone dal suo padre. L'impostazione predefinita è `false`. Alcuni casi di utilizzo per il cloning dei volumi sono meglio serviti dalla suddivisione del clone dal suo padre immediatamente dopo la creazione, perché è improbabile che vi siano opportunità di efficienza dello storage. Ad esempio, la clonazione di un database vuoto può consentire un notevole risparmio di tempo ma anche di poco spazio di storage, pertanto è preferibile suddividere immediatamente il clone.
 
 
 
