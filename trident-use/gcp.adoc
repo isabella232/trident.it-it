@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: trident-use/gcp.html 
-keywords: trident backend, cloud volumes service for google cloud platform, google cloud platform, gcp, storage pool labels, storage pool, cvs, cvs-performance, service type, service level, cloud volumes service, cloud volumes 
+keywords: trident backend, cloud volumes service for google cloud platform, google cloud platform, gcp, storage pool labels, storage pool, cvs, cvs-performance, service type, service level, cloud volumes service, cloud volumes, drivers, access modes, rwo, rwx, rwp, rwop, file system 
 summary: 'Scopri come configurare Cloud Volumes Service per Google Cloud come back-end per l"installazione di Astra Trident utilizzando le configurazioni di esempio fornite.' 
 ---
 = Configurare un Cloud Volumes Service per il backend di Google Cloud
@@ -14,6 +14,27 @@ summary: 'Scopri come configurare Cloud Volumes Service per Google Cloud come ba
 [role="lead"]
 Scopri come configurare NetApp Cloud Volumes Service per Google Cloud come back-end per la tua installazione Astra Trident utilizzando le configurazioni di esempio fornite.
 
+
+
+== Dettagli del driver di Google Cloud
+
+Astra Trident offre a. `gcp-cvs` driver per comunicare con il quadro strumenti. Le modalità di accesso supportate sono: _ReadWriteOnce_ (RWO), _ReadOnlyMany_ (ROX), _ReadWriteMany_ (RWX), _ReadWriteOncePod_ (RWOP).
+
+[cols="1, 1, 1, 2, 2"]
+|===
+| Driver | Protocollo | VolumeMode | Modalità di accesso supportate | File system supportati 
+
+
+| `gcp-cvs`  a| 
+NFS
+ a| 
+Filesystem
+ a| 
+RWO, ROX, RWX, RWOP
+ a| 
+`nfs`
+
+|===
 
 
 == Scopri di più sul supporto di Astra Trident per Cloud Volumes Service per Google Cloud
@@ -50,7 +71,7 @@ Per configurare e utilizzare https://cloud.netapp.com/cloud-volumes-service-for-
 
 Ogni back-end esegue il provisioning dei volumi in una singola area di Google Cloud. Per creare volumi in altre regioni, è possibile definire backend aggiuntivi.
 
-[cols="3"]
+[cols="1, 2, 1"]
 |===
 | Parametro | Descrizione | Predefinito 
 

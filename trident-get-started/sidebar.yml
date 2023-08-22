@@ -10,8 +10,6 @@ entries:
     url: "/trident-get-started/architecture.html"
   - title: Concetti
     entries:
-    - title: Driver ONTAP
-      url: "/trident-concepts/ontap-drivers.html"
     - title: Provisioning
       url: "/trident-concepts/provisioning.html"
     - title: Snapshot dei volumi

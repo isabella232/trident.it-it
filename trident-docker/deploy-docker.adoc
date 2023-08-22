@@ -191,7 +191,7 @@ sudo trident --config=/etc/netappdvp/ontap-nas.json
 ----
 +
 
-NOTE: Se non specificato, il nome predefinito per il driver del volume è "netapp".
+NOTE: Se non specificato, il nome predefinito del driver del volume è "NetApp".
 
 +
 Una volta avviato il daemon, è possibile creare e gestire i volumi utilizzando l'interfaccia CLI di Docker

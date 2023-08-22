@@ -279,7 +279,7 @@ Utilizzo di configurazioni o utilizzo non multipathing di `find_multipaths: yes`
 * Transizione da k8s.gcr.io a registry.k8s.io come registro predefinito per le immagini CSI
 * I volumi ONTAP-SAN ora utilizzeranno igroups per nodo e mapperanno solo le LUN agli igroups mentre vengono attivamente pubblicate su tali nodi per migliorare la nostra posizione di sicurezza. I volumi esistenti verranno opportunamente trasferiti al nuovo schema di igroup quando Astra Trident stabilisce che è sicuro farlo senza influire sui carichi di lavoro attivi.
 * Incluso un ResourceQuota con installazioni Trident per garantire che Trident DemonSet venga pianificato quando il consumo di PriorityClass è limitato per impostazione predefinita.
-* Aggiunto supporto per le funzionalità di rete al driver ANF. (link:https://github.com/NetApp/trident/issues/717["Numero GitHub 717"^])
+* Aggiunto il supporto per le funzioni di rete al driver Azure NetApp Files. (link:https://github.com/NetApp/trident/issues/717["Numero GitHub 717"^])
 * Aggiunta dell'anteprima tecnica per il rilevamento automatico dello switchover MetroCluster ai driver ONTAP. (link:https://github.com/NetApp/trident/issues/228["Numero GitHub 228"^])
 
 
@@ -330,7 +330,7 @@ IMPORTANT: Se si esegue l'aggiornamento da una release precedente di Trident e s
 * Risolto il problema di annullamento della pubblicazione dei volumi sui nodi cancellati. (link:https://github.com/NetApp/trident/issues/691["Numero GitHub 691"^])
 * Aggiunta la gestione delle incoerenze del file system sui dispositivi a blocchi. (link:https://github.com/NetApp/trident/issues/656["Numero GitHub 656"^])
 * Risolto il problema di recupero delle immagini con supporto automatico durante l'impostazione di `imageRegistry` flag durante l'installazione. (link:https://github.com/NetApp/trident/issues/715["Numero GitHub 715"^])
-* Risolto il problema a causa del quale il driver ANF non è riuscito a clonare un volume con più regole di esportazione.
+* Risolto il problema a causa del quale il driver Azure NetApp Files non riusciva a clonare un volume con più regole di esportazione.
 
 
 
@@ -375,8 +375,8 @@ Il driver e-Series (disattivato dal 20.07) è stato rimosso.
 * Risolto il problema a causa del quale il tentativo di importare un volume già importato restituisce EOF lasciando PVC in stato di attesa. (link:https://github.com/NetApp/trident/issues/489["Numero GitHub 489"])
 * Risolto il problema relativo al rallentamento delle prestazioni di Astra Trident quando vengono creati più di 32 snapshot su un volume SolidFire.
 * Ha sostituito SHA-1 con SHA-256 nella creazione del certificato SSL.
-* Driver ANF fisso per consentire nomi di risorse duplicati e limitare le operazioni a una singola posizione.
-* Driver ANF fisso per consentire nomi di risorse duplicati e limitare le operazioni a una singola posizione.
+* Corretto il driver Azure NetApp Files per consentire nomi di risorse duplicati e limitare le operazioni a un'unica posizione.
+* Corretto il driver Azure NetApp Files per consentire nomi di risorse duplicati e limitare le operazioni a un'unica posizione.
 
 
 
@@ -390,7 +390,7 @@ Il driver e-Series (disattivato dal 20.07) è stato rimosso.
 
 
 * Consenti volumi cross-area nel driver GCP. (link:https://github.com/NetApp/trident/issues/633["Numero GitHub 633"^])
-* Aggiunto supporto per l'opzione 'unixPermissions' ai volumi ANF. (link:https://github.com/NetApp/trident/issues/666["Numero GitHub 666"^])
+* Aggiunto il supporto per l'opzione 'unixPermissions' ai volumi Azure NetApp Files. (link:https://github.com/NetApp/trident/issues/666["Numero GitHub 666"^])
 
 
 

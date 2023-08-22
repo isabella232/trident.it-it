@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: trident-use/ontap-san.html 
-keywords: trident backend, ontap san, ontap-san, ontap-san-economy, fsx 
+keywords: trident backend, ontap san, ontap-san, ontap-san-economy, fsx, drivers, access modes, rwo, rwx, rwp, rwop, file system 
 summary: Scopri come configurare un backend ONTAP con i driver SAN ONTAP. 
 ---
 = Panoramica del driver SAN ONTAP
@@ -16,7 +16,68 @@ Informazioni sulla configurazione di un backend ONTAP con driver SAN ONTAP e Clo
 
 
 
-== Informazioni importanti sui driver SAN ONTAP
+== Dettagli del driver SAN ONTAP
+
+Astra Trident offre i seguenti driver per lo storage SAN per comunicare con il cluster ONTAP. Le modalità di accesso supportate sono: _ReadWriteOnce_ (RWO), _ReadOnlyMany_ (ROX), _ReadWriteMany_ (RWX), _ReadWriteOncePod_ (RWOP).
+
+
+IMPORTANT: Se stai utilizzando Astra Control per protezione, recovery e mobilità, leggi <<Compatibilità driver Astra Control>>.
+
+[cols="2, 1, 1, 2, 2"]
+|===
+| Driver | Protocollo | VolumeMode | Modalità di accesso supportate | File system supportati 
+
+
+| `ontap-san`  a| 
+ISCSI
+ a| 
+Blocco
+ a| 
+RWO, ROX, RWX, RWOP
+ a| 
+Nessun file system; dispositivo a blocchi raw
+
+
+
+| `ontap-san`  a| 
+ISCSI
+ a| 
+Filesystem
+ a| 
+RWO, RWOP
+
+ROX e RWX non sono disponibili in modalità Volume filesystem.
+ a| 
+`xfs`, `ext3`, `ext4`
+
+
+
+| `ontap-san-economy`  a| 
+ISCSI
+ a| 
+Blocco
+ a| 
+RWO, ROX, RWX, RWOP
+ a| 
+Nessun file system; dispositivo a blocchi raw
+
+
+
+| `ontap-san-economy`  a| 
+ISCSI
+ a| 
+Filesystem
+ a| 
+RWO, RWOP
+
+ROX e RWX non sono disponibili in modalità Volume filesystem.
+ a| 
+`xfs`, `ext3`, `ext4`
+
+|===
+
+
+=== Compatibilità driver Astra Control
 
 Astra Control offre protezione perfetta, disaster recovery e mobilità (spostamento di volumi tra cluster Kubernetes) per i volumi creati con `ontap-nas`, `ontap-nas-flexgroup`, e. `ontap-san` driver. Vedere link:https://docs.netapp.com/us-en/astra-control-center/use/replicate_snapmirror.html#replication-prerequisites["Prerequisiti per la replica di Astra Control"^] per ulteriori informazioni.
 

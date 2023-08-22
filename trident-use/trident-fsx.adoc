@@ -58,7 +58,7 @@ Puoi integrare Astra Trident con Amazon FSX per NetApp ONTAP utilizzando i segue
 * `ontap-nas-flexgroup`: Ogni PV fornito è un volume Amazon FSX completo per NetApp ONTAP FlexGroup.
 
 
-Per informazioni dettagliate sul driver, vedere link:../trident-concepts/ontap-drivers.html["Driver ONTAP"].
+Per informazioni dettagliate sul driver, vedere link:../trident-use/ontap-nas.html.html["Driver NAS"] e. link:../trident-use/ontap-san.html.html["Driver SAN"].
 
 
 
