@@ -1790,8 +1790,6 @@
   <block id="93dbcf0189ff94d39230d2e3726969ab" category="section-title">Aggiornare un backend</block>
   <block id="93700a3ea9dc6d858638cd66cd2f2bfa" category="paragraph">Possono esserci diversi motivi per aggiornare un backend:</block>
   <block id="56cdd71a65518838d73e00276ed6fab1" category="list-text">Le credenziali del sistema storage sono state modificate. Per aggiornare le credenziali, il Kubernetes Secret utilizzato in<block ref="913a4b06671d1e04e6582a85afe3abbe" prefix=" " category="inline-code"></block> l'oggetto deve essere aggiornato. Astra Trident aggiornerà automaticamente il backend con le credenziali più recenti fornite. Eseguire il seguente comando per aggiornare Kubernetes Secret:</block>
-  <block id="6ef0ccb954a07e30d4ff894b5256ae30" category="list-text">È necessario aggiornare i parametri (ad esempio il nome della SVM ONTAP utilizzata). In questo caso,<block ref="913a4b06671d1e04e6582a85afe3abbe" prefix=" " category="inline-code"></block> Gli oggetti possono essere aggiornati direttamente tramite Kubernetes.</block>
-  <block id="d4609cbe039ed7019e7151718c417bec" category="paragraph">In alternativa, apportare modifiche all'esistente<block ref="913a4b06671d1e04e6582a85afe3abbe" prefix=" " category="inline-code"></block> CR eseguendo il seguente comando:</block>
   <block id="d38f034e9aa082af3ec19c23caff4b0f" category="paragraph">Se un aggiornamento back-end non riesce, il back-end continua a rimanere nella sua ultima configurazione nota. È possibile visualizzare i log per determinare la causa eseguendo<block ref="f06ab1779eb739084ddf83006fb6f403" prefix=" " category="inline-code"></block> oppure<block ref="f9d8dd15d0562f29d38ca5412f8d3a1b" prefix=" " category="inline-code"></block>.</block>
   <block id="5878b59fb3a8430928026b63b5ca336f" category="paragraph">Dopo aver identificato e corretto il problema con il file di configurazione, è possibile eseguire nuovamente il comando update.</block>
   <block id="8682abd0ce083533bad141869c96ab2a" category="summary">Astra Trident offre diverse funzionalità per la gestione dei volumi. Scopri le funzionalità offerte da Astra Trident per i volumi.</block>
@@ -1900,7 +1898,6 @@
   <block id="f5b55596d3f53b1857a4980dac9db979" category="cell"><block ref="a3d5885ebdbdbb3f39c48e483cc04978" prefix="" category="inline-code"></block></block>
   <block id="5afd6479855e8d63f324b6ec2fa787b4" category="cell">Nome personalizzato o backend dello storage</block>
   <block id="237d7a1666794b0937adde704bb4795c" category="cell">Nome del driver + "_" + dataLIF</block>
-  <block id="5b7532a7b48ec4e7b24ef0f5977589de" category="cell">Indirizzo IP di un cluster o LIF di gestione SVM per uno switchover MetroCluster perfetto, è necessario specificare una LIF di gestione SVM. È possibile specificare un nome di dominio completo (FQDN). Può essere impostato per utilizzare gli indirizzi IPv6 se Astra Trident è stato installato utilizzando<block ref="4a4ef9f92e69acc000120379678aadcf" prefix=" " category="inline-code"></block> allarme. Gli indirizzi IPv6 devono essere definiti tra parentesi quadre, ad esempio [28e8:d9fb:a825:b7bf:69a8:d02f:9e7b:3555].</block>
   <block id="c560b8d02093547d93a87c72d8b16eaf" category="cell">"10.0.0.1", "[2001:1234:abcd::fefe]"</block>
   <block id="bf432628a3769cd379c6784688db312f" category="cell">Indirizzo IP del protocollo LIF. *Driver NAS ONTAP*: Si consiglia di specificare dataLIF. Se non fornito, Astra Trident recupera i dati LIF dalla SVM. È possibile specificare un FQDN (Fully-qualified domain name) da utilizzare per le operazioni di montaggio NFS, consentendo di creare un DNS round-robin per il bilanciamento del carico tra più LIF di dati. Può essere modificato dopo l'impostazione iniziale. Fare riferimento a. <block ref="b2c939cb81e81d99a25f4be74f517f2f" category="inline-xref-macro-rx"></block>. *Driver SAN ONTAP*: Non specificare iSCSI. Astra Trident utilizza la mappa LUN selettiva di ONTAP per rilevare le LIF iSCI necessarie per stabilire una sessione multi-percorso. Viene generato un avviso se dataLIF è esplicitamente definito. Può essere impostato per utilizzare gli indirizzi IPv6 se Astra Trident è stato installato utilizzando<block ref="4a4ef9f92e69acc000120379678aadcf" prefix=" " category="inline-code"></block> allarme. Gli indirizzi IPv6 devono essere definiti tra parentesi quadre, ad esempio [28e8:d9fb:a825:b7bf:69a8:d02f:9e7b:3555].</block>
   <block id="a0f3a965c12688befda99da850903dcb" category="cell"><block ref="323e871cfe2e70ead9c713e8f3164f8f" prefix="" category="inline-code"></block></block>
@@ -2162,7 +2159,6 @@
   <block id="8959ac16a58b09dc5a158e86ab02cb53" category="admonition">Quando si aggiornano i segreti CHAP per un backend, è necessario utilizzare<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block> per aggiornare il backend. Non aggiornare le credenziali sul cluster di storage attraverso l'interfaccia utente CLI/ONTAP, in quanto Astra Trident non sarà in grado di rilevare queste modifiche.</block>
   <block id="1a59d0d7850406f157c314978eb3b821" category="paragraph">Le connessioni esistenti rimarranno inalterate; continueranno a rimanere attive se le credenziali vengono aggiornate da Astra Trident sulla SVM. Le nuove connessioni utilizzeranno le credenziali aggiornate e le connessioni esistenti continueranno a rimanere attive. Disconnettendo e riconnettendo il vecchio PVS, verranno utilizzate le credenziali aggiornate.</block>
   <block id="a85f55a18073767a4945eac810e72cb2" category="cell">"ontap-nas", "ontap-nas-economy", "ontap-nas-flexgroup", "ontap-san", "ontap-san-economy"</block>
-  <block id="41a45a3b55b7354dab0d81bb0ad06493" category="cell">Indirizzo IP del protocollo LIF. Si consiglia di specificare<block ref="ea76b2438eb5996eb2c347e7341ed59a" prefix=" " category="inline-code"></block>. Se non fornito, Astra Trident recupera i dati LIF dalla SVM. È possibile specificare un FQDN (Fully-qualified domain name) da utilizzare per le operazioni di montaggio NFS, consentendo di creare un DNS round-robin per il bilanciamento del carico tra più LIF di dati. Può essere modificato dopo l'impostazione iniziale. Fare riferimento a. <block ref="b2c939cb81e81d99a25f4be74f517f2f" category="inline-xref-macro-rx"></block>. Può essere impostato per utilizzare gli indirizzi IPv6 se Astra Trident è stato installato utilizzando<block ref="4a4ef9f92e69acc000120379678aadcf" prefix=" " category="inline-code"></block> allarme. Gli indirizzi IPv6 devono essere definiti tra parentesi quadre, ad esempio [28e8:d9fb:a825:b7bf:69a8:d02f:9e7b:3555].</block>
   <block id="ae8df8316f5c485b7db4e7141e899701" category="cell">Indirizzo specificato o derivato da SVM, se non specificato (non consigliato)</block>
   <block id="68934a3e9455fa72420237eb05902327" category="cell">falso</block>
   <block id="e537a193eb90bd46a645ce750bb5f3fc" category="cell">["0.0.0.0/0", ":/0"]`</block>
@@ -2305,7 +2301,6 @@
   <block id="df7d9b009cdb0a2623872cb3f905e161" category="list-text"><block ref="df7d9b009cdb0a2623872cb3f905e161" category="inline-link-macro-rx"></block></block>
   <block id="d7f015aa2f1d488e17e175dac6de3149" category="list-text"><block ref="d7f015aa2f1d488e17e175dac6de3149" category="inline-link-macro-rx"></block></block>
   <block id="5f3124ab7224f89a36fbb64fd2ebda15" category="summary">Scopri come creare e utilizzare i driver SAN ONTAP con l'installazione di Astra Trident. Questa sezione fornisce esempi di configurazione back-end e dettagli su come mappare i backend a StorageClasses.</block>
-  <block id="dccf51176372af70ec697fc2b11f83d8" category="cell">Indirizzo IP del protocollo LIF. *Non specificare iSCSI.* utilizza Astra Trident <block ref="2de2f329c45219df280af5a70ed7a17c" category="inline-link-macro-rx"></block> Per scoprire i LIF iSCI necessari per stabilire una sessione multi-percorso. Viene generato un avviso se<block ref="ea76b2438eb5996eb2c347e7341ed59a" prefix=" " category="inline-code"></block> è esplicitamente definito.</block>
   <block id="3418e818bbbe397a49b7096a5ed87929" category="cell">Derivato dalla SVM</block>
   <block id="ab4ce1634362493e6de248d103136787" category="cell"><block ref="099cb468880f266cba40b49391fa46bc" prefix="" category="inline-code"></block></block>
   <block id="1545a9d9aae1b8b83497bbe9185d348b" category="cell">Utilizzare CHAP per autenticare iSCSI per i driver SAN ONTAP [booleano]. Impostare su<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block> Affinché Astra Trident configuri e utilizzi CHAP bidirezionale come autenticazione predefinita per la SVM fornita nel backend. Fare riferimento a. <block ref="866e591dc2a03ecc454dad25a664ca86" category="inline-link-macro-rx"></block> per ulteriori informazioni.</block>
@@ -3296,9 +3291,7 @@
   <block id="d0c5a28c77fc4e37f7271d37f7372724" category="list-text">Til<block ref="2e63b2ff91d4aeb88b54db5c90b71443" prefix=" " category="inline-code"></block> StorageClass eseguirà il mapping al terzo pool virtuale in<block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block> back-end. Questo è l'unico pool che offre una protezione di livello Silver e 20000 punti di credito.</block>
   <block id="0191eea3640b05213a7522d6581a2fd5" category="list-text">Il<block ref="a96bee9dd30f3ea0af93b4c64ca1e4a4" prefix=" " category="inline-code"></block> StorageClass eseguirà il mapping al terzo pool virtuale in<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> il back-end e il secondo pool virtuale in<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block> back-end. Queste sono le uniche offerte di pool con 5000 punti di credito.</block>
   <block id="c9410b4405958bba6c2f782b5da4c684" category="admonition">Se si utilizza Amazon FSX su NetApp ONTAP con Astra Trident, si consiglia di specificare i nomi DNS per i file LIF anziché gli indirizzi IP.</block>
-  <block id="69a7d5311f7a48959dd5b1cdbc093cec" category="example-title">Esempio di configurazione minima SAN ONTAP</block>
   <block id="cd5dd52b9f0bba70b1336e13afe05818" category="paragraph">Si tratta di una configurazione di base che utilizza<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> driver.</block>
-  <block id="2964cdc4ba96fd3e792322682498d593" category="example-title">Esempio di configurazione minima di ONTAP SAN economy</block>
   <block id="31089bb4131b18ca65c3d384cdd49644" category="example-title">Esempi CHAP bidirezionali</block>
   <block id="17baa03e9287aee400bc2e606d247156" category="paragraph">Questi esempi creano un backend con<block ref="099cb468880f266cba40b49391fa46bc" prefix=" " category="inline-code"></block> impostare su<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block>.</block>
   <block id="7a4c6868ec70d1fbee3cb3a7483e21d0" category="listing-title">Esempio di SAN ONTAP CHAP</block>
@@ -3330,15 +3323,8 @@ Questo parametro è obbligatorio per i backend Amazon FSX per ONTAP.</block>
 Questo parametro è facoltativo per ONTAP on-premise.
 
 Questo parametro è obbligatorio per i backend Amazon FSX per ONTAP e non può essere vuoto.</block>
-  <block id="8bf31f01da88d12bf642a85ce9b3d644" category="example-title">Configurazione minima per &lt;code&gt;ontap-nas-economy&lt;/code&gt;</block>
-  <block id="a48054bf8652cee4ee1d7dd8f08ffa1f" category="example-title">Configurazione minima per &lt;code&gt;ontap-nas-flexgroup&lt;/code&gt;</block>
-  <block id="7cf30ff82fa389224936afba832f444f" category="example-title">Configurazione minima per volumi SMB</block>
-  <block id="e7a2472a002479764cade728d64dcd9e" category="example-title">Autenticazione basata su certificato</block>
   <block id="78e5b29e139db71ceb7ca6bc99b5e228" category="paragraph">Si tratta di un esempio minimo di configurazione di back-end.<block ref="79fffaff4013c1e8c508e76646eca77b" prefix=" " category="inline-code"></block>,<block ref="19dce7ac7f5290fc8fa218ad0c858df5" prefix=" " category="inline-code"></block>, e.<block ref="8468461bca00a47ab5ddba2afc45f52c" prefix=" " category="inline-code"></block> (Facoltativo, se si utilizza una CA attendibile) sono inseriti in<block ref="9c15d32711e9ef8c6f76deda35452e13" prefix=" " category="inline-code"></block> E prendere rispettivamente i valori codificati base64 del certificato client, della chiave privata e del certificato CA attendibile.</block>
-  <block id="30cc3e263c594cde4b2a573283348bb1" category="example-title">Policy di esportazione automatica</block>
   <block id="8c35a9f7d631f51e05811b36617db641" category="paragraph">Questo esempio mostra come impostare Astra Trident a utilizzare policy di esportazione dinamiche per creare e gestire automaticamente le policy di esportazione. Questo funziona allo stesso modo per<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block> e.<block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block> driver.</block>
-  <block id="85435c5aae5ecdb04ef9ad8f7d48e88a" category="example-title">Utilizzo degli indirizzi IPv6</block>
-  <block id="4627b40a8eea6e0ef04368d12d76d239" category="example-title">Amazon FSX per ONTAP con volumi SMB</block>
   <block id="33ef55e82416e2c1c4beb9cba9560b02" category="paragraph">Il<block ref="5910159ef86741f119f7574a9064b5b0" prefix=" " category="inline-code"></block> Il parametro è obbligatorio per FSX per ONTAP che utilizza volumi SMB.</block>
   <block id="ef0e40b987d8b9ad523bdde2bba5157a" category="summary">Comprendere i requisiti, le opzioni di autenticazione e le policy di esportazione per la configurazione di un backend ONTAP con i driver NAS ONTAP.</block>
   <block id="c63609aba869239be30364b58d99b1a3" category="section-title">Autenticare il backend ONTAP</block>
@@ -3831,4 +3817,48 @@ Può essere impostato per utilizzare gli indirizzi IPv6 se Astra Trident è stat
   <block id="660807cada2c8061fb92638cfe0568d0" category="list-text">Per semplificare l'aggiornamento e la reinstallazione, la disinstallazione di Astra Trident non rimuove i CRD o gli oggetti correlati creati da Astra Trident. Se devi rimuovere completamente Astra Trident e tutti i suoi dati, vedi <block ref="9d95a644de0932ac2f909a32a488bd14" category="inline-link-macro-rx"></block>.</block>
   <block id="3277c9131339b6e3e8b8401d060b2ace" category="list-text">**Elimina<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block>:** rimuovendo il<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block> CR utilizzato per implementare Astra Trident, si richiede all'operatore di disinstallare Trident. L'operatore elabora la rimozione di<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block> E procede alla rimozione dell'implementazione e del demonset di Astra Trident, eliminando i pod Trident creati come parte dell'installazione.</block>
   <block id="d92f992bb942ae97af56a9921f1fb6d0" category="paragraph">Utilizzare<block ref="fe98497efedbe156ecc4b953aea77e07" prefix=" " category="inline-code"></block> ingresso comando<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block> Rimuovere tutte le risorse associate ad Astra Trident, ad eccezione dei CRD e degli oggetti correlati.</block>
+  <block id="88251b113e3f1da4ba88b0d4283d23ed" category="paragraph">Scopri come creare e utilizzare i driver SAN ONTAP con la tua installazione Astra Trident. In questa sezione vengono forniti esempi di configurazione backend e dettagli per la mappatura dei backend a StorageClasses.</block>
+  <block id="00100eed0a9df5b2142497897b426d44" category="cell">Indirizzo IP di un cluster o di una LIF di gestione SVM.
+
+È possibile specificare un nome di dominio completo (FQDN).
+
+Può essere impostato per utilizzare gli indirizzi IPv6 se Astra Trident è stato installato utilizzando<block ref="4a4ef9f92e69acc000120379678aadcf" prefix=" " category="inline-code"></block> allarme. Gli indirizzi IPv6 devono essere definiti tra parentesi quadre, ad esempio<block ref="33e9328e92e3ef05629093b4693b3925" prefix=" " category="inline-code"></block>.
+
+Per uno switchover perfetto del MetroCluster, consulta il <block ref="41195e18a4a81a05f5c5a6be365a5602" category="inline-xref-macro-rx"></block>.</block>
+  <block id="53f89913149599078aa2763e20f64db1" category="cell">Indirizzo IP del protocollo LIF.
+
+*Non specificare iSCSI.* utilizza Astra Trident <block ref="2de2f329c45219df280af5a70ed7a17c" category="inline-link-macro-rx"></block> Per scoprire i LIF iSCI necessari per stabilire una sessione multi-percorso. Viene generato un avviso se<block ref="ea76b2438eb5996eb2c347e7341ed59a" prefix=" " category="inline-code"></block> è esplicitamente definito.
+
+*Ometti per MetroCluster.* vedere la <block ref="41195e18a4a81a05f5c5a6be365a5602" category="inline-xref-macro-rx"></block>.</block>
+  <block id="19611c32e434019e356af9e0da999936" category="cell">Macchina virtuale per lo storage da utilizzare
+
+*Ometti per MetroCluster.* vedere la <block ref="41195e18a4a81a05f5c5a6be365a5602" category="inline-xref-macro-rx"></block>.</block>
+  <block id="16d35233bf6aa04a2ff7b9ec19d64661" category="example-title">Esempio MetroCluster</block>
+  <block id="fd9313829353096dad83775c55ce66f8" category="paragraph">È possibile configurare il backend per evitare di dover aggiornare manualmente la definizione del backend dopo lo switchover e lo switchback durante <block ref="6ffda35fd03109cc0d7cf7a1f79d2c30" category="inline-link-macro-rx"></block>.</block>
+  <block id="abc765e949697f25e96670a5cab132f3" category="paragraph">Per uno switchover e uno switchback perfetto, specifica la SVM utilizzando<block ref="a6ea6092cb7b9c5f31909eb4be8fa5ea" prefix=" " category="inline-code"></block> e omettere<block ref="ea76b2438eb5996eb2c347e7341ed59a" prefix=" " category="inline-code"></block> e.<block ref="924ff83ff1e671bacfb07ff12b845703" prefix=" " category="inline-code"></block> parametri. Ad esempio:</block>
+  <block id="d1cc287cede970a7472833938f39b940" category="list-text">È necessario aggiornare i parametri (ad esempio il nome della SVM ONTAP utilizzata).</block>
+  <block id="bb5c9e20ecc2d96bd9d91107161bf89b" category="list-text">È possibile eseguire l'aggiornamento<block ref="913a4b06671d1e04e6582a85afe3abbe" prefix=" " category="inline-code"></block> Oggetti direttamente tramite Kubernetes usando il seguente comando:</block>
+  <block id="ccec41e7609b17a7fe58691b5cbf68ea" category="list-text">In alternativa, è possibile apportare modifiche all'esistente<block ref="913a4b06671d1e04e6582a85afe3abbe" prefix=" " category="inline-code"></block> CR utilizzando il seguente comando:</block>
+  <block id="9c12c9edc9fbb4ee2f0331555cd8de1b" category="paragraph">Scopri come creare e utilizzare i driver NAS ONTAP con la tua installazione Astra Trident. In questa sezione vengono forniti esempi di configurazione backend e dettagli per la mappatura dei backend a StorageClasses.</block>
+  <block id="630864bd1af028bd4049fce933eeed43" category="cell">Indirizzo IP di un cluster o LIF di gestione SVM
+
+È possibile specificare un nome di dominio completo (FQDN).
+
+Può essere impostato per utilizzare gli indirizzi IPv6 se Astra Trident è stato installato utilizzando<block ref="4a4ef9f92e69acc000120379678aadcf" prefix=" " category="inline-code"></block> allarme. Gli indirizzi IPv6 devono essere definiti tra parentesi quadre, ad esempio<block ref="33e9328e92e3ef05629093b4693b3925" prefix=" " category="inline-code"></block>.
+
+Per uno switchover perfetto del MetroCluster, consulta il <block ref="41195e18a4a81a05f5c5a6be365a5602" category="inline-xref-macro-rx"></block>.</block>
+  <block id="55ef3b8d4908e1b161b74799585d5b2b" category="cell">Indirizzo IP del protocollo LIF.
+
+Si consiglia di specificare<block ref="ea76b2438eb5996eb2c347e7341ed59a" prefix=" " category="inline-code"></block>. Se non fornito, Astra Trident recupera i dati LIF dalla SVM. È possibile specificare un FQDN (Fully-qualified domain name) da utilizzare per le operazioni di montaggio NFS, consentendo di creare un DNS round-robin per il bilanciamento del carico tra più LIF di dati.
+
+Può essere modificato dopo l'impostazione iniziale. Fare riferimento a. <block ref="b2c939cb81e81d99a25f4be74f517f2f" category="inline-xref-macro-rx"></block>.
+
+Può essere impostato per utilizzare gli indirizzi IPv6 se Astra Trident è stato installato utilizzando<block ref="4a4ef9f92e69acc000120379678aadcf" prefix=" " category="inline-code"></block> allarme. Gli indirizzi IPv6 devono essere definiti tra parentesi quadre, ad esempio<block ref="33e9328e92e3ef05629093b4693b3925" prefix=" " category="inline-code"></block>.
+
+*Ometti per MetroCluster.* vedere la <block ref="41195e18a4a81a05f5c5a6be365a5602" category="inline-xref-macro-rx"></block>.</block>
+  <block id="d24ddd1da817847ede47979e6e68c60e" category="example-title">Esempio di FlexGroup NAS ONTAP</block>
+  <block id="8788fe54575b03d9b62dbb1a38a7a277" category="example-title">Esempio di volumi SMB</block>
+  <block id="1ce00ab507a065e4febc57b244e25d18" category="example-title">Esempio di policy di esportazione automatica</block>
+  <block id="5ef13a507a243e20eb0469a9d7670527" category="example-title">Esempio di indirizzi IPv6</block>
+  <block id="ee8af8063e9ea3725931d232730b8a8e" category="example-title">Esempio di Amazon FSX per ONTAP con volumi SMB</block>
 </blocks>

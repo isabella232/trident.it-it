@@ -47,25 +47,33 @@ Puoi anche correre `tridentctl get backend -n trident` oppure `tridentctl get ba
 Possono esserci diversi motivi per aggiornare un backend:
 
 * Le credenziali del sistema storage sono state modificate. Per aggiornare le credenziali, il Kubernetes Secret utilizzato in `TridentBackendConfig` l'oggetto deve essere aggiornato. Astra Trident aggiornerà automaticamente il backend con le credenziali più recenti fornite. Eseguire il seguente comando per aggiornare Kubernetes Secret:
-
-
++
 [listing]
 ----
 kubectl apply -f <updated-secret-file.yaml> -n trident
 ----
-* È necessario aggiornare i parametri (ad esempio il nome della SVM ONTAP utilizzata). In questo caso, `TridentBackendConfig` Gli oggetti possono essere aggiornati direttamente tramite Kubernetes.
-
-
+* È necessario aggiornare i parametri (ad esempio il nome della SVM ONTAP utilizzata).
++
+** È possibile eseguire l'aggiornamento `TridentBackendConfig` Oggetti direttamente tramite Kubernetes usando il seguente comando:
++
 [listing]
 ----
 kubectl apply -f <updated-backend-file.yaml>
 ----
-In alternativa, apportare modifiche all'esistente `TridentBackendConfig` CR eseguendo il seguente comando:
-
+** In alternativa, è possibile apportare modifiche all'esistente `TridentBackendConfig` CR utilizzando il seguente comando:
++
 [listing]
 ----
 kubectl edit tbc <tbc-name> -n trident
 ----
-Se un aggiornamento back-end non riesce, il back-end continua a rimanere nella sua ultima configurazione nota. È possibile visualizzare i log per determinare la causa eseguendo `kubectl get tbc <tbc-name> -o yaml -n trident` oppure `kubectl describe tbc <tbc-name> -n trident`.
 
-Dopo aver identificato e corretto il problema con il file di configurazione, è possibile eseguire nuovamente il comando update.
+
+
+
+[NOTE]
+====
+* Se un aggiornamento back-end non riesce, il back-end continua a rimanere nella sua ultima configurazione nota. È possibile visualizzare i log per determinare la causa eseguendo `kubectl get tbc <tbc-name> -o yaml -n trident` oppure `kubectl describe tbc <tbc-name> -n trident`.
+* Dopo aver identificato e corretto il problema con il file di configurazione, è possibile eseguire nuovamente il comando update.
+
+
+====
