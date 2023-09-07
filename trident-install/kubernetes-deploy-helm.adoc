@@ -16,7 +16,7 @@ summary: 'È possibile implementare l"operatore Trident e installare Astra Tride
 
 
 
-== Informazioni critiche su Astra Trident 23,07
+== Informazioni critiche su Astra Trident 23.07.1
 
 *È necessario leggere le seguenti informazioni critiche su Astra Trident.*
 
@@ -49,11 +49,11 @@ Oltre a link:../trident-get-started/kubernetes-deploy.html#before-you-deploy["pr
 ----
 helm repo add netapp-trident https://netapp.github.io/trident-helm-chart
 ----
-. Utilizzare `helm install` e specificare un nome per la distribuzione come nell'esempio seguente dove `23.07.0` È la versione di Astra Trident che si sta installando.
+. Utilizzare `helm install` e specificare un nome per la distribuzione come nell'esempio seguente dove `23.07.1` È la versione di Astra Trident che si sta installando.
 +
 [listing]
 ----
-helm install <name> netapp-trident/trident-operator --version 23.07.0 --create-namespace --namespace <trident-namespace>
+helm install <name> netapp-trident/trident-operator --version 23.07.1 --create-namespace --namespace <trident-namespace>
 ----
 +
 
@@ -83,11 +83,11 @@ Specificare un file YAML con override. Questo valore può essere specificato pi�
 Specificare le sostituzioni sulla riga di comando.
 
 |===
-Ad esempio, per modificare il valore predefinito di `debug`, eseguire quanto segue `--set` comando dove `23.07.0` È la versione di Astra Trident che si sta installando:
+Ad esempio, per modificare il valore predefinito di `debug`, eseguire quanto segue `--set` comando dove `23.07.1` È la versione di Astra Trident che si sta installando:
 
 [listing]
 ----
-helm install <name> netapp-trident/trident-operator --version 23.07.0  --create-namespace --namespace trident --set tridentDebug=true
+helm install <name> netapp-trident/trident-operator --version 23.07.1  --create-namespace --namespace trident --set tridentDebug=true
 ----
 
 
