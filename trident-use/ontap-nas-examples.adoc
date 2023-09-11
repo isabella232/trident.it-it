@@ -64,7 +64,7 @@ Può essere impostato per utilizzare gli indirizzi IPv6 se Astra Trident è stat
 
 | `autoExportCIDRs` | Elenco di CIDR per filtrare gli IP dei nodi di Kubernetes rispetto a quando `autoExportPolicy` è attivato.
 
-Utilizzando il `autoExportPolicy` e. `autoExportCIDRs` Astra Trident è in grado di gestire automaticamente le policy di esportazione. | ["0.0.0.0/0", ":/0"]` 
+Utilizzando il `autoExportPolicy` e. `autoExportCIDRs` Astra Trident è in grado di gestire automaticamente le policy di esportazione. | ["0,0.0,0/0", ":/0"]» 
 
 
 | `labels` | Set di etichette arbitrarie formattate con JSON da applicare sui volumi | "" 
@@ -85,7 +85,7 @@ Utilizzando il `autoExportPolicy` e. `autoExportCIDRs` Astra Trident è in grado
 | `password` | Password per la connessione al cluster/SVM. Utilizzato per l'autenticazione basata sulle credenziali |  
 
 
-| `storagePrefix` | Prefisso utilizzato per il provisioning di nuovi volumi nella SVM. Non può essere aggiornato dopo l'impostazione | "tridente" 
+| `storagePrefix` | Prefisso utilizzato per il provisioning di nuovi volumi nella SVM. Non può essere aggiornato dopo l'impostazione | "trident" 
 
 
 | `limitAggregateUsage` | Il provisioning non riesce se l'utilizzo è superiore a questa percentuale. *Non si applica ad Amazon FSX per ONTAP* | "" (non applicato per impostazione predefinita) 
@@ -100,7 +100,9 @@ Utilizzando il `autoExportPolicy` e. `autoExportCIDRs` Astra Trident è in grado
 | `lunsPerFlexvol` | LUN massimi per FlexVol, devono essere compresi nell'intervallo [50, 200] | "100" 
 
 
-| `debugTraceFlags` | Flag di debug da utilizzare per la risoluzione dei problemi. Ad esempio, {"api":false,} Method":true non utilizzare `debugTraceFlags` a meno che non si stia eseguendo la risoluzione dei problemi e non si richieda un dump dettagliato del log. | nullo 
+| `debugTraceFlags` | Flag di debug da utilizzare per la risoluzione dei problemi. Esempio, {"api":false, "method":true}
+
+Non utilizzare `debugTraceFlags` a meno che non si stia eseguendo la risoluzione dei problemi e non si richieda un dump dettagliato del log. | nullo 
 
 
 | `nasType` | Configurare la creazione di volumi NFS o SMB. Le opzioni sono `nfs`, `smb` o nullo. L'impostazione su Null consente di impostare i volumi NFS come predefiniti. | `nfs` 
@@ -137,7 +139,7 @@ Questo parametro è obbligatorio per i backend Amazon FSX per ONTAP e non può e
 | `spaceAllocation` | Allocazione dello spazio per LUN | "vero" 
 
 
-| `spaceReserve` | Modalità di riserva dello spazio; "nessuno" (sottile) o "volume" (spesso) | "nessuno" 
+| `spaceReserve` | Modalità di prenotazione dello spazio; "nessuno" (sottile) o "volume" (spesso) | "nessuno" 
 
 
 | `snapshotPolicy` | Policy di Snapshot da utilizzare | "nessuno" 
@@ -149,7 +151,7 @@ Questo parametro è obbligatorio per i backend Amazon FSX per ONTAP e non può e
 | `adaptiveQosPolicy` | Gruppo di criteri QoS adattivi da assegnare per i volumi creati. Scegliere tra qosPolicy o adaptiveQosPolicy per pool di storage/backend. Non supportato da ontap-nas-Economy. | "" 
 
 
-| `snapshotReserve` | Percentuale di volume riservato agli snapshot "0" | Se `snapshotPolicy` è "nessuno", altrimenti "" 
+| `snapshotReserve` | Percentuale di volume riservato agli snapshot | "0" se `snapshotPolicy` è "nessuno", altrimenti "" 
 
 
 | `splitOnClone` | Separare un clone dal suo padre al momento della creazione | "falso" 
@@ -158,13 +160,13 @@ Questo parametro è obbligatorio per i backend Amazon FSX per ONTAP e non può e
 | `encryption` | Abilitare NetApp Volume Encryption (NVE) sul nuovo volume; il valore predefinito è `false`. NVE deve essere concesso in licenza e abilitato sul cluster per utilizzare questa opzione. Se NAE è attivato sul backend, tutti i volumi forniti in Astra Trident saranno abilitati per NAE. Per ulteriori informazioni, fare riferimento a: link:../trident-reco/security-reco.html["Come funziona Astra Trident con NVE e NAE"]. | "falso" 
 
 
-| `tieringPolicy` | Policy di tiering per utilizzare "nessuno" | "Solo snapshot" per configurazione SVM-DR precedente a ONTAP 9.5 
+| `tieringPolicy` | Criterio di tiering da utilizzare "nessuno" | "Solo Snapshot" per la configurazione SVM-DR pre-ONTAP 9,5 
 
 
-| `unixPermissions` | Per i nuovi volumi | "777" per volumi NFS; vuoto (non applicabile) per volumi SMB 
+| `unixPermissions` | Per i nuovi volumi | "777" per i volumi NFS; vuoto (non applicabile) per i volumi SMB 
 
 
-| `snapshotDir` | Controlla la visibilità di `.snapshot` directory | "falso" 
+| `snapshotDir` | Controlla l'accesso a. `.snapshot` directory | "falso" 
 
 
 | `exportPolicy` | Policy di esportazione da utilizzare | "predefinito" 

@@ -18,7 +18,7 @@ summary: 'È possibile aggiornare facilmente un"installazione Astra Trident util
 
 == Aggiornare un'installazione manuale
 
-È possibile aggiornare un'installazione di un operatore Trident con ambito cluster a un'altra installazione di un operatore Trident con ambito cluster. Tutte le versioni di Astra Trident 21.01 e successive utilizzano un operatore con ambito cluster.
+È possibile eseguire l'aggiornamento da un'installazione dell'operatore Trident definita dall'ambito del cluster a un'altra installazione dell'operatore Trident definita dal cluster. Tutte le versioni di Astra Trident 21.01 e successive utilizzano un operatore con ambito cluster.
 
 
 NOTE: Per l'aggiornamento da Astra Trident che è stato installato usando l'operatore con ambito namespace (versioni da 20,07 a 20,10), usa le istruzioni di upgrade per link:../earlier-versions.html["versione installata"] Di Astra Trident.

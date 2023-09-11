@@ -88,6 +88,9 @@ Per uno switchover perfetto del MetroCluster, consulta il <<mcc-best>>. | "10.0.
 | `password` | Password necessaria per comunicare con il cluster ONTAP. Utilizzato per l'autenticazione basata su credenziali. | "" 
 
 
+| `svm` | Macchina virtuale per lo storage da utilizzare | Derivato se un SVM `managementLIF` è specificato 
+
+
 | `storagePrefix` | Prefisso utilizzato per il provisioning di nuovi volumi nella SVM. Non può essere modificato in seguito. Per aggiornare questo parametro, è necessario creare un nuovo backend. | `trident` 
 
 
@@ -100,7 +103,9 @@ Per uno switchover perfetto del MetroCluster, consulta il <<mcc-best>>. | "10.0.
 | `lunsPerFlexvol` | LUN massimi per FlexVol, devono essere compresi nell'intervallo [50, 200] | `100` 
 
 
-| `debugTraceFlags` | Flag di debug da utilizzare per la risoluzione dei problemi. Ad esempio, {"api":false,} method":true non utilizzare a meno che non si stia eseguendo la risoluzione dei problemi e non si richieda un dump dettagliato del log. | `null` 
+| `debugTraceFlags` | Flag di debug da utilizzare per la risoluzione dei problemi. Esempio, {"api":false, "method":true}
+
+Non utilizzare a meno che non si stia eseguendo la risoluzione dei problemi e non si richieda un dump dettagliato del log. | `null` 
 
 
 | `useREST` | Parametro booleano per l'utilizzo delle API REST di ONTAP. *Anteprima tecnica*
@@ -121,7 +126,7 @@ Per uno switchover perfetto del MetroCluster, consulta il <<mcc-best>>. | "10.0.
 | `spaceAllocation` | Allocazione dello spazio per LUN | "vero" 
 
 
-| `spaceReserve` | Modalità di riserva dello spazio; "nessuno" (sottile) o "volume" (spesso) | "nessuno" 
+| `spaceReserve` | Modalità di prenotazione dello spazio; "nessuno" (sottile) o "volume" (spesso) | "nessuno" 
 
 
 | `snapshotPolicy` | Policy di Snapshot da utilizzare | "nessuno" 
@@ -133,7 +138,7 @@ Per uno switchover perfetto del MetroCluster, consulta il <<mcc-best>>. | "10.0.
 | `adaptiveQosPolicy` | Gruppo di criteri QoS adattivi da assegnare per i volumi creati. Scegliere tra qosPolicy o adaptiveQosPolicy per pool di storage/backend | "" 
 
 
-| `snapshotReserve` | Percentuale di volume riservato agli snapshot "0" | Se `snapshotPolicy` è "nessuno", altrimenti "" 
+| `snapshotReserve` | Percentuale di volume riservato agli snapshot | "0" se `snapshotPolicy` è "nessuno", altrimenti "" 
 
 
 | `splitOnClone` | Separare un clone dal suo padre al momento della creazione | "falso" 
@@ -148,7 +153,7 @@ Per uno switchover perfetto del MetroCluster, consulta il <<mcc-best>>. | "10.0.
 | `securityStyle` | Stile di sicurezza per nuovi volumi | `unix` 
 
 
-| `tieringPolicy` | Policy di tiering per utilizzare "nessuno" | "Solo snapshot" per configurazione SVM-DR precedente a ONTAP 9.5 
+| `tieringPolicy` | Criterio di tiering da utilizzare "nessuno" | "Solo Snapshot" per la configurazione SVM-DR pre-ONTAP 9,5 
 |===
 
 
