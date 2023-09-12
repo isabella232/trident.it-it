@@ -1461,8 +1461,6 @@
   <block id="3de05f78e401869f4630ec8cabf339df" category="section-title">È possibile eseguire l'aggiornamento da una versione precedente direttamente a una versione più recente (ignorando alcune versioni)?</block>
   <block id="ce44cbbc54839f39b351c091b0e3caa5" category="paragraph">NetApp supporta l'aggiornamento di Astra Trident da una release principale alla successiva release principale immediata. È possibile eseguire l'aggiornamento dalla versione 18.xx alla versione 19.xx, dalla versione 19.xx alla versione 20.xx e così via. Prima dell'implementazione in produzione, è necessario testare l'aggiornamento in un laboratorio.</block>
   <block id="0399b9e6348e554937a4d65efc97a1b8" category="section-title">È possibile eseguire il downgrade di Trident a una release precedente?</block>
-  <block id="d307563c01953bd90a41ddd049f96d51" category="inline-link-macro">la sezione sul downgrade</block>
-  <block id="72fec731c958562fd09df08eef5fbb89" category="paragraph">Se si desidera eseguire il downgrade, è necessario valutare diversi fattori. Vedere <block ref="ea621a0de3f004c488ea799d0fd7e41d" category="inline-link-macro-rx"></block>.</block>
   <block id="ba9c59aa9d07b25e124dcf6ca88d689a" category="section-title">Gestione di back-end e volumi</block>
   <block id="ffe72215dff9a93d62ee68905212025e" category="section-title">È necessario definire le LIF di gestione e dati in un file di definizione back-end ONTAP?</block>
   <block id="7911fdf4657d2e334f854a18bd855d10" category="paragraph">La LIF di gestione è obbligatoria. La LIF dei dati varia:</block>
@@ -3887,4 +3885,6 @@ Astra Trident</block>
   <block id="d64d0e5bb5a552ae4986a713f41c8fc3" category="cell">Selettori di nodi aggiuntivi per i pod.	Segue lo stesso formato di<block ref="6ae8be3433bfc36ced79a1271e6ebf11" prefix=" " category="inline-code"></block>.</block>
   <block id="875ce721843c20d7f9aae240673ed68b" category="cell">Ignora le tolleranze Kubernetes per i pod. Segue lo stesso formato di<block ref="f1fa64fcf5077601cb803e995a51fa4f" prefix=" " category="inline-code"></block>.</block>
   <block id="00e8e1706119ce5300bdc9141ececc37" category="cell">Selettori di nodi aggiuntivi per i pod. Segue lo stesso formato di<block ref="6ae8be3433bfc36ced79a1271e6ebf11" prefix=" " category="inline-code"></block>.</block>
+  <block id="7786076739da628161f45de338cd6e69" category="inline-link-macro">Disinstallare Astra Trident</block>
+  <block id="bc2d347a4b0e30ef46f4d91b07267ca7" category="paragraph">Se è necessaria una correzione per i bug osservati dopo un aggiornamento, problemi di dipendenza o un aggiornamento non riuscito o incompleto, è necessario <block ref="b6be8ee390417a446f993452ffee9585" category="inline-link-macro-rx"></block> e reinstallare la versione precedente utilizzando le istruzioni specifiche per quella versione. Questo è l'unico modo consigliato per eseguire il downgrade a una versione precedente.</block>
 </blocks>

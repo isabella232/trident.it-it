@@ -194,7 +194,7 @@ NetApp supporta l'aggiornamento di Astra Trident da una release principale alla 
 
 === È possibile eseguire il downgrade di Trident a una release precedente?
 
-Se si desidera eseguire il downgrade, è necessario valutare diversi fattori. Vedere link:https://docs.netapp.com/us-en/trident/trident-managing-k8s/downgrade-trident.html["la sezione sul downgrade"].
+Se è necessaria una correzione per i bug osservati dopo un aggiornamento, problemi di dipendenza o un aggiornamento non riuscito o incompleto, è necessario link:../trident-managing-k8s/uninstall-trident.html["Disinstallare Astra Trident"] e reinstallare la versione precedente utilizzando le istruzioni specifiche per quella versione. Questo è l'unico modo consigliato per eseguire il downgrade a una versione precedente.
 
 
 
