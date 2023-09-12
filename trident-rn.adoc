@@ -19,7 +19,7 @@ WARNING: Il `tridentctl` Il file binario per Linux fornito nel file zip del prog
 
 
 
-== Novità del 23.07.1
+== Novità della versione 23.07.1
 
 *Kubernetes:* eliminazione di daemonset fissa per supportare aggiornamenti senza downtime (.link:https://github.com/NetApp/trident/issues/740["Problema n. 740"^]).
 

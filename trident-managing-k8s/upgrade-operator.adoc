@@ -44,10 +44,9 @@ Assicurarsi di utilizzare un cluster Kubernetes in esecuzione link:../trident-ge
 +
 [listing]
 ----
-kubectl delete -f 23.04/trident-installer/deploy/bundle.yaml -n trident
+kubectl delete -f 23.04/trident-installer/deploy/<bundle-name.yaml> -n trident
 ----
 . Se l'installazione iniziale è stata personalizzata utilizzando `TridentOrchestrator` è possibile modificare `TridentOrchestrator` oggetto per modificare i parametri di installazione. Ciò potrebbe includere le modifiche apportate per specificare i registri di immagini Trident e CSI mirrorati per la modalità offline, abilitare i registri di debug o specificare i segreti di pull delle immagini.
-. Installare Astra Trident utilizzando il file YAML del bundle corretto per il proprio ambiente e la versione di Astra Trident. Ad esempio, se stai installando Astra Trident 23,07 per Kubernetes 1,27, esegui il seguente comando:
 . Installare Astra Trident utilizzando il file YAML del bundle corretto per il proprio ambiente e la versione di Astra Trident. Ad esempio, se stai installando Astra Trident 23,07 per Kubernetes 1,27, esegui il seguente comando:
 +
 [listing]
@@ -119,7 +118,7 @@ kubectl create -f deploy/crds/trident.netapp.io_tridentorchestrators_crd_post1.1
 +
 [listing]
 ----
-kubectl create -f deploy/<BUNDLE.YAML>
+kubectl create -f deploy/<bundle-name.yaml>
 
 serviceaccount/trident-operator created
 clusterrole.rbac.authorization.k8s.io/trident-operator created
