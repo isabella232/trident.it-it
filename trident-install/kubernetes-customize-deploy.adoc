@@ -35,27 +35,62 @@ WARNING: `spec.namespace` è specificato in `TridentOrchestrator` Per indicare l
 
 Questa tabella è dettagliata `TridentOrchestrator` attributi.
 
-[cols="3"]
+[cols="1,2,1"]
 |===
 | Parametro | Descrizione | Predefinito 
+
+
+| `namespace` | Spazio dei nomi in cui installare Astra Trident | "predefinito" 
+
+
+| `debug` | Attiva il debug per Astra Trident | falso 
+
+
+| `enableForceDetach` | `ontap-san` e. `ontap-san-economy` solo. Funziona con Kubernetes non-Graged Node Shutdown (NGNS) per consentire agli amministratori del cluster di migrare in sicurezza i carichi di lavoro con volumi montati su nuovi nodi in caso di problemi di integrità di un nodo. *Questa è una funzionalità sperimentale di 23.04.* fare riferimento a. <<Dettagli sulla forza di distacco>> per dettagli importanti. | `false` 
+
+
+| `windows` | Impostazione su `true` Attiva l'installazione su nodi di lavoro Windows. | falso 
+
+
+| `useIPv6` | Installare Astra Trident su IPv6 | falso 
+
+
+| `k8sTimeout` | Timeout per le operazioni Kubernetes | 30 sec 
+
+
+| `silenceAutosupport` | Non inviare pacchetti AutoSupport a NetApp
+in maniera automatica | falso 
 
 
 | `autosupportImage` | L'immagine del contenitore per la telemetria AutoSupport | "netapp/trident-autosupport:23,07" 
 
 
-| `autosupportProxy` | Indirizzo/porta di un proxy per l'invio di telemetria AutoSupport | "http://proxy.example.com:8888"[] 
+| `autosupportProxy` | Indirizzo/porta di un proxy per l'invio della AutoSupport
+Telemetria | "http://proxy.example.com:8888"[] 
 
 
-| `controllerPluginNodeSelector` | Selettori di nodi aggiuntivi per i pod che eseguono il Plugin CSI del controller Trident. Segue lo stesso formato di `pod.spec.nodeSelector`. | Nessuna impostazione predefinita; opzionale 
+| `uninstall` | Flag utilizzato per disinstallare Astra Trident | falso 
 
 
-| `controllerPluginTolerations` | Ignora le tolleranze per i pod che eseguono il Plugin CSI del controller Trident. Segue lo stesso formato di `pod.spec.Tolerations`. | Nessuna impostazione predefinita; opzionale 
+| `logFormat` | Formato di registrazione Astra Trident da utilizzare [text,json] | "testo" 
 
 
-| `debug` | Attiva il debug per Astra Trident | `false` 
+| `tridentImage` | Immagine Astra Trident da installare | "netapp/trident:23,07" 
 
 
-| `enableForceDetach` | `ontap-san` e. `ontap-san-economy` solo. Funziona con Kubernetes non-Graged Node Shutdown (NGNS) per consentire agli amministratori del cluster di migrare in sicurezza i carichi di lavoro con volumi montati su nuovi nodi in caso di problemi di integrità di un nodo. *Questa è una funzionalità sperimentale di 23.04.* fare riferimento a. <<Dettagli sulla forza di distacco>> per dettagli importanti. | `false` 
+| `imageRegistry` | Percorso al registro interno, del formato
+`<registry FQDN>[:port][/subpath]` | "k8s.gcr.io/sig-storage" (k8s 1,19+)
+o "quay.io/k8scsi" 
+
+
+| `kubeletDir` | Percorso della directory del kubelet sull'host | "/var/lib/kubelet" 
+
+
+| `wipeout` | Un elenco di risorse da eliminare per eseguire una rimozione completa di
+Astra Trident |  
+
+
+| `imagePullSecrets` | Secrets (segreti) per estrarre immagini da un registro interno |  
 
 
 | `imagePullPolicy` | Imposta il criterio di pull dell'immagine per l'operatore Trident. I valori validi sono:
@@ -64,16 +99,16 @@ Questa tabella è dettagliata `TridentOrchestrator` attributi.
 `Never` per non tirare mai l'immagine. | `IfNotPresent` 
 
 
-| `controllerPluginNodeSelector` | Selettori di nodi aggiuntivi per i pod. Segue lo stesso formato di pod.spec.nodeSelector. | Nessuna impostazione predefinita; opzionale 
+| `controllerPluginNodeSelector` | Selettori di nodi aggiuntivi per i pod.	Segue lo stesso formato di `pod.spec.nodeSelector`. | Nessuna impostazione predefinita; opzionale 
 
 
-| `controllerPluginTolerations` | Ignora le tolleranze Kubernetes per i pod. Segue lo stesso formato di pod.spec.Tolerations. | Nessuna impostazione predefinita; opzionale 
+| `controllerPluginTolerations` | Ignora le tolleranze Kubernetes per i pod. Segue lo stesso formato di `pod.spec.Tolerations`. | Nessuna impostazione predefinita; opzionale 
 
 
-| `nodePluginNodeSelector` | Selettori di nodi aggiuntivi per i pod. Segue lo stesso formato di pod.spec.nodeSelector. | Nessuna impostazione predefinita; opzionale 
+| `nodePluginNodeSelector` | Selettori di nodi aggiuntivi per i pod. Segue lo stesso formato di `pod.spec.nodeSelector`. | Nessuna impostazione predefinita; opzionale 
 
 
-| `nodePluginTolerations` | Ignora le tolleranze Kubernetes per i pod. Segue lo stesso formato di pod.spec.Tolerations. | Nessuna impostazione predefinita; opzionale 
+| `nodePluginTolerations` | Ignora le tolleranze Kubernetes per i pod. Segue lo stesso formato di `pod.spec.Tolerations`. | Nessuna impostazione predefinita; opzionale 
 |===
 
 NOTE: Per ulteriori informazioni sulla formattazione dei parametri del pod, vedere link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/["Assegnazione di pod ai nodi"^].

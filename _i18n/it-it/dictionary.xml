@@ -707,21 +707,15 @@
   <block id="2bccac20e55391730a985f9819e1cc41" category="cell"><block ref="7ecc687ea7566f05fd13fde7be607bfc" prefix="" category="inline-code"></block></block>
   <block id="84448c234dfdfd2a7367341fd4b56a80" category="cell">L'immagine del contenitore per la telemetria AutoSupport</block>
   <block id="f4a6821b04b9ce6b90148068341347b6" category="cell"><block ref="5f264298da92162575024336c485cc13" prefix="" category="inline-code"></block></block>
-  <block id="85be37285c336ae757f07d58eb0d7ea2" category="cell">Indirizzo/porta di un proxy per l'invio di telemetria AutoSupport</block>
   <block id="256acfe307251e7444859851d87d5735" category="cell"><block ref="256acfe307251e7444859851d87d5735" category="inline-link-rx"></block></block>
   <block id="b89df534de66f446ec6482f9d7898bb2" category="cell"><block ref="3d97872197327b9967bcc3f4f76b25c5" prefix="" category="inline-code"></block></block>
-  <block id="33fb79e5ddc4ef005332c52292e20c59" category="cell">Selettori di nodi aggiuntivi per i pod che eseguono il Plugin CSI del controller Trident. Segue lo stesso formato di<block ref="6ae8be3433bfc36ced79a1271e6ebf11" prefix=" " category="inline-code"></block>.</block>
   <block id="8d414af35aeb82413205fa45551a5545" category="cell">Nessuna impostazione predefinita; opzionale</block>
   <block id="df1f367efe879ec0030f43610e29c5af" category="cell"><block ref="e648881dc52660bceb907a4b5b9f7042" prefix="" category="inline-code"></block></block>
-  <block id="4a1522be236156dbc873375541a627e1" category="cell">Ignora le tolleranze per i pod che eseguono il Plugin CSI del controller Trident. Segue lo stesso formato di<block ref="f1fa64fcf5077601cb803e995a51fa4f" prefix=" " category="inline-code"></block>.</block>
   <block id="a67cf6b087ff88dbfacec8375928995c" category="cell"><block ref="ad42f6697b035b7580e4fef93be20b4d" prefix="" category="inline-code"></block></block>
   <block id="4f72bc786a1a01d5a1a8bc09d33334cc" category="cell">Attiva il debug per Astra Trident</block>
   <block id="30042512b273723cf2eec336b6576d84" category="cell"><block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix="" category="inline-code"></block> e.<block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block> solo. Funziona con Kubernetes non-Graged Node Shutdown (NGNS) per consentire agli amministratori del cluster di migrare in sicurezza i carichi di lavoro con volumi montati su nuovi nodi in caso di problemi di integrità di un nodo. *Questa è una funzionalità sperimentale di 23.04.* fare riferimento a. <block ref="620ff2552a2d798650bb027eb1271b17" category="inline-xref-macro-rx"></block> per dettagli importanti.</block>
   <block id="cbea7dc9eb2c3c926a86130b0be6368f" category="cell">Imposta il criterio di pull dell'immagine per l'operatore Trident. I valori validi sono:<block ref="68eec46437c384d8dad18d5464ebc35c" prefix=" " category="inline-code"></block> per estrarre sempre l'immagine.<block ref="7803982c6b845094275e8e83f0fad3a6" prefix=" " category="inline-code"></block> per estrarre l'immagine solo se non esiste già nel nodo.<block ref="6e7b34fa59e1bd229b207892956dc41c" prefix=" " category="inline-code"></block> per non tirare mai l'immagine.</block>
-  <block id="b520e4144a27e0f45e8e22d5ccd8328d" category="cell">Selettori di nodi aggiuntivi per i pod. Segue lo stesso formato di pod.spec.nodeSelector.</block>
-  <block id="e138e2a410035dad85499a3dabe692d5" category="cell">Ignora le tolleranze Kubernetes per i pod. Segue lo stesso formato di pod.spec.Tolerations.</block>
   <block id="47a441037628a3c0f0edb0daccb33f99" category="cell"><block ref="ae41eb1a542b17214c779966cd254a4d" prefix="" category="inline-code"></block></block>
-  <block id="d4cc4428c9a6422247c8ff288ea4b5eb" category="cell">Selettori di nodi aggiuntivi per i pod. Segue lo stesso formato di pod.spec.nodeSelector.</block>
   <block id="f297db5a937924105908a365d9d4c4ff" category="cell"><block ref="b729c9d7484a61fd754f6b7f533db71c" prefix="" category="inline-code"></block></block>
   <block id="4352a1b4e004cf57ac04661a18de43aa" category="inline-link-macro">Assegnazione di pod ai nodi</block>
   <block id="b3b67fd79d24b4873c8164c750c21798" category="admonition">Per ulteriori informazioni sulla formattazione dei parametri del pod, vedere <block ref="7b3a69fdac08c769183925679da4c365" category="inline-link-macro-rx"></block>.</block>
@@ -3862,4 +3856,35 @@ Non utilizzare<block ref="effa2d809c72dcb6cce15a1e0b040e63" prefix=" " category=
   <block id="0b5b18e58101a5fdc2d3618c85a04814" category="list-text">**Elimina<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block>**: Rimuovendo<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block> CR utilizzato per implementare Astra Trident, si richiede all'operatore di disinstallare Trident. L'operatore elabora la rimozione di<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block> E procede alla rimozione dell'implementazione e del demonset di Astra Trident, eliminando i pod Trident creati come parte dell'installazione.</block>
   <block id="566ef0ea3e228b1c501652e83def2c9d" category="paragraph">Utilizzare<block ref="fe98497efedbe156ecc4b953aea77e07" prefix=" " category="inline-code"></block> ingresso comando<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block> Per rimuovere tutte le risorse associate a Astra Trident, ad eccezione dei CRD e degli oggetti correlati:</block>
   <block id="3d11c687c20c6a6a9fec2b3d07f861f0" category="section-title">Novità della versione 23.07.1</block>
+  <block id="f3f30d479f6e3b393d917a3b2f88c770" category="cell"><block ref="89801e9e98979062e84647433a8ed3e9" prefix="" category="inline-code"></block></block>
+  <block id="c9db68ea6cff44f42ac5acbbfccec399" category="cell">Spazio dei nomi in cui installare Astra Trident</block>
+  <block id="fbbd7b4b14060c4fdb02f92c4c08e702" category="cell">Impostazione su<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block> Attiva l'installazione su nodi di lavoro Windows.</block>
+  <block id="16e20a5ba5cd6442f3cdd49b16e8a5f3" category="cell"><block ref="8bd1aa960638ccc5869583e34d702ce6" prefix="" category="inline-code"></block></block>
+  <block id="3dd791c4864e77ae6cf11572e2d7b374" category="cell">Installare Astra Trident su IPv6</block>
+  <block id="077e99fe42ced522b462656cffffe09c" category="cell"><block ref="d5276bb17ae062102e883a18454c2f1b" prefix="" category="inline-code"></block></block>
+  <block id="4448b73eac083e33b7142f0e5790fac5" category="cell">Timeout per le operazioni Kubernetes</block>
+  <block id="e4d71bf2abad047425f4463e27bb83b0" category="cell">30 sec</block>
+  <block id="42cf123e93ecc5c0297652edbc547fc0" category="cell"><block ref="2fac1659431903a30e063d49b3effb9d" prefix="" category="inline-code"></block></block>
+  <block id="4a213b7c3b997ffb0794b25909381d16" category="cell">Non inviare pacchetti AutoSupport a NetApp
+in maniera automatica</block>
+  <block id="7f54ca385f028308d19e228ce0534a47" category="cell">Indirizzo/porta di un proxy per l'invio della AutoSupport
+Telemetria</block>
+  <block id="076bc379a24183ce77834bac007ca852" category="cell">Flag utilizzato per disinstallare Astra Trident</block>
+  <block id="cad060d2f14dbf08315c20014ed31daa" category="cell"><block ref="0b19d236934f609fe765b504a36b637e" prefix="" category="inline-code"></block></block>
+  <block id="acfc4a8e6d53bad27d4e2d393bfff61e" category="cell">Formato di registrazione Astra Trident da utilizzare [text,json]</block>
+  <block id="20cd815523e5806aec29a57282b0d49f" category="cell">"testo"</block>
+  <block id="20f408a3276af1f7f1bf02ba374786ca" category="cell">Immagine Astra Trident da installare</block>
+  <block id="0498ee65f9f6b76f08a28e7b6715c963" category="cell">"netapp/trident:23,07"</block>
+  <block id="4f25f4cca5c1939f4a728d2678e719f7" category="cell">Percorso al registro interno, del formato<block ref="d2ce1f53a5f0e84f4f1b5e28836eb05b" prefix=" " category="inline-code"></block></block>
+  <block id="fb4feec526f3a24c097c73a5f36af4bd" category="cell">"k8s.gcr.io/sig-storage" (k8s 1,19+)
+o "quay.io/k8scsi"</block>
+  <block id="31aad37dce0c28e12908582a0d63736a" category="cell">Percorso della directory del kubelet sull'host</block>
+  <block id="df8f3af91e96fe841267201ed450cd6b" category="cell">"/var/lib/kubelet"</block>
+  <block id="b6e0e2c4168573f0ed61c842470342ba" category="cell"><block ref="c13a52521693f799a16fd56a35c77a04" prefix="" category="inline-code"></block></block>
+  <block id="4e33345575b5a443dec89767624a1ee8" category="cell">Un elenco di risorse da eliminare per eseguire una rimozione completa di
+Astra Trident</block>
+  <block id="f73bb4a0bc9913e7fc6db5f9e5f2afeb" category="cell">Secrets (segreti) per estrarre immagini da un registro interno</block>
+  <block id="d64d0e5bb5a552ae4986a713f41c8fc3" category="cell">Selettori di nodi aggiuntivi per i pod.	Segue lo stesso formato di<block ref="6ae8be3433bfc36ced79a1271e6ebf11" prefix=" " category="inline-code"></block>.</block>
+  <block id="875ce721843c20d7f9aae240673ed68b" category="cell">Ignora le tolleranze Kubernetes per i pod. Segue lo stesso formato di<block ref="f1fa64fcf5077601cb803e995a51fa4f" prefix=" " category="inline-code"></block>.</block>
+  <block id="00e8e1706119ce5300bdc9141ececc37" category="cell">Selettori di nodi aggiuntivi per i pod. Segue lo stesso formato di<block ref="6ae8be3433bfc36ced79a1271e6ebf11" prefix=" " category="inline-code"></block>.</block>
 </blocks>
