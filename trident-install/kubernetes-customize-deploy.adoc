@@ -52,7 +52,7 @@ Questa tabella è dettagliata `TridentOrchestrator` attributi.
 | `windows` | Impostazione su `true` Attiva l'installazione su nodi di lavoro Windows. | falso 
 
 
-| `useIPv6` | Installare Astra Trident su IPv6 | falso 
+| `IPv6` | Installare Astra Trident su IPv6 | falso 
 
 
 | `k8sTimeout` | Timeout per le operazioni Kubernetes | 30 sec 
