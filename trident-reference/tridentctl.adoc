@@ -162,23 +162,23 @@ Usage:
 ----
 Allarmi:
 
-* ``--autosupport-image string`: L'immagine contenitore per la telemetria AutoSupport (predefinita "netapp/trident autosupport:<current-version>").
-* ``--autosupport-proxy string`Indirizzo/porta di un proxy per l'invio di telemetria AutoSupport.
-* ``--enable-node-prep`: Tentare di installare i pacchetti richiesti sui nodi.
-* ``--generate-custom-yaml`: Generare file YAML senza installare nulla.
-* ``-h, --help`: Guida all'installazione.
-* ``--http-request-timeout`: Ignorare il timeout della richiesta HTTP per l'API REST del controller Trident (valore predefinito 1m30).
-* ``--image-registry string`: L'indirizzo/porta di un registro di immagini interno.
-* ``--k8s-timeout duration`: Il timeout per tutte le operazioni Kubernetes (valore predefinito: 3 m0s).
-* ``--kubelet-dir string`: La posizione host dello stato interno di kubelet (default "/var/lib/kubelet").
-* ``--log-format string`: Il formato di registrazione Astra Trident (text, json) (default "text").
-* ``--pv string`: Il nome del PV legacy utilizzato da Astra Trident, garantisce che non esista (il "tridente" predefinito).
-* ``--pvc string`: Il nome del PVC legacy utilizzato da Astra Trident, garantisce che non esista (il "tridente" predefinito).
-* ``--silence-autosupport`: Non inviare pacchetti AutoSupport a NetApp automaticamente (valore predefinito vero).
-* ``--silent`: Disattivare l'output MOST durante l'installazione.
-* ``--trident-image string`: L'immagine Astra Trident da installare.
-* ``--use-custom-yaml`: Utilizzare tutti i file YAML esistenti nella directory di installazione.
-* ``--use-ipv6`: Utilizza IPv6 per la comunicazione di Astra Trident.
+* `--autosupport-image string`: L'immagine contenitore per la telemetria AutoSupport (predefinita "netapp/trident autosupport:<current-version>").
+* `--autosupport-proxy string`Indirizzo/porta di un proxy per l'invio di telemetria AutoSupport.
+* `--enable-node-prep`: Tentare di installare i pacchetti richiesti sui nodi.
+* `--generate-custom-yaml`: Generare file YAML senza installare nulla.
+* `-h, --help`: Guida all'installazione.
+* `--http-request-timeout`: Ignorare il timeout della richiesta HTTP per l'API REST del controller Trident (valore predefinito 1m30).
+* `--image-registry string`: L'indirizzo/porta di un registro di immagini interno.
+* `--k8s-timeout duration`: Il timeout per tutte le operazioni Kubernetes (valore predefinito: 3 m0s).
+* `--kubelet-dir string`: La posizione host dello stato interno di kubelet (default "/var/lib/kubelet").
+* `--log-format string`: Il formato di registrazione Astra Trident (text, json) (default "text").
+* `--pv string`: Il nome del PV legacy utilizzato da Astra Trident, garantisce che non esista (il "tridente" predefinito).
+* `--pvc string`: Il nome del PVC legacy utilizzato da Astra Trident, garantisce che non esista (il "tridente" predefinito).
+* `--silence-autosupport`: Non inviare pacchetti AutoSupport a NetApp automaticamente (valore predefinito vero).
+* `--silent`: Disattivare l'output MOST durante l'installazione.
+* `--trident-image string`: L'immagine Astra Trident da installare.
+* `--use-custom-yaml`: Utilizzare tutti i file YAML esistenti nella directory di installazione.
+* `--use-ipv6`: Utilizza IPv6 per la comunicazione di Astra Trident.
 
 
 

@@ -194,7 +194,7 @@ NetApp supporta l'aggiornamento di Astra Trident da una release principale alla 
 
 === È possibile eseguire il downgrade di Trident a una release precedente?
 
-Se è necessaria una correzione per i bug osservati dopo un aggiornamento, problemi di dipendenza o un aggiornamento non riuscito o incompleto, è necessario link:../trident-managing-k8s/uninstall-trident.html["Disinstallare Astra Trident"] e reinstallare la versione precedente utilizzando le istruzioni specifiche per quella versione. Questo è l'unico modo consigliato per eseguire il downgrade a una versione precedente.
+Se è necessaria una correzione per i bug osservati dopo un aggiornamento, problemi di dipendenza o un aggiornamento non riuscito o incompleto, è necessario link:trident-managing-k8s/uninstall-trident.html["Disinstallare Astra Trident"] e reinstallare la versione precedente utilizzando le istruzioni specifiche per quella versione. Questo è l'unico modo consigliato per eseguire il downgrade a una versione precedente.
 
 
 
@@ -232,7 +232,7 @@ Astra Trident supporta la definizione degli indirizzi IPv6 per:
 * `managementLIF` Per backend SAN ONTAP. Impossibile specificare `dataLIF` Su un backend SAN ONTAP.
 
 
-Astra Trident deve essere installato utilizzando ``--use-ipv6` Flag per il funzionamento su IPv6.
+Astra Trident deve essere installato utilizzando il flag `--use-ipv6` (per `tridentctl` installazione), `IPv6` (Per l'operatore Trident), o. `tridentTPv6` (Per l'installazione di Helm) per il suo funzionamento oltre IPv6.
 
 
 
