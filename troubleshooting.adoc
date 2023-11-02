@@ -162,7 +162,7 @@ INFO Trident uninstallation succeeded.
 È possibile rimuovere completamente Astra Trident e tutti i CRD creati e le risorse personalizzate associate.
 
 
-WARNING: Questa operazione non può essere annullata. Non farlo a meno che non si desideri una nuova installazione di Astra Trident. Per disinstallare Astra Trident senza rimuovere i CRD, vedere link:../trident-managing-k8s/uninstall-trident.html["Disinstallare Astra Trident"].
+WARNING: Questa operazione non può essere annullata. Non farlo a meno che non si desideri una nuova installazione di Astra Trident. Per disinstallare Astra Trident senza rimuovere i CRD, vedere link:trident-managing-k8s/uninstall-trident.html["Disinstallare Astra Trident"].
 
 [role="tabbed-block"]
 ====
