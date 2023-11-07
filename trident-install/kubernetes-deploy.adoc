@@ -16,7 +16,7 @@ Per garantire che Astra Trident possa essere installato in una vasta gamma di am
 
 
 
-== Informazioni critiche su Astra Trident 23,07
+== Informazioni critiche su Astra Trident 23,10
 
 *È necessario leggere le seguenti informazioni critiche su Astra Trident.*
 

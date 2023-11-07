@@ -52,6 +52,34 @@ ROX e RWX non sono disponibili in modalità Volume filesystem.
 
 
 
+| `ontap-san`  a| 
+NVMe/TCP
+
+Fare riferimento a. <<Considerazioni aggiuntive su NVMe/TCP>>.
+ a| 
+Blocco
+ a| 
+RWO, ROX, RWX, RWOP
+ a| 
+Nessun file system; dispositivo a blocchi raw
+
+
+
+| `ontap-san`  a| 
+NVMe/TCP
+
+Fare riferimento a. <<Considerazioni aggiuntive su NVMe/TCP>>.
+ a| 
+Filesystem
+ a| 
+RWO, RWOP
+
+ROX e RWX non sono disponibili in modalità Volume filesystem.
+ a| 
+`xfs`, `ext3`, `ext4`
+
+
+
 | `ontap-san-economy`  a| 
 ISCSI
  a| 
@@ -99,3 +127,24 @@ Astra Trident prevede di essere eseguito come amministratore di ONTAP o SVM, in 
 NOTE: Se si utilizza `limitAggregateUsage` parametro, sono richieste le autorizzazioni di amministrazione del cluster. Quando si utilizza Amazon FSX per NetApp ONTAP con Astra Trident, il `limitAggregateUsage` il parametro non funziona con `vsadmin` e. `fsxadmin` account utente. L'operazione di configurazione non riesce se si specifica questo parametro.
 
 Sebbene sia possibile creare un ruolo più restrittivo all'interno di ONTAP che un driver Trident può utilizzare, non lo consigliamo. La maggior parte delle nuove release di Trident chiamerà API aggiuntive che dovrebbero essere considerate, rendendo gli aggiornamenti difficili e soggetti a errori.
+
+
+
+== Considerazioni aggiuntive su NVMe/TCP
+
+Astra Trident supporta il protocollo non-volatile memory express (NVMe) utilizzando il `ontap-san` driver che include:
+
+* IPv6
+* Snapshot e cloni di volumi NVMe
+* Ridimensionamento di un volume NVMe
+* Importare un volume NVMe creato al di fuori di Astra Trident in modo che il suo ciclo di vita possa essere gestito da Astra Trident
+* Multipath nativo NVMe
+* Arresto anomalo o anomalo dei K8s nodi (23,10)
+
+
+Astra Trident non supporta:
+
+* DH-HMAC-CHAP supportato nativamente da NVMe
+* Multipathing DM (Device mapper)
+* Crittografia LUKS
+

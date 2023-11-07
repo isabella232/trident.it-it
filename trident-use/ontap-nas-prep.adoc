@@ -342,22 +342,24 @@ NOTE: Fare riferimento a. link:https://docs.netapp.com/us-en/ontap/smb-config/cr
 
 . Quando si crea il backend, è necessario configurare quanto segue per specificare i volumi SMB. Per tutte le opzioni di configurazione backend FSX per ONTAP, fare riferimento a. link:trident-fsx-examples.html["FSX per le opzioni di configurazione e gli esempi di ONTAP"].
 +
-[cols="3"]
+[cols="1,2,1"]
 |===
 | Parametro | Descrizione | Esempio 
 
 
-| `smbShare`
-È possibile specificare una delle seguenti opzioni: Il nome di una condivisione SMB creata utilizzando la console di gestione Microsoft o l'interfaccia utente di ONTAP; un nome per consentire ad Astra Trident di creare la condivisione SMB; oppure è possibile lasciare vuoto il parametro per impedire l'accesso condiviso ai volumi.
+| `smbShare` | È possibile specificare una delle seguenti opzioni: Il nome di una condivisione SMB creata utilizzando la console di gestione Microsoft o l'interfaccia utente di ONTAP; un nome per consentire ad Astra Trident di creare la condivisione SMB; oppure è possibile lasciare vuoto il parametro per impedire l'accesso condiviso ai volumi.
 
 Questo parametro è facoltativo per ONTAP on-premise.
 
-Questo parametro è obbligatorio per i backend Amazon FSX per ONTAP e non può essere vuoto. | `smb-share` | `nasType` 
+Questo parametro è obbligatorio per i backend Amazon FSX per ONTAP e non può essere vuoto. | `smb-share` 
 
 
-| *Deve essere impostato su `smb`.* se null, il valore predefinito è `nfs`. | `smb` | `securityStyle` 
+| `nasType` | *Deve essere impostato su `smb`.* se null, il valore predefinito è `nfs`. | `smb` 
 
 
-| Stile di sicurezza per nuovi volumi. *Deve essere impostato su `ntfs` oppure `mixed` Per volumi SMB.* | `ntfs` oppure `mixed` Per volumi SMB | `unixPermissions` 
+| `securityStyle` | Stile di sicurezza per nuovi volumi. *Deve essere impostato su `ntfs` oppure `mixed` Per volumi SMB.* | `ntfs` oppure `mixed` Per volumi SMB 
+
+
+| `unixPermissions` | Per i nuovi volumi. *Deve essere lasciato vuoto per i volumi SMB.* | "" 
 |===
 

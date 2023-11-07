@@ -12,7 +12,7 @@ entries:
   url: "/trident-reference/k8s-netapp.html"
 - title: Kubernetes e Astra Trident Objects
   url: "/trident-reference/objects.html"
-- title: comandi e opzioni tridentctl
+- title: Gestisci Astra Trident usando tridentctl
   url: "/trident-reference/tridentctl.html"
 - title: Pod Security Standards (PSS) e Security Context Constraints (SCC)
   url: "/trident-reference/pod-security.html"

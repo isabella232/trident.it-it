@@ -19,7 +19,54 @@ WARNING: Il `tridentctl` Il file binario per Linux fornito nel file zip del prog
 
 
 
-== Novità della versione 23.07.1
+== Novità della versione 23,10
+
+
+
+=== Correzioni
+
+* Espansione del volume fisso se la nuova dimensione richiesta è inferiore alle dimensioni del volume totale per i driver di storage ontap-nas e ontap-nas-flexgroup (link:https://github.com/NetApp/trident/issues/834["Problema n. 834"^]).
+* Dimensioni fisse del volume per visualizzare solo le dimensioni utilizzabili del volume durante l'importazione per i driver di storage ontap-nas e ontap-nas-flexgroup (link:https://github.com/NetApp/trident/issues/722["Problema n. 722"^]).
+* Conversione fissa del nome FlexVol per ONTAP-NAS-Economy.
+* Risolto il problema di inizializzazione di Astra Trident su un nodo Windows quando il nodo viene riavviato.
+
+
+
+
+=== Miglioramenti
+
+
+
+==== Kubernetes
+
+Aggiunto supporto per Kubernetes 1,28.
+
+
+
+==== Astra Trident
+
+* Aggiunto supporto per l'utilizzo di Azure Managed Identity (AMI) con driver di storage Azure-netapp-Files.
+* Aggiunto supporto per NVMe su TCP per il driver ONTAP-SAN.
+* Aggiunta la possibilità di sospendere il provisioning di un volume quando il backend è impostato sullo stato sospeso dall'utente (link:https://github.com/NetApp/trident/issues/558["Problema n. 558"^]).
+
+
+
+
+=== Funzionalità avanzate disponibili in Astra Control
+
+Con Astra Trident 23,10, un nuovo componente software chiamato Astra Control Provivisioner è disponibile per gli utenti con licenza Astra Control. Questo provisioner fornisce l'accesso a un superset di funzionalità avanzate di gestione e provisioning dello storage, oltre a quelle supportate da Astra Trident. Per la release 23,10, queste funzionalità includono:
+
+* Funzionalità di backup e ripristino per le applicazioni con backend di storage con garanzia di driver basati sulla convenienza di ontap-nas
+* Maggiore sicurezza backend dello storage con crittografia Kerberos 5
+* Recovery di dati con snapshot
+* Miglioramenti di SnapMirror
+
+
+link:https://docs.netapp.com/us-en/astra-control-center/release-notes/whats-new.html["Scopri di più su Astra Control Provisioner."^]
+
+
+
+== Modifiche nel 23.07.1
 
 *Kubernetes:* eliminazione di daemonset fissa per supportare aggiornamenti senza downtime (.link:https://github.com/NetApp/trident/issues/740["Problema n. 740"^]).
 
