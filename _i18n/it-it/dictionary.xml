@@ -4039,4 +4039,5 @@ oppure<block ref="28994d623a492f2e5b2eb3ffbcdd4dd0" prefix=" " category="inline-
   <block id="4c326d958c0bd182aa53c9e9bba722ad" category="paragraph">Se non utilizzi Astra Trident 23,10, la documentazione per le release precedenti è disponibile in base a. <block ref="6e1ac221c7aa10f6bb30cbfd51cb3204" category="inline-link-macro-rx"></block>.</block>
   <block id="6933dffe806f29980dbedda6aef6fda7" category="inline-link">Astra Trident 23,07</block>
   <block id="5190d8b9f5b246f225722ffa2f20e6b3" category="list-text"><block ref="5190d8b9f5b246f225722ffa2f20e6b3" category="inline-link-rx"></block></block>
+  <block id="0cd8d0588cd2b20face3a0379d38f777" category="admonition">Non utilizzare NAT (Network Address Translation) quando si utilizzano criteri di esportazione dinamici. Con NAT, il controller di archiviazione rileva l'indirizzo NAT di frontend e non l'indirizzo host IP effettivo, pertanto l'accesso viene negato quando non viene trovata alcuna corrispondenza nelle regole di esportazione.</block>
 </blocks>
