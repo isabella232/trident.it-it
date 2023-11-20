@@ -62,7 +62,7 @@ No Non ci sono modifiche per quanto riguarda l'esperienza e le funzionalità del
 
 === Astra Trident supporta un'installazione offline da un registro privato?
 
-Sì, Astra Trident può essere installato offline. Vedere link:https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-deploy.html["qui"].
+Sì, Astra Trident può essere installato offline. Vedere link:trident-get-started/kubernetes-deploy.html["qui"].
 
 
 
@@ -86,13 +86,13 @@ Astra Trident legge dal Kubernetes API Server per determinare quando le applicaz
 
 === Quali sono i ruoli e i privilegi utilizzati da Astra Trident?
 
-Il programma di installazione Trident crea un Kubernetes ClusterRole, che ha accesso specifico alle risorse PersistentVolume, PersistentVolumeClaim, StorageClass e Secret del cluster Kubernetes. Vedere link:https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-customize-deploy-tridentctl.html["qui"].
+Il programma di installazione Trident crea un Kubernetes ClusterRole, che ha accesso specifico alle risorse PersistentVolume, PersistentVolumeClaim, StorageClass e Secret del cluster Kubernetes. Vedere link:trident-get-started/kubernetes-customize-deploy-tridentctl.html["qui"].
 
 
 
 === È possibile generare localmente i file manifest utilizzati da Astra Trident per l'installazione?
 
-È possibile generare e modificare localmente i file manifest utilizzati da Astra Trident per l'installazione, se necessario. Vedere link:https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-customize-deploy-tridentctl.html["qui"].
+È possibile generare e modificare localmente i file manifest utilizzati da Astra Trident per l'installazione, se necessario. Vedere link:trident-get-started/kubernetes-customize-deploy-tridentctl.html["qui"].
 
 
 
@@ -310,7 +310,7 @@ Per consentire agli host appropriati di accedere a un volume, utilizzare `export
 
 === Come si imposta la crittografia del volume tramite Astra Trident con ONTAP?
 
-È possibile impostare la crittografia sul volume fornito da Trident utilizzando il parametro di crittografia nel file di definizione del backend. Per ulteriori informazioni, fare riferimento a: link:https://docs.netapp.com/us-en/trident/trident-reco/security-reco.html#use-astra-trident-with-nve-and-nae["Come funziona Astra Trident con NVE e NAE"]
+È possibile impostare la crittografia sul volume fornito da Trident utilizzando il parametro di crittografia nel file di definizione del backend. Per ulteriori informazioni, fare riferimento a: link:trident-reco/security-reco.html#use-astra-trident-with-nve-and-nae["Come funziona Astra Trident con NVE e NAE"]
 
 
 
