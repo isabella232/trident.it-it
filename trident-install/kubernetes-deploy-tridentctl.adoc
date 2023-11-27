@@ -197,13 +197,3 @@ Per ulteriori informazioni sulla forza di distacco, fare riferimento a. link:..t
 tridentctl install --enable-force-detach=true -n trident
 ----
 ====
-.Identità gestite su un cluster AKS
-[%collapsible]
-====
-In questo esempio viene installato Astra Trident per abilitare le identità gestite.
-
-[listing]
-----
-tridentctl install --cloud-provider="Azure" -n trident
-----
-====

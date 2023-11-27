@@ -14,6 +14,8 @@ entries:
       url: "/trident-managing-k8s/upgrade-operator.html"
   - title: Upgrade con tridentctl
     url: "/trident-managing-k8s/upgrade-tridentctl.html"
+- title: Gestisci Astra Trident usando tridentctl
+  url: "/trident-managing-k8s/tridentctl.html"
 - title: Monitorare Astra Trident
   url: "/trident-use/monitor-trident.html"
 - title: Disinstallare Astra Trident

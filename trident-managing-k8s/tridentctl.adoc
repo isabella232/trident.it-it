@@ -1,0 +1,249 @@
+---
+sidebar: sidebar 
+permalink: trident-managing-k8s/tridentctl.html 
+keywords: tridentctl, trident, kubernetes, commands, options, usage, flags 
+summary: 'Scopri di più su tridentctl, un"utility della riga di comando che offre un accesso semplice a Trident.' 
+---
+= Gestisci Astra Trident usando tridentctl
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Il https://github.com/NetApp/trident/releases["Pacchetto di installazione Trident"^] include il `tridentctl` Command-line utility per fornire un semplice accesso ad Astra Trident. Gli utenti Kubernetes con privilegi sufficienti possono usarlo per installare Astra Trident o gestire il namespace che contiene il pod Astra Trident.
+
+
+
+== Comandi e flag globali
+
+Puoi correre `tridentctl help` per ottenere un elenco di comandi disponibili per `tridentctl` o aggiungere il `--help` flag a qualsiasi comando per ottenere un elenco di opzioni e flag per quel comando specifico.
+
+`tridentctl [command] [--optional-flag]`
+
+Astra Trident `tridentctl` utility supporta i seguenti comandi e flag globali.
+
+.Comandi
+[%collapsible]
+====
+`create`:: Aggiungi una risorsa a Astra Trident.
+`delete`:: Rimozione di una o più risorse da Astra Trident.
+`get`:: Ottieni una o più risorse da Astra Trident.
+`help`:: Aiuto su qualsiasi comando.
+`images`:: Stampare una tabella delle immagini container di cui Astra Trident ha bisogno.
+`import`:: Importa una risorsa esistente in Astra Trident.
+`install`:: Installa Astra Trident.
+`logs`:: Stampare i registri da Astra Trident.
+`send`:: Invia una risorsa da Astra Trident.
+`uninstall`:: Disinstallare Astra Trident.
+`update`:: Modifica una risorsa in Astra Trident.
+`update backend state`:: Sospendere temporaneamente le operazioni di backend.
+`upgrade`:: Aggiorna una risorsa in Astra Trident.
+`version`:: Stampa la versione di Astra Trident.
+
+
+====
+.Flag globali
+[%collapsible]
+====
+`-d`, `--debug`:: Output di debug.
+`-h`, `--help`:: Aiuto per `tridentctl`.
+`-k`, `--kubeconfig string`:: Specificare `KUBECONFIG` Percorso per eseguire comandi in locale o da un cluster Kubernetes a un altro.
++
+--
+
+NOTE: In alternativa, è possibile esportare `KUBECONFIG` Variabile che indica un problema e un cluster Kubernetes specifici `tridentctl` comandi a quel cluster.
+
+--
+`-n`, `--namespace string`:: Namespace dell'implementazione di Astra Trident.
+`-o`, `--output string`:: Formato di output. Uno tra json|yaml|name|wide|ps (impostazione predefinita).
+`-s`, `--server string`:: Indirizzo/porta dell'interfaccia REST Astra Trident.
++
+--
+
+WARNING: L'interfaccia REST di Trident può essere configurata per l'ascolto e la distribuzione solo su 127.0.0.1 (per IPv4) o [::1] (per IPv6).
+
+--
+
+
+====
+
+
+== Opzioni di comando e flag
+
+
+
+=== creare
+
+Utilizzare `create` Comando per aggiungere una risorsa ad Astra Trident.
+
+`tridentctl create [option]`
+
+Opzioni:: `backend`: Aggiungi un backend ad Astra Trident.
+
+
+
+
+=== eliminare
+
+Utilizzare `delete` Comando per rimuovere una o più risorse da Astra Trident.
+
+`tridentctl delete [option]`
+
+Opzioni:: `backend`: Eliminare uno o più backend di storage da Astra Trident.
+`snapshot`: Consente di eliminare una o più snapshot di volumi da Astra Trident.
+`storageclass`: Eliminare una o più classi di storage da Astra Trident.
+`volume`: Eliminare uno o più volumi di storage da Astra Trident.
+
+
+
+
+=== ottieni
+
+Utilizzare `get` Comando per ottenere una o più risorse da Astra Trident.
+
+`tridentctl get [option]`
+
+Opzioni:: `backend`: Ottieni uno o più backend di storage da Astra Trident.
+`snapshot`: Ottenere una o più istantanee da Astra Trident.
+`storageclass`: Ottieni una o più classi di storage da Astra Trident.
+`volume`: Procurarsi uno o più volumi da Astra Trident.
+Allarmi:: `-h`, `--help`: Guida per i volumi.
+`--parentOfSubordinate string`: Limita query al volume di origine subordinato.
+`--subordinateOf string`: Limita la query alle subordinate del volume.
+
+
+
+
+=== immagini
+
+Utilizzare `images` Flag per stampare una tabella delle immagini container di cui Astra Trident ha bisogno.
+
+`tridentctl images [flags]`
+
+Allarmi:: `-h`, `--help`: Guida per le immagini.
+`-v`, `--k8s-version string`: Versione semantica del cluster Kubernetes.
+
+
+
+
+=== importa volume
+
+Utilizzare `import volume` Comando per importare un volume esistente in Astra Trident.
+
+`tridentctl import volume <backendName> <volumeName> [flags]`
+
+Alias:: `volume`, `v`
+Allarmi:: `-f`, `--filename string`: Percorso al file PVC YAML o JSON.
+`-h`, `--help`: Guida per il volume.
+`--no-manage`: Crea solo PV/PVC. Non presupporre la gestione del ciclo di vita dei volumi.
+
+
+
+
+=== installare
+
+Utilizzare `install` Flag per installare Astra Trident.
+
+`tridentctl install [flags]`
+
+Allarmi:: `--autosupport-image string`: L'immagine contenitore per la telemetria AutoSupport (predefinita "netapp/trident autosupport:<current-version>").
+`--autosupport-proxy string`Indirizzo/porta di un proxy per l'invio di telemetria AutoSupport.
+`--enable-node-prep`: Tentare di installare i pacchetti richiesti sui nodi.
+`--generate-custom-yaml`: Generare file YAML senza installare nulla.
+`-h`, `--help`: Guida all'installazione.
+`--http-request-timeout`: Ignorare il timeout della richiesta HTTP per l'API REST del controller Trident (valore predefinito 1m30).
+`--image-registry string`: L'indirizzo/porta di un registro di immagini interno.
+`--k8s-timeout duration`: Il timeout per tutte le operazioni Kubernetes (valore predefinito: 3 m0s).
+`--kubelet-dir string`: La posizione host dello stato interno di kubelet (default "/var/lib/kubelet").
+`--log-format string`: Il formato di registrazione Astra Trident (text, json) (default "text").
+`--pv string`: Il nome del PV legacy utilizzato da Astra Trident, garantisce che non esista (il "tridente" predefinito).
+`--pvc string`: Il nome del PVC legacy utilizzato da Astra Trident, garantisce che non esista (il "tridente" predefinito).
+`--silence-autosupport`: Non inviare pacchetti AutoSupport a NetApp automaticamente (valore predefinito vero).
+`--silent`: Disattivare l'output MOST durante l'installazione.
+`--trident-image string`: L'immagine Astra Trident da installare.
+`--use-custom-yaml`: Utilizzare tutti i file YAML esistenti nella directory di installazione.
+`--use-ipv6`: Utilizza IPv6 per la comunicazione di Astra Trident.
+
+
+
+
+=== registri
+
+Utilizzare `logs` Flag per stampare i log da Astra Trident.
+
+`tridentctl logs [flags]`
+
+Allarmi:: `-a`, `--archive`: Creare un archivio di supporto con tutti i log, se non diversamente specificato.
+`-h`, `--help`: Guida per i log.
+`-l`, `--log string`: Registro Astra Trident da visualizzare. Uno tra trident|auto|trident-operator|all (impostazione predefinita "auto").
+`--node string`: Il nome del nodo Kubernetes da cui raccogliere i log dei pod dei nodi.
+`-p`, `--previous`: Ottenere i log per l'istanza di container precedente, se esistente.
+`--sidecars`: Ottenere i log per i contenitori del sidecar.
+
+
+
+
+=== invia
+
+Utilizzare `send` Comando per inviare una risorsa da Astra Trident.
+
+`tridentctl send [option]`
+
+Opzioni:: `autosupport`: Inviare un archivio AutoSupport a NetApp.
+
+
+
+
+=== disinstallazione
+
+Utilizzare `uninstall` Flag per disinstallare Astra Trident.
+
+`tridentctl uninstall [flags]`
+
+Allarmi:: `-h, --help`: Guida per la disinstallazione.
+`--silent`: Disattivare la maggior parte dell'output durante la disinstallazione.
+
+
+
+
+=== aggiornamento
+
+Utilizzare `update` Comando per modificare una risorsa in Astra Trident.
+
+`tridentctl update [option]`
+
+Opzioni:: `backend`: Aggiornare un backend in Astra Trident.
+
+
+
+
+=== aggiorna stato backend
+
+Utilizzare `update backend state` comando per sospendere o riprendere le operazioni di backend.
+
+`tridentctl update backend state <backend-name> [flag]`
+
+Allarmi:: `-h`, `--help`: Guida per lo stato backend.
+`--user-state`: Impostare su `suspended` per sospendere le operazioni di backend. Impostare su `normal` per riprendere le operazioni di backend. Quando è impostato su `suspended`:
++
+--
+* `AddVolume`, `CloneVolume`, `Import Volume`, `ResizeVolume` sono in pausa.
+* `PublishVolume`, `UnPublishVolume`, `CreateSnapshot`, `GetSnapshot`, `RestoreSnapshot`, `DeleteSnapshot`, `RemoveVolume`, `GetVolumeExternal`, `ReconcileNodeAccess` rimangono disponibili.
+
+
+--
+
+
+
+
+=== versione
+
+Utilizzare `version` contrassegni per stampare la versione di `tridentctl` E il servizio Running Trident.
+
+`tridentctl version [flags]`
+
+Allarmi:: `--client`: Solo versione client (non è richiesto alcun server).
+`-h, --help`: Guida per la versione.
+
