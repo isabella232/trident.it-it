@@ -66,25 +66,21 @@ kubectl create -f 23.10.0/trident-installer/deploy/<bundle.yaml> -n trident
 WARNING: Quando si aggiorna un cluster Kubernetes dalla versione 1.24 alla 1.25 o successiva su cui è installato Astra Trident, è necessario aggiornare values.yaml per impostarlo `excludePodSecurityPolicy` a. `true` oppure aggiungi `--set excludePodSecurityPolicy=true` al `helm upgrade` prima di aggiornare il cluster.
 
 .Fasi
-. Scarica l'ultima release di Astra Trident.
-. Utilizzare `helm upgrade` comando dove `trident-operator-23.10.0.tgz` indica la versione alla quale si desidera eseguire l'aggiornamento.
+. Se link:../trident-get-started/kubernetes-deploy-helm.html#deploy-the-trident-operator-and-install-astra-trident-using-helm["Installato Astra Trident utilizzando Helm"], è possibile utilizzare `helm upgrade trident netapp-trident/trident-operator --version 23.10.0` per eseguire l'aggiornamento in un solo passaggio. Se non è stato aggiunto il repo Helm o non è possibile utilizzarlo per l'aggiornamento:
++
+.. Scarica la versione più recente di Astra Trident da link:https://github.com/NetApp/trident/releases/latest["La sezione _Assets_ su GitHub"^].
+.. Utilizzare `helm upgrade` comando dove `trident-operator-23.10.0.tgz` indica la versione alla quale si desidera eseguire l'aggiornamento.
 +
 [listing]
 ----
 helm upgrade <name> trident-operator-23.10.0.tgz
 ----
 +
-[NOTE]
-====
-Se si impostano opzioni non predefinite durante l'installazione iniziale (ad esempio, se si specificano registri privati mirrorati per le immagini Trident e CSI), utilizzare `--set` per assicurarsi che tali opzioni siano incluse nel comando upgrade, altrimenti i valori torneranno ai valori predefiniti.
 
-Ad esempio, per modificare il valore predefinito di `tridentDebug`, eseguire il seguente comando:
+NOTE: Se si impostano opzioni personalizzate durante l'installazione iniziale (ad esempio, se si specificano registri privati con mirroring per le immagini Trident e CSI), aggiungere il `helm upgrade` utilizzare `--set` per assicurarsi che tali opzioni siano incluse nel comando upgrade, altrimenti i valori torneranno ai valori predefiniti.
 
-[listing]
-----
-helm upgrade <name> trident-operator-23.10.0-custom.tgz --set tridentDebug=true
-----
-====
+
+
 . Eseguire `helm list` per verificare che la versione del grafico e dell'applicazione sia stata aggiornata. Eseguire `tridentctl logs` per esaminare eventuali messaggi di debug.
 
 
