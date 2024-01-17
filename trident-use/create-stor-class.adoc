@@ -87,7 +87,7 @@ basic-csi    csi.trident.netapp.io   15h
 
 === Campioni di classe di conservazione
 
-Astra Trident offre https://github.com/NetApp/trident/tree/master/trident-installer/sample-input/pvc-samples["definizioni semplici delle classi di archiviazione per backend specifici"^].
+Astra Trident offre https://github.com/NetApp/trident/tree/master/trident-installer/sample-input/storage-class-samples["definizioni semplici delle classi di archiviazione per backend specifici"^].
 
 In alternativa, è possibile modificare `sample-input/storage-class-csi.yaml.templ` file fornito con il programma di installazione e sostituirlo `__BACKEND_TYPE__` con il nome del driver di storage.
 

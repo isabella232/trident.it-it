@@ -356,7 +356,6 @@
   <block id="9d83b6d2e2b099e63bf8e2fc8c870893" category="list-text">Richiede ONTAP versione 9.2 o successiva.</block>
   <block id="e7c74973b26ad51b9db42a9c347a8cd4" category="list-text">Al momento della stesura del presente documento, FlexGroups supporta solo NFS v3.</block>
   <block id="02a100b04add3b90fddef64499e825a2" category="list-text">Si consiglia di attivare gli identificatori NFSv3 a 64 bit per SVM.</block>
-  <block id="496f8625569b787269edab0f3de973da" category="list-text">La dimensione minima consigliata per il FlexGroup è di 100 GB.</block>
   <block id="db78b2a7acf43fa03cd95fb3a77c82f9" category="list-text">La clonazione non è supportata per i volumi FlexGroup.</block>
   <block id="f5ac1e3c252855373c7f660dbd89699d" category="inline-link">Guida all'implementazione e alle Best practice per i volumi NetApp FlexGroup</block>
   <block id="df1a7e79743809601db1d20d6a33ae52" category="paragraph">Per informazioni su FlexGroups e workload appropriati per FlexGroups, vedere<block ref="b8a99695d7979127a1cab07b42e22743" category="inline-link-rx"></block>.</block>
@@ -3168,7 +3167,6 @@ PMI</block>
   <block id="a221a060125881c2027807248f8302a2" category="list-text">Si tratta di un oggetto Kubernetes, lo utilizza<block ref="0f12ee5c9f1dd90158580f1c292b0d37" prefix=" " category="inline-code"></block> Per crearlo in Kubernetes.</block>
   <block id="f31a577daf927c7edc5555c9ceabc983" category="section-title">Campioni di classe di conservazione</block>
   <block id="64c314ed1bd24115a72a8a4284115a5c" category="inline-link">definizioni semplici delle classi di archiviazione per backend specifici</block>
-  <block id="cd05956789bea1b8ca185126ede9bfe6" category="paragraph">Astra Trident offre<block ref="fdffa1e2d88d340a5703a5f7123df6a4" category="inline-link-rx"></block>.</block>
   <block id="d9ab9b10b2101546e16eeab0b981d10c" category="paragraph">In alternativa, è possibile modificare<block ref="9a35c6080acd99f860d0c669b1a980f9" prefix=" " category="inline-code"></block> file fornito con il programma di installazione e sostituirlo<block ref="9c9a0798e59f3f4d7b08e45faef1e131" prefix=" " category="inline-code"></block> con il nome del driver di storage.</block>
   <block id="ff87ac5778183437377f5f963a3dccac" category="paragraph">Modificare la definizione StorageClass per impostare<block ref="6add71a247c8f4513060920be14857bc" prefix=" " category="inline-code"></block> campo a.<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block>.</block>
   <block id="efe0663b3e4eed08a4a1b30c3f3a2aac" category="paragraph">Modificare la definizione PVC e aggiornare<block ref="02b011e6fe36e26e5f7365ba08bf5a48" prefix=" " category="inline-code"></block> per riflettere le nuove dimensioni desiderate, che devono essere superiori alle dimensioni originali.</block>
@@ -4021,4 +4019,6 @@ oppure<block ref="28994d623a492f2e5b2eb3ffbcdd4dd0" prefix=" " category="inline-
   <block id="dec90c165180e4428352d04efba76d8b" category="list-text">Se <block ref="701383cb184d92daac13becc67e9c1be" category="inline-link-macro-rx"></block>, è possibile utilizzare<block ref="00f73970d66f7ceaea7519a201d88dc8" prefix=" " category="inline-code"></block> per eseguire l'aggiornamento in un solo passaggio. Se non è stato aggiunto il repo Helm o non è possibile utilizzarlo per l'aggiornamento:</block>
   <block id="fd55ae3db3b16ceeb447f43dc713fb27" category="list-text">Scarica la versione più recente di Astra Trident da <block ref="6a7c34d1e7545bd3ab5abc336e61eb7f" category="inline-link-macro-rx"></block>.</block>
   <block id="34c5f2f84f16f23213713a6adc11c319" category="admonition">Se si impostano opzioni personalizzate durante l'installazione iniziale (ad esempio, se si specificano registri privati con mirroring per le immagini Trident e CSI), aggiungere il<block ref="cd01e1bae83933b9c59c914bc71332ac" prefix=" " category="inline-code"></block> utilizzare<block ref="8b5806248570dbb13e7d3bc5e6c0ee37" prefix=" " category="inline-code"></block> per assicurarsi che tali opzioni siano incluse nel comando upgrade, altrimenti i valori torneranno ai valori predefiniti.</block>
+  <block id="92f2a092c8970a9e6a9a8f5829670977" category="paragraph">Astra Trident offre<block ref="78512e06e40b1d6e7b22821168623dd6" category="inline-link-rx"></block>.</block>
+  <block id="20a385c1dc7ef65425669840055b5330" category="list-text">Le dimensioni minime consigliate per il membro/volume FlexGroup sono 100GiB.</block>
 </blocks>
