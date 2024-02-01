@@ -2071,7 +2071,6 @@
   <block id="27b4a9ed8609e35526601aa8d8be1ab9" category="paragraph">Se è già stata creata una classe di storage senza questa opzione, è possibile modificare semplicemente la classe di storage esistente utilizzando<block ref="04e7749715e986f27d9cb67434b65b72" prefix=" " category="inline-code"></block> per consentire l'espansione del volume.</block>
   <block id="784f78e647973a0dcfa11b7a028c7eae" category="paragraph">Astra Trident deve creare un PV NFS 20MiB per questo PVC:</block>
   <block id="3b16cea25bd4a9aaf5a9c3dcc13ea7eb" category="section-title">Fase 3: Espandere il PV</block>
-  <block id="e5c2c0bfcfbe01e6174199aaff9616a5" category="paragraph">Per ridimensionare il PV 20MiB appena creato in 1GiB, modificare il PVC e impostare<block ref="02b011e6fe36e26e5f7365ba08bf5a48" prefix=" " category="inline-code"></block> A 1 GB:</block>
   <block id="4a59ce1bc63fd7e6333968fb4bbd9d45" category="section-title">Fase 4: Convalidare l'espansione</block>
   <block id="c70f05fed7c73e0be4a0b24c8532a87c" category="paragraph">È possibile verificare che il ridimensionamento funzioni correttamente controllando le dimensioni del volume PVC, PV e Astra Trident:</block>
   <block id="24ca391029d6df294c5d5b8f1fe5b4eb" category="summary">Scopri come configurare un backend ONTAP con i driver NAS ONTAP.</block>
@@ -2118,7 +2117,6 @@
   <block id="8313f77478cb0df464604ae4435acce2" category="paragraph">Il passaggio finale consiste nell'eliminare<block ref="913a4b06671d1e04e6582a85afe3abbe" prefix=" " category="inline-code"></block> CR. Dopo la conferma di<block ref="98e7d6463271d7848db255ae6467817a" prefix=" " category="inline-code"></block> è impostato su<block ref="16d79ff80feadcf2f52096f073f2b94a" prefix=" " category="inline-code"></block>, è possibile procedere con l'eliminazione:</block>
   <block id="c1493b6d6e05639a816e5772bbb491af" category="paragraph">Al momento dell'eliminazione di<block ref="913a4b06671d1e04e6582a85afe3abbe" prefix=" " category="inline-code"></block> Astra Trident lo rimuove senza eliminare il backend stesso.</block>
   <block id="28b0abcecaf7a63edb46e4e137337018" category="doc">Configurare un backend Azure NetApp Files</block>
-  <block id="8f395c84ad002394e9f070a25937dcc4" category="list-text">Il servizio Azure NetApp Files non supporta volumi inferiori a 100 GB. Astra Trident crea automaticamente volumi da 100 GB se viene richiesto un volume più piccolo.</block>
   <block id="98e45a92edd75cce26a32a68de45f178" category="summary">Un backend definisce la relazione tra Astra Trident e un sistema storage. Spiega ad Astra Trident come comunicare con quel sistema storage e come Astra Trident dovrebbe eseguire il provisioning dei volumi da esso.</block>
   <block id="a576cff5a76e67426a0051b7e1b93331" category="paragraph">Astra Trident offre automaticamente pool di storage da backend che soddisfano i requisiti definiti da una classe di storage. Scopri come configurare il back-end per il tuo sistema storage.</block>
   <block id="2acbb5dd492d792d00383b0c76ade4ad" category="list-text"><block ref="2acbb5dd492d792d00383b0c76ade4ad" category="inline-link-macro-rx"></block></block>
@@ -4050,4 +4048,6 @@ oppure<block ref="28994d623a492f2e5b2eb3ffbcdd4dd0" prefix=" " category="inline-
   <block id="e1f272eb0b2aaba7b1cb689543f653e0" category="paragraph">Il seguente comando disinstalla il componente aggiuntivo Astra Trident EKS:<block ref="09a3e9c644b219341aa6e2e8a8922e59" prefix=" " category="inline-code"></block></block>
   <block id="c6861e88433ccd90f1ce8143d7e5fed0" category="sidebar">Configurare il componente aggiuntivo Astra Trident EKS sul cluster EKS</block>
   <block id="7ed15597cafdca20d5859b7e394bc0ab" category="doc">Configurare il componente aggiuntivo Astra Trident EKS versione 23,10 sul cluster EKS</block>
+  <block id="4262957957c18f0bab73d8ddafcb642f" category="list-text">Il servizio Azure NetApp Files non supporta volumi inferiori a 100 GB. Astra Trident crea automaticamente volumi 100-GiB se viene richiesto un volume più piccolo.</block>
+  <block id="f825c914a8659f5b0de8a9219ab365b6" category="paragraph">Per ridimensionare il PV 20MiB appena creato in 1GiB, modificare il PVC e impostare<block ref="02b011e6fe36e26e5f7365ba08bf5a48" prefix=" " category="inline-code"></block> A 1GiB:</block>
 </blocks>
