@@ -107,7 +107,7 @@ ROX e RWX non sono disponibili in modalità Volume filesystem.
 
 === Compatibilità driver Astra Control
 
-Astra Control offre protezione perfetta, disaster recovery e mobilità (spostamento di volumi tra cluster Kubernetes) per i volumi creati con `ontap-nas`, `ontap-nas-flexgroup`, e. `ontap-san` driver. Vedere link:https://docs.netapp.com/us-en/astra-control-center/use/replicate_snapmirror.html#replication-prerequisites["Prerequisiti per la replica di Astra Control"^] per ulteriori informazioni.
+Astra Control offre protezione perfetta, disaster recovery e mobilità (spostamento di volumi tra cluster Kubernetes) per i volumi creati con `ontap-nas`, `ontap-nas-flexgroup`, e. `ontap-san` driver. Fare riferimento a. link:https://docs.netapp.com/us-en/astra-control-center/use/replicate_snapmirror.html#replication-prerequisites["Prerequisiti per la replica di Astra Control"^] per ulteriori informazioni.
 
 [WARNING]
 ====
@@ -139,7 +139,7 @@ Astra Trident supporta il protocollo non-volatile memory express (NVMe) utilizza
 * Ridimensionamento di un volume NVMe
 * Importare un volume NVMe creato al di fuori di Astra Trident in modo che il suo ciclo di vita possa essere gestito da Astra Trident
 * Multipath nativo NVMe
-* Arresto anomalo o anomalo dei K8s nodi (23,10)
+* Arresto anomalo o anomalo dei K8s nodi (24,02)
 
 
 Astra Trident non supporta:

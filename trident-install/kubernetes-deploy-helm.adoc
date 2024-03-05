@@ -16,7 +16,7 @@ summary: 'È possibile implementare l"operatore Trident e installare Astra Tride
 
 
 
-== Informazioni critiche su Astra Trident 23,10
+== Informazioni critiche su Astra Trident 24,02
 
 *È necessario leggere le seguenti informazioni critiche su Astra Trident.*
 
@@ -49,11 +49,11 @@ Oltre a link:../trident-get-started/kubernetes-deploy.html#before-you-deploy["pr
 ----
 helm repo add netapp-trident https://netapp.github.io/trident-helm-chart
 ----
-. Utilizzare `helm install` e specificare un nome per la distribuzione come nell'esempio seguente dove `23.10.0` È la versione di Astra Trident che si sta installando.
+. Utilizzare `helm install` e specificare un nome per la distribuzione come nell'esempio seguente dove `24.02.0` È la versione di Astra Trident che si sta installando.
 +
 [listing]
 ----
-helm install <name> netapp-trident/trident-operator --version 23.10.0 --create-namespace --namespace <trident-namespace>
+helm install <name> netapp-trident/trident-operator --version 24.02.0 --create-namespace --namespace <trident-namespace>
 ----
 +
 
@@ -83,11 +83,11 @@ Specificare un file YAML con override. Questo valore può essere specificato pi�
 Specificare le sostituzioni sulla riga di comando.
 
 |===
-Ad esempio, per modificare il valore predefinito di `debug`, eseguire quanto segue `--set` comando dove `23.10.0` È la versione di Astra Trident che si sta installando:
+Ad esempio, per modificare il valore predefinito di `debug`, eseguire quanto segue `--set` comando dove `24.02.0` È la versione di Astra Trident che si sta installando:
 
 [listing]
 ----
-helm install <name> netapp-trident/trident-operator --version 23.10.0  --create-namespace --namespace trident --set tridentDebug=true
+helm install <name> netapp-trident/trident-operator --version 24.02.0  --create-namespace --namespace trident --set tridentDebug=true
 ----
 
 
@@ -205,7 +205,10 @@ Questa tabella e il `values.yaml` Il file, che fa parte del grafico Helm, fornis
 | `excludePodSecurityPolicy` | Esclude la creazione della policy di sicurezza del pod operatore. | `false` 
 
 
-| `cloudProvider` | Impostare su `"Azure"` Quando si utilizzano identità gestite su un cluster AKS. | `""` 
+| `cloudProvider` | Impostare su `"Azure"` Quando si utilizzano identità gestite o un'identità cloud su un cluster AKS. Impostato su "AWS" quando si utilizza un'identità cloud su un cluster EKS. | `""` 
+
+
+| `cloudIdentity` | Impostare sull'identità del workload ("Azure.workload.Identity/client-id: Xxxxxxxx-xxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx") quando si utilizza l'identità cloud su un cluster AKS. Impostato sul ruolo AWS IAM ("'eks.amazonaws.com/role-arn: arn:AWS:iam::123456:role/astratadent-role'") quando si utilizza l'identità cloud su un cluster EKS. | `""` 
 |===
 
 

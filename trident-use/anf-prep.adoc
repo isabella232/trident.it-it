@@ -22,9 +22,13 @@ Se si utilizza Azure NetApp Files per la prima volta o in una nuova posizione, �
 
 Per configurare e utilizzare un https://azure.microsoft.com/en-us/services/netapp/["Azure NetApp Files"^] back-end, sono necessari i seguenti elementi:
 
+[NOTE]
+====
+* `subscriptionID`, `tenantID`, `clientID`, `location`, e. `clientSecret` Sono opzionali quando si utilizzano identità gestite su un cluster AKS.
+* `tenantID`, `clientID`, e. `clientSecret` Sono opzionali quando si utilizza un'identità cloud su un cluster AKS.
 
-NOTE: `subscriptionID`, `tenantID`, `clientID`, `location`, e. `clientSecret` Sono opzionali quando si utilizzano identità gestite su un cluster AKS.
 
+====
 * Un pool di capacità. Fare riferimento a. link:https://learn.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-set-up-capacity-pool["Microsoft: Creare un pool di capacità per Azure NetApp Files"^].
 * Una subnet delegata a Azure NetApp Files. Fare riferimento a. link:https://learn.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-delegate-subnet["Microsoft: Delegare una subnet a Azure NetApp Files"^].
 * `subscriptionID` Da un abbonamento Azure con Azure NetApp Files attivato.
@@ -81,7 +85,8 @@ NOTE: `subscriptionID`, `tenantID`, `clientID`, `location`, e. `clientSecret` So
 ====
 
 
-* Azure `location` che ne contiene almeno uno link:https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-delegate-subnet["subnet delegata"^]. A partire da Trident 22.01, il `location` parametro è un campo obbligatorio al livello superiore del file di configurazione back-end. I valori di posizione specificati nei pool virtuali vengono ignorati.
+* Azure `location` che ne contiene almeno uno https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-delegate-subnet["subnet delegata"^]. A partire da Trident 22.01, il `location` parametro è un campo obbligatorio al livello superiore del file di configurazione back-end. I valori di posizione specificati nei pool virtuali vengono ignorati.
+* Da utilizzare `Cloud Identity`, ottenere il `client ID` da un https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/how-manage-user-assigned-managed-identities["identità gestita assegnata dall'utente"^] E specificare tale ID in `azure.workload.identity/client-id: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx`.
 
 
 

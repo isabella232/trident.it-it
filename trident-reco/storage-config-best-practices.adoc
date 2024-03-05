@@ -51,7 +51,7 @@ Non esiste alcuna preferenza tra avere una LIF di gestione dedicata o condivisa 
 
 === Limitare il numero massimo di volumi
 
-I sistemi storage ONTAP hanno un numero massimo di volumi, che varia in base alla versione software e alla piattaforma hardware. Vedere https://hwu.netapp.com/["NetApp Hardware Universe"^] Per la piattaforma e la versione di ONTAP specifiche per determinare i limiti esatti. Una volta esaurito il numero di volumi, le operazioni di provisioning non vengono eseguite solo per Trident, ma per tutte le richieste di storage.
+I sistemi storage ONTAP hanno un numero massimo di volumi, che varia in base alla versione software e alla piattaforma hardware. Fare riferimento a. https://hwu.netapp.com/["NetApp Hardware Universe"^] Per la piattaforma e la versione di ONTAP specifiche per determinare i limiti esatti. Una volta esaurito il numero di volumi, le operazioni di provisioning non vengono eseguite solo per Trident, ma per tutte le richieste di storage.
 
 Di Trident `ontap-nas` e. `ontap-san` I driver forniscono un FlexVolume per ogni volume persistente Kubernetes (PV) creato. Il `ontap-nas-economy` Il driver crea circa un FlexVolume ogni 200 PVS (configurabile tra 50 e 300). Il `ontap-san-economy` Il driver crea circa un FlexVolume ogni 100 PVS (configurabile tra 50 e 200). Per evitare che Trident utilizzi tutti i volumi disponibili sul sistema storage, è necessario impostare un limite per SVM. È possibile eseguire questa operazione dalla riga di comando:
 
@@ -118,7 +118,8 @@ IMPORTANT: È necessario assegnare il gruppo di criteri QoS a SVM *only* se la v
 
 === Creare gruppi di policy QoS per Trident
 
-La qualità del servizio (QoS) garantisce che le performance dei carichi di lavoro critici non vengano degradate da carichi di lavoro concorrenti. I gruppi di policy QoS di ONTAP offrono opzioni di QoS per i volumi e consentono agli utenti di definire il limite massimo di throughput per uno o più carichi di lavoro. Per ulteriori informazioni su QoS, vedere https://docs.netapp.com/ontap-9/topic/com.netapp.doc.pow-perf-mon/GUID-77DF9BAF-4ED7-43F6-AECE-95DFB0680D2F.html["Garanzia di throughput con QoS"^]. È possibile specificare i gruppi di policy QoS nel backend o in un pool di storage, che vengono applicati a ciascun volume creato in quel pool o backend.
+La qualità del servizio (QoS) garantisce che le performance dei carichi di lavoro critici non vengano degradate da carichi di lavoro concorrenti. I gruppi di policy QoS di ONTAP offrono opzioni di QoS per i volumi e consentono agli utenti di definire il limite massimo di throughput per uno o più carichi di lavoro. Per ulteriori informazioni su QoS, consultare https://docs.netapp.com/ontap-9/topic/com.netapp.doc.pow-perf-mon/GUID-77DF9BAF-4ED7-43F6-AECE-95DFB0680D2F.html["Garanzia di throughput con QoS"^].
+È possibile specificare i gruppi di policy QoS nel backend o in un pool di storage, che vengono applicati a ciascun volume creato in quel pool o backend.
 
 ONTAP dispone di due tipi di gruppi di policy QoS: Tradizionale e adattiva. I gruppi di policy tradizionali forniscono un throughput massimo (o minimo, nelle versioni successive) costante negli IOPS. La QoS adattiva scala automaticamente il throughput in base alle dimensioni del carico di lavoro, mantenendo il rapporto tra IOPS e TB|GB in base alle dimensioni del carico di lavoro. Questo offre un vantaggio significativo quando si gestiscono centinaia o migliaia di carichi di lavoro in un'implementazione di grandi dimensioni.
 
@@ -152,7 +153,7 @@ storage:
 * È necessario applicare i gruppi di criteri per volume, in modo che ogni volume ottenga l'intero throughput come specificato dal gruppo di criteri. I gruppi di criteri condivisi non sono supportati.
 
 
-Per ulteriori informazioni sui gruppi di criteri QoS, vedere https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-cmpr-980/TOC__qos.html["Comandi QoS di ONTAP 9.8"^].
+Per ulteriori informazioni sui gruppi di criteri QoS, fare riferimento a. https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-cmpr-980/TOC__qos.html["Comandi QoS di ONTAP 9.8"^].
 
 
 
@@ -258,7 +259,7 @@ IOPS massimi consentiti in uno scenario a burst breve.
 
 NOTE: Anche se i massimi IOPS e burst IOPS possono essere impostati su 200,000, le performance massime reali di un volume sono limitate dall'utilizzo del cluster e dalle performance per nodo.
 
-Le dimensioni dei blocchi e la larghezza di banda influiscono direttamente sul numero di IOPS. Con l'aumentare delle dimensioni dei blocchi, il sistema aumenta la larghezza di banda fino a raggiungere un livello necessario per elaborare blocchi di dimensioni maggiori. Con l'aumentare della larghezza di banda, il numero di IOPS che il sistema è in grado di raggiungere diminuisce. Vedere https://www.netapp.com/pdf.html?item=/media/10502-tr-4644pdf.pdf["Qualità del servizio SolidFire"^] Per ulteriori informazioni su QoS e performance.
+Le dimensioni dei blocchi e la larghezza di banda influiscono direttamente sul numero di IOPS. Con l'aumentare delle dimensioni dei blocchi, il sistema aumenta la larghezza di banda fino a raggiungere un livello necessario per elaborare blocchi di dimensioni maggiori. Con l'aumentare della larghezza di banda, il numero di IOPS che il sistema è in grado di raggiungere diminuisce. Fare riferimento a. https://www.netapp.com/pdf.html?item=/media/10502-tr-4644pdf.pdf["Qualità del servizio SolidFire"^] Per ulteriori informazioni su QoS e performance.
 
 
 

@@ -67,7 +67,7 @@ RWO, ROX, RWX, RWOP
 
 === Compatibilità driver Astra Control
 
-Astra Control offre protezione perfetta, disaster recovery e mobilità (spostamento di volumi tra cluster Kubernetes) per i volumi creati con `ontap-nas`, `ontap-nas-flexgroup`, e. `ontap-san` driver. Vedere link:https://docs.netapp.com/us-en/astra-control-center/use/replicate_snapmirror.html#replication-prerequisites["Prerequisiti per la replica di Astra Control"^] per ulteriori informazioni.
+Astra Control offre protezione perfetta, disaster recovery e mobilità (spostamento di volumi tra cluster Kubernetes) per i volumi creati con `ontap-nas`, `ontap-nas-flexgroup`, e. `ontap-san` driver. Fare riferimento a. link:https://docs.netapp.com/us-en/astra-control-center/use/replicate_snapmirror.html#replication-prerequisites["Prerequisiti per la replica di Astra Control"^] per ulteriori informazioni.
 
 [WARNING]
 ====

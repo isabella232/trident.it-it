@@ -62,7 +62,7 @@ No Non ci sono modifiche per quanto riguarda l'esperienza e le funzionalità del
 
 === Astra Trident supporta un'installazione offline da un registro privato?
 
-Sì, Astra Trident può essere installato offline. Vedere link:trident-get-started/kubernetes-deploy.html["qui"].
+Sì, Astra Trident può essere installato offline. Fare riferimento a. link:../trident-get-started/kubernetes-deploy.html["Scopri di più sull'installazione di Astra Trident"^].
 
 
 
@@ -86,13 +86,13 @@ Astra Trident legge dal Kubernetes API Server per determinare quando le applicaz
 
 === Quali sono i ruoli e i privilegi utilizzati da Astra Trident?
 
-Il programma di installazione Trident crea un Kubernetes ClusterRole, che ha accesso specifico alle risorse PersistentVolume, PersistentVolumeClaim, StorageClass e Secret del cluster Kubernetes. Vedere link:trident-get-started/kubernetes-customize-deploy-tridentctl.html["qui"].
+Il programma di installazione Trident crea un Kubernetes ClusterRole, che ha accesso specifico alle risorse PersistentVolume, PersistentVolumeClaim, StorageClass e Secret del cluster Kubernetes. Fare riferimento a. link:../trident-get-started/kubernetes-customize-deploy-tridentctl.html["Personalizzare l'installazione di tridentctl"^].
 
 
 
 === È possibile generare localmente i file manifest utilizzati da Astra Trident per l'installazione?
 
-È possibile generare e modificare localmente i file manifest utilizzati da Astra Trident per l'installazione, se necessario. Vedere link:trident-get-started/kubernetes-customize-deploy-tridentctl.html["qui"].
+È possibile generare e modificare localmente i file manifest utilizzati da Astra Trident per l'installazione, se necessario. Fare riferimento a. link:trident-get-started/kubernetes-customize-deploy-tridentctl.html["Personalizzare l'installazione di tridentctl"^].
 
 
 

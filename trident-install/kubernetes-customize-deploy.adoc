@@ -46,13 +46,18 @@ Questa tabella è dettagliata `TridentOrchestrator` attributi.
 | `debug` | Attiva il debug per Astra Trident | `false` 
 
 
-| `enableForceDetach` | `ontap-san` e. `ontap-san-economy` solo. Funziona con Kubernetes non-Graged Node Shutdown (NGNS) per consentire agli amministratori del cluster di migrare in sicurezza i carichi di lavoro con volumi montati su nuovi nodi in caso di problemi di integrità di un nodo. *Questa è una funzionalità sperimentale di 23.04.* fare riferimento a. <<Dettagli sulla forza di distacco>> per dettagli importanti. | `false` 
+| `enableForceDetach` | `ontap-san` e. `ontap-san-economy` solo.
+
+Funziona con Kubernetes non-Graged Node Shutdown (NGNS) per consentire agli amministratori del cluster di migrare in sicurezza i carichi di lavoro con volumi montati su nuovi nodi in caso di problemi di integrità di un nodo. | `false` 
 
 
 | `windows` | Impostazione su `true` Attiva l'installazione su nodi di lavoro Windows. | `false` 
 
 
-| `cloudProvider` | Impostare su `"Azure"` Quando si utilizzano identità gestite su un cluster AKS. | `""` 
+| `cloudProvider` | Impostare su `"Azure"` Quando si utilizzano identità gestite o un'identità cloud su un cluster AKS. Impostato su "AWS" quando si utilizza un'identità cloud su un cluster EKS. | `""` 
+
+
+| `cloudIdentity` | Impostare sull'identità del workload ("Azure.workload.Identity/client-id: Xxxxxxxx-xxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx") quando si utilizza l'identità cloud su un cluster AKS. Impostato sul ruolo AWS IAM ("'eks.amazonaws.com/role-arn: arn:AWS:iam::123456:role/astrattadent-role") quando si utilizza l'identità cloud su un cluster EKS. | `""` 
 
 
 | `IPv6` | Installare Astra Trident su IPv6 | falso 
@@ -65,7 +70,7 @@ Questa tabella è dettagliata `TridentOrchestrator` attributi.
 in maniera automatica | `false` 
 
 
-| `autosupportImage` | L'immagine del contenitore per la telemetria AutoSupport | `"netapp/trident-autosupport:23.10"` 
+| `autosupportImage` | L'immagine del contenitore per la telemetria AutoSupport | `"netapp/trident-autosupport:24.02"` 
 
 
 | `autosupportProxy` | Indirizzo/porta di un proxy per l'invio della AutoSupport
@@ -78,7 +83,7 @@ Telemetria | `"http://proxy.example.com:8888"`
 | `logFormat` | Formato di registrazione Astra Trident da utilizzare [text,json] | `"text"` 
 
 
-| `tridentImage` | Immagine Astra Trident da installare | `"netapp/trident:23.10"` 
+| `tridentImage` | Immagine Astra Trident da installare | `"netapp/trident:24.02"` 
 
 
 | `imageRegistry` | Percorso al registro interno, del formato
@@ -114,7 +119,7 @@ Astra Trident |
 | `nodePluginTolerations` | Ignora le tolleranze Kubernetes per i pod. Segue lo stesso formato di `pod.spec.Tolerations`. | Nessuna impostazione predefinita; opzionale 
 |===
 
-NOTE: Per ulteriori informazioni sulla formattazione dei parametri del pod, vedere link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/["Assegnazione di pod ai nodi"^].
+NOTE: Per ulteriori informazioni sulla formattazione dei parametri del pod, fare riferimento a. link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/["Assegnazione di pod ai nodi"^].
 
 
 
@@ -219,5 +224,42 @@ spec:
   debug: true
   namespace: trident
   cloudProvider: "Azure"
+----
+====
+.Identità cloud su un cluster AKS
+[%collapsible]
+====
+Questo esempio installa Astra Trident per l'utilizzo con un'identità cloud su un cluster AKS.
+
+[listing]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentOrchestrator
+metadata:
+  name: trident
+spec:
+  debug: true
+  namespace: trident
+  cloudProvider: "Azure"
+  cloudIdentity: 'azure.workload.identity/client-id: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx'
+
+----
+====
+.Identità cloud su un cluster EKS
+[%collapsible]
+====
+Questo esempio installa Astra Trident per l'utilizzo con un'identità cloud su un cluster AKS.
+
+[listing]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentOrchestrator
+metadata:
+  name: trident
+spec:
+  debug: true
+  namespace: trident
+  cloudProvider: "AWS"
+  cloudIdentity: "'eks.amazonaws.com/role-arn: arn:aws:iam::123456:role/astratrident-role'"
 ----
 ====

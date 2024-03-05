@@ -19,7 +19,48 @@ WARNING: Il `tridentctl` Il file binario per Linux fornito nel file zip del prog
 
 
 
-== Novità della versione 23,10
+== Novità del 24,02
+
+
+
+=== Miglioramenti
+
+* Aggiunto supporto per Cloud Identity.
++
+** AKS con ANF - Azure workload Identity verrà utilizzato come Cloud Identity.
+** EKS con FSxN - il ruolo AWS IAM verrà utilizzato come identità Cloud.
+
+
+* Aggiunto il supporto per installare Astra Trident come add-on sul cluster EKS dalla console EKS.
+* È stata aggiunta la possibilità di configurare e disattivare la riparazione automatica iSCSI (link:https://github.com/NetApp/trident/issues/864["Problema n. 864"]).
+* È stata aggiunta la personalità FSX ai driver ONTAP per consentire l'integrazione con AWS IAM e SecretsManager e per consentire ad Astra Trident di eliminare i volumi FSX con i backup (link:https://github.com/NetApp/trident/issues/453["Problema n. 453"]).
+
+
+
+
+==== Kubernetes
+
+* Aggiunto supporto per Kubernetes 1,29.
+
+
+
+
+=== Correzioni
+
+* Messaggi di avviso ACP fissi, quando ACP non è abilitato (link:https://github.com/NetApp/trident/issues/866["Problema n. 866"]).
+* È stato aggiunto un ritardo di 10 secondi prima di eseguire una suddivisione dei cloni durante l'eliminazione dello snapshot per i driver ONTAP, quando un clone è associato allo snapshot.
+
+
+
+
+=== Dipendenze
+
+* Rimosso il framework degli attestati in-toto dai manifesti di immagini multipiattaforma.
+
+
+
+
+== Modifiche nel 23,10
 
 
 
@@ -367,7 +408,7 @@ Un nuovo link:https://docs.netapp.com/us-en/trident/trident-reference/pod-securi
 
 == Cambiamenti nel 22.04
 
-NetApp continua a migliorare e migliorare i propri prodotti e servizi. Ecco alcune delle funzionalità più recenti di Astra Trident. Per le release precedenti, vedere https://docs.netapp.com/us-en/trident/earlier-versions.html["Versioni precedenti della documentazione"].
+NetApp continua a migliorare e migliorare i propri prodotti e servizi. Ecco alcune delle funzionalità più recenti di Astra Trident. Per le versioni precedenti, fare riferimento a. https://docs.netapp.com/us-en/trident/earlier-versions.html["Versioni precedenti della documentazione"].
 
 
 IMPORTANT: Se si esegue l'aggiornamento da una release precedente di Trident e si utilizza Azure NetApp Files, il ``location`` il parametro di configurazione è ora un campo singleton obbligatorio.

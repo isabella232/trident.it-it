@@ -57,7 +57,7 @@ Installato con tridentctl::
 
 * È inoltre possibile ottenere i log di debug per ciascun backend includendo `debugTraceFlags` nella definizione di back-end. Ad esempio, Includi `debugTraceFlags: {“api”:true, “method”:true,}` Per ottenere chiamate API e attraversamenti dei metodi nei log di Trident. I backend esistenti possono avere `debugTraceFlags` configurato con un `tridentctl backend update`.
 * Quando si utilizza RedHat CoreOS, assicurarsi che `iscsid` è attivato sui nodi di lavoro e avviato per impostazione predefinita. Questa operazione può essere eseguita utilizzando OpenShift MachineConfigs o modificando i modelli di accensione.
-* Si tratta di un problema comune che potrebbe verificarsi quando si utilizza Trident con https://azure.microsoft.com/en-us/services/netapp/["Azure NetApp Files"] è quando i segreti del tenant e del client provengono da una registrazione dell'applicazione con autorizzazioni insufficienti. Per un elenco completo dei requisiti Trident, vedere link:trident-use/anf.html["Azure NetApp Files"] configurazione.
+* Si tratta di un problema comune che potrebbe verificarsi quando si utilizza Trident con https://azure.microsoft.com/en-us/services/netapp/["Azure NetApp Files"] è quando i segreti del tenant e del client provengono da una registrazione dell'applicazione con autorizzazioni insufficienti. Per un elenco completo dei requisiti Trident, fare riferimento a. link:trident-use/anf.html["Azure NetApp Files"] configurazione.
 * In caso di problemi con il montaggio di un PV su un container, assicurarsi che `rpcbind` è installato e in esecuzione. Utilizzare il gestore dei pacchetti richiesto per il sistema operativo host e verificare se `rpcbind` è in esecuzione. È possibile controllare lo stato di `rpcbind` eseguire un `systemctl status rpcbind` o equivalente.
 * Se un backend Trident segnala che si trova in `failed` stato nonostante abbia lavorato in precedenza, è probabile che sia causato dalla modifica delle credenziali SVM/admin associate al backend. Aggiornamento delle informazioni di back-end tramite `tridentctl update backend` O rimbalzare il pod Trident risolverà questo problema.
 * Se si riscontrano problemi di autorizzazione durante l'installazione di Trident con Docker come runtime del container, tentare l'installazione di Trident con `--in cluster=false` allarme. Questo non utilizzerà un pod di installazione ed eviterà i problemi di autorizzazione causati da `trident-installer` utente.
@@ -162,7 +162,7 @@ INFO Trident uninstallation succeeded.
 È possibile rimuovere completamente Astra Trident e tutti i CRD creati e le risorse personalizzate associate.
 
 
-WARNING: Questa operazione non può essere annullata. Non farlo a meno che non si desideri una nuova installazione di Astra Trident. Per disinstallare Astra Trident senza rimuovere i CRD, vedere link:trident-managing-k8s/uninstall-trident.html["Disinstallare Astra Trident"].
+WARNING: Questa operazione non può essere annullata. Non farlo a meno che non si desideri una nuova installazione di Astra Trident. Per disinstallare Astra Trident senza rimuovere i CRD, fare riferimento a. link:trident-managing-k8s/uninstall-trident.html["Disinstallare Astra Trident"].
 
 [role="tabbed-block"]
 ====

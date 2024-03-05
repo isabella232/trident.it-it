@@ -58,7 +58,6 @@ NOTE: È possibile accedere al file system (ad esempio per installare i certific
 --
 [listing]
 ----
----
 version: 1
 storageDriverName: ontap-san
 backendName: customBackendName
@@ -83,6 +82,62 @@ trustedCACertificate: zcyBbaG...b3Igb3duIGNsYXNz
   "clientPrivateKey": "vciwKIyAgZG...0cnksIGRlc2NyaX",
   "trustedCACertificate": "zcyBbaG...b3Igb3duIGNsYXNz"
  }
+
+----
+--
+====
++
+In alternativa, puoi creare un file backend utilizzando le credenziali SVM (nome utente e password) memorizzate in AWS Secret Manager, come mostrato in questo esempio:
+
++
+[role="tabbed-block"]
+====
+.YAML
+--
+[listing]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentBackendConfig
+metadata:
+  name: backend-tbc-ontap-nas
+spec:
+  version: 1
+  storageDriverName: ontap-nas
+  backendName: tbc-ontap-nas
+  svm: svm-name
+  aws:
+    fsxFilesystemID: fs-xxxxxxxxxx
+  managementLIF:
+  credentials:
+    name: "arn:aws:secretsmanager:us-west-2:xxxxxxxx:secret:secret-name"
+    type: awsarn
+----
+--
+.JSON
+--
+[listing]
+----
+{
+  "apiVersion": "trident.netapp.io/v1",
+  "kind": "TridentBackendConfig",
+  "metadata": {
+    "name": "backend-tbc-ontap-nas"
+  },
+  "spec": {
+    "version": 1,
+    "storageDriverName": "ontap-nas",
+    "backendName": "tbc-ontap-nas",
+    "svm": "svm-name",
+    "aws": {
+      "fsxFilesystemID": "fs-xxxxxxxxxx"
+    },
+    "managementLIF": null,
+    "credentials": {
+      "name": "arn:aws:secretsmanager:us-west-2:xxxxxxxx:secret:secret-name",
+      "type": "awsarn"
+    }
+  }
+}
 
 ----
 --

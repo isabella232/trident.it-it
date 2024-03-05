@@ -20,7 +20,7 @@ Comprendere i requisiti, le opzioni di autenticazione e le policy di esportazion
 
 * Per tutti i backend ONTAP, Astra Trident richiede almeno un aggregato assegnato alla SVM.
 * È possibile eseguire più di un driver e creare classi di storage che puntano all'una o all'altra. Ad esempio, è possibile configurare una classe Gold che utilizza `ontap-nas` Driver e una classe Bronze che utilizza `ontap-nas-economy` uno.
-* Tutti i nodi di lavoro di Kubernetes devono avere installati gli strumenti NFS appropriati. Vedere link:worker-node-prep.html["qui"] per ulteriori dettagli.
+* Tutti i nodi di lavoro di Kubernetes devono avere installati gli strumenti NFS appropriati. Fare riferimento a. link:worker-node-prep.html["qui"] per ulteriori dettagli.
 * Astra Trident supporta volumi SMB montati su pod eseguiti solo su nodi Windows. Fare riferimento a. <<Preparatevi al provisioning dei volumi SMB>> per ulteriori informazioni.
 
 

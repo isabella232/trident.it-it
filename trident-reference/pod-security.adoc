@@ -15,7 +15,7 @@ summary: 'Kubernetes Pod Security Standards (PSS) e Pod Security Policy (PSP) de
 Kubernetes Pod Security Standards (PSS) e Pod Security Policy (PSP) definiscono i livelli di autorizzazione e limitano il comportamento dei pod. OpenShift Security Context Constraints (SCC) definisce analogamente la restrizione pod specifica per OpenShift Kubernetes Engine. Per fornire questa personalizzazione, Astra Trident abilita alcune autorizzazioni durante l'installazione. Nelle sezioni seguenti sono descritte in dettaglio le autorizzazioni impostate da Astra Trident.
 
 
-NOTE: PSS sostituisce Pod Security Policies (PSP). PSP è stato deprecato in Kubernetes v1.21 e verrà rimosso nella versione 1.25. Per ulteriori informazioni, vedere link:https://kubernetes.io/docs/concepts/security/["Kubernetes: Sicurezza"].
+NOTE: PSS sostituisce Pod Security Policies (PSP). PSP è stato deprecato in Kubernetes v1.21 e verrà rimosso nella versione 1.25. Per ulteriori informazioni, fare riferimento a. link:https://kubernetes.io/docs/concepts/security/["Kubernetes: Sicurezza"].
 
 
 
@@ -26,7 +26,7 @@ NOTE: PSS sostituisce Pod Security Policies (PSP). PSP è stato deprecato in Kub
 | Permesso | Descrizione 
 
 
-| Privilegiato | CSI richiede che i punti di montaggio siano bidirezionali, il che significa che il pod di nodi Trident deve eseguire un container privilegiato. Per ulteriori informazioni, vedere link:https://kubernetes.io/docs/concepts/storage/volumes/#mount-propagation["Kubernetes: Propagazione del mount"]. 
+| Privilegiato | CSI richiede che i punti di montaggio siano bidirezionali, il che significa che il pod di nodi Trident deve eseguire un container privilegiato. Per ulteriori informazioni, fare riferimento a. link:https://kubernetes.io/docs/concepts/storage/volumes/#mount-propagation["Kubernetes: Propagazione del mount"]. 
 
 
 | Rete host | Necessario per il daemon iSCSI. `iscsiadm` Gestisce i montaggi iSCSI e utilizza la rete host per comunicare con il daemon iSCSI. 

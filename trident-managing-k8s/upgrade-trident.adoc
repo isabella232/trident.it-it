@@ -27,7 +27,7 @@ Quando si esegue l'aggiornamento all'ultima release di Astra Trident, considerar
 +
 ** Si tratta di un requisito **** per l'applicazione https://kubernetes.io/docs/tasks/configure-pod-container/security-context/["contesti di sicurezza"^] Per volumi SAN.
 ** La directory https://github.com/NetApp/trident/tree/master/trident-installer/sample-input[sample input^] contiene esempi, come https://github.com/NetApp/trident/blob/master/trident-installer/sample-input/storage-class-samples/storage-class-basic.yaml.templ[`storage-class-basic.yaml.templ`^] e link:https://github.com/NetApp/trident/blob/master/trident-installer/sample-input/storage-class-samples/storage-class-bronze-default.yaml[`storage-class-bronze-default.yaml`^].
-** Per ulteriori informazioni, vedere link:../trident-rn.html["Problemi noti"].
+** Per ulteriori informazioni, fare riferimento a. link:../trident-rn.html["Problemi noti"].
 
 
 
@@ -38,17 +38,17 @@ Quando si esegue l'aggiornamento all'ultima release di Astra Trident, considerar
 
 Le versioni di Astra Trident seguono una data-based `YY.MM` Convenzione di naming, dove "YY" è l'ultima cifra dell'anno e "MM" è il mese. I rilasci di punti seguono un `YY.MM.X` convention, dove "X" è il livello di patch. Selezionare la versione a cui eseguire l'aggiornamento in base alla versione da cui si sta eseguendo l'aggiornamento.
 
-* È possibile eseguire un aggiornamento diretto a qualsiasi release di destinazione che si trova all'interno di una finestra di quattro release della versione installata. Ad esempio, è possibile aggiornare direttamente da 22,10 (o qualsiasi versione a 22,10 punti) a 23,10.
-* Se si sta eseguendo l'aggiornamento da una release al di fuori della finestra a quattro release, eseguire un aggiornamento in più fasi. Seguire le istruzioni di aggiornamento di link:../earlier-versions.html["versione precedente"] si sta eseguendo l'aggiornamento alla versione più recente che si adatta alla finestra a quattro release. Ad esempio, se si utilizza 21,10 e si desidera eseguire l'aggiornamento a 23,10:
+* È possibile eseguire un aggiornamento diretto a qualsiasi release di destinazione che si trova all'interno di una finestra di quattro release della versione installata. Ad esempio, è possibile aggiornare direttamente da 22,10 (o qualsiasi versione a 22,10 punti) a 24,02.
+* Se si sta eseguendo l'aggiornamento da una release al di fuori della finestra a quattro release, eseguire un aggiornamento in più fasi. Seguire le istruzioni di aggiornamento di link:../earlier-versions.html["versione precedente"] si sta eseguendo l'aggiornamento alla versione più recente che si adatta alla finestra a quattro release. Ad esempio, se si utilizza 21,10 e si desidera eseguire l'aggiornamento a 24,02:
 +
 .. Primo aggiornamento da 21,10 a 22,10.
-.. Quindi, eseguire l'aggiornamento da 22,10 a 23,10.
+.. Quindi, eseguire l'aggiornamento da 22,10 a 24,02.
 
 
 
 
 
-NOTE: Quando si esegue l'aggiornamento utilizzando l'operatore Trident su OpenShift Container Platform, è necessario eseguire l'aggiornamento a Trident 21.01.1 o versione successiva. L'operatore Trident rilasciato con 21.01.0 contiene un problema noto che è stato risolto nel 21.01.1. Per ulteriori informazioni, vedere https://github.com/NetApp/trident/issues/517["Dettagli del problema su GitHub"^].
+NOTE: Quando si esegue l'aggiornamento utilizzando l'operatore Trident su OpenShift Container Platform, è necessario eseguire l'aggiornamento a Trident 21.01.1 o versione successiva. L'operatore Trident rilasciato con 21.01.0 contiene un problema noto che è stato risolto nel 21.01.1. Per ulteriori informazioni, fare riferimento alla https://github.com/NetApp/trident/issues/517["Dettagli del problema su GitHub"^].
 
 
 

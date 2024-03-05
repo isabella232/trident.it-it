@@ -16,7 +16,7 @@ summary: 'È possibile implementare l"operatore Trident e installare Astra Tride
 
 
 
-== Informazioni critiche su Astra Trident 23,10
+== Informazioni critiche su Astra Trident 24,02
 
 *È necessario leggere le seguenti informazioni critiche su Astra Trident.*
 
@@ -49,7 +49,7 @@ Oltre a link:../trident-get-started/kubernetes-deploy.html#before-you-deploy["pr
 ----
 helm repo add netapp-trident https://netapp.github.io/trident-helm-chart
 ----
-. Utilizzare `helm install` e specificare un nome per la distribuzione e la posizione del registro delle immagini. Il tuo link:../trident-get-started/requirements.html#container-images-and-corresponding-kubernetes-versions["Immagini Trident e CSI"] Può trovarsi in un registro o in registri diversi, ma tutte le immagini CSI devono trovarsi nello stesso registro. Negli esempi, `23.10.0` È la versione di Astra Trident che si sta installando.
+. Utilizzare `helm install` e specificare un nome per la distribuzione e la posizione del registro delle immagini. Il tuo link:../trident-get-started/requirements.html#container-images-and-corresponding-kubernetes-versions["Immagini Trident e CSI"] Può trovarsi in un registro o in registri diversi, ma tutte le immagini CSI devono trovarsi nello stesso registro. Negli esempi, `24.02.0` È la versione di Astra Trident che si sta installando.
 +
 [role="tabbed-block"]
 ====
@@ -57,7 +57,7 @@ helm repo add netapp-trident https://netapp.github.io/trident-helm-chart
 --
 [listing]
 ----
-helm install <name> netapp-trident/trident-operator --version 23.10.0 --set imageRegistry=<your-registry> --create-namespace --namespace <trident-namespace>
+helm install <name> netapp-trident/trident-operator --version 24.02.0 --set imageRegistry=<your-registry> --create-namespace --namespace <trident-namespace>
 ----
 --
 .Immagini in diversi registri
@@ -66,7 +66,7 @@ helm install <name> netapp-trident/trident-operator --version 23.10.0 --set imag
 
 [listing]
 ----
-helm install <name> netapp-trident/trident-operator --version 23.10.0 --set imageRegistry=<your-registry>/sig-storage --set operatorImage=<your-registry>/netapp/trident-operator:23.10.0 --set tridentAutosupportImage=<your-registry>/netapp/trident-autosupport:23.10 --set tridentImage=<your-registry>/netapp/trident:23.10.0 --create-namespace --namespace <trident-namespace>
+helm install <name> netapp-trident/trident-operator --version 24.02.0 --set imageRegistry=<your-registry>/sig-storage --set operatorImage=<your-registry>/netapp/trident-operator:24.02.0 --set tridentAutosupportImage=<your-registry>/netapp/trident-autosupport:24.02 --set tridentImage=<your-registry>/netapp/trident:24.02.0 --create-namespace --namespace <trident-namespace>
 ----
 --
 ====
@@ -98,11 +98,11 @@ Specificare un file YAML con override. Questo valore può essere specificato pi�
 Specificare le sostituzioni sulla riga di comando.
 
 |===
-Ad esempio, per modificare il valore predefinito di `debug`, eseguire quanto segue `--set` comando dove `23.10.0` È la versione di Astra Trident che si sta installando:
+Ad esempio, per modificare il valore predefinito di `debug`, eseguire quanto segue `--set` comando dove `24.02.0` È la versione di Astra Trident che si sta installando:
 
 [listing]
 ----
-helm install <name> netapp-trident/trident-operator --version 23.10.0  --create-namespace --namespace trident --set tridentDebug=true
+helm install <name> netapp-trident/trident-operator --version 24.02.0  --create-namespace --namespace trident --set tridentDebug=true
 ----
 
 
@@ -130,16 +130,16 @@ Questa tabella e il `values.yaml` Il file, che fa parte del grafico Helm, fornis
 | `affinity` | Affinità per l'assegnazione del pod |  
 
 
-| `tridentControllerPluginNodeSelector` | Selettori di nodi aggiuntivi per i pod. Fare riferimento a. <<Comprensione dei pod controller e dei pod di nodi>> per ulteriori informazioni. |  
+| `tridentControllerPluginNodeSelector` | Selettori di nodi aggiuntivi per i pod. Fare riferimento a. link:../trident-get-started/architecture.html#understanding-controller-pods-and-node-pods["Comprensione dei pod controller e dei pod di nodi"] per ulteriori informazioni. |  
 
 
-| `tridentControllerPluginTolerations` | Ignora le tolleranze Kubernetes per i pod. Fare riferimento a. <<Comprensione dei pod controller e dei pod di nodi>> per ulteriori informazioni. |  
+| `tridentControllerPluginTolerations` | Ignora le tolleranze Kubernetes per i pod. Fare riferimento a. link:../trident-get-started/architecture.html#understanding-controller-pods-and-node-pods["Comprensione dei pod controller e dei pod di nodi"] per ulteriori informazioni. |  
 
 
-| `tridentNodePluginNodeSelector` | Selettori di nodi aggiuntivi per i pod. Fare riferimento a. <<Comprensione dei pod controller e dei pod di nodi>> per ulteriori informazioni. |  
+| `tridentNodePluginNodeSelector` | Selettori di nodi aggiuntivi per i pod. Fare riferimento a. link:../trident-get-started/architecture.html#understanding-controller-pods-and-node-pods["Comprensione dei pod controller e dei pod di nodi"] per ulteriori informazioni. |  
 
 
-| `tridentNodePluginTolerations` | Ignora le tolleranze Kubernetes per i pod. Fare riferimento a. <<Comprensione dei pod controller e dei pod di nodi>> per ulteriori informazioni. |  
+| `tridentNodePluginTolerations` | Ignora le tolleranze Kubernetes per i pod. Fare riferimento a. link:../trident-get-started/architecture.html#understanding-controller-pods-and-node-pods["Comprensione dei pod controller e dei pod di nodi"] per ulteriori informazioni. |  
 
 
 | `imageRegistry` | Identifica il registro di sistema per `trident-operator`, `trident`e altre immagini. Lasciare vuoto per accettare l'impostazione predefinita. | "" 
@@ -151,7 +151,7 @@ Questa tabella e il `values.yaml` Il file, che fa parte del grafico Helm, fornis
 | `imagePullSecrets` | Imposta i segreti di pull dell'immagine per `trident-operator`, `trident`e altre immagini. |  
 
 
-| `kubeletDir` | Consente di ignorare la posizione host dello stato interno del kubelet. | '"/var/lib/kubelet"` 
+| `kubeletDir` | Consente di ignorare la posizione host dello stato interno del kubelet. | `"/var/lib/kubelet"` 
 
 
 | `operatorLogLevel` | Consente di impostare il livello di log dell'operatore Trident su: `trace`, `debug`, `info`, `warn`, `error`, o. `fatal`. | `"info"` 
@@ -219,6 +219,3 @@ Questa tabella e il `values.yaml` Il file, che fa parte del grafico Helm, fornis
 
 | `excludePodSecurityPolicy` | Esclude la creazione della policy di sicurezza del pod operatore. | `false` 
 |===
-
-
-== Cosa succederà

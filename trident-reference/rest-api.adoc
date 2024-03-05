@@ -26,7 +26,7 @@ Per una maggiore sicurezza, Astra Trident `REST API` è limitato all'host locale
 
 == Utilizzo dell'API REST
 
-Per esempi di come vengono chiamate queste API, passare il debug (`-d`). Per ulteriori informazioni, vedere link:../trident-managing-k8s/tridentctl.html["Gestisci Astra Trident usando tridentctl"].
+Per esempi di come vengono chiamate queste API, passare il debug (`-d`). Per ulteriori informazioni, fare riferimento a. link:../trident-managing-k8s/tridentctl.html["Gestisci Astra Trident usando tridentctl"].
 
 L'API funziona come segue:
 
@@ -45,7 +45,7 @@ L'API funziona come segue:
 `POST <trident-address>/trident/v1/<object-type>`:: Crea un oggetto del tipo specificato.
 +
 --
-* Richiede una configurazione JSON per la creazione dell'oggetto. Per le specifiche di ciascun tipo di oggetto, vedere link:../trident-managing-k8s/tridentctl.html["Gestisci Astra Trident usando tridentctl"].
+* Richiede una configurazione JSON per la creazione dell'oggetto. Per le specifiche di ciascun tipo di oggetto, fare riferimento alla link:../trident-managing-k8s/tridentctl.html["Gestisci Astra Trident usando tridentctl"].
 * Se l'oggetto esiste già, il comportamento varia: I backend aggiornano l'oggetto esistente, mentre tutti gli altri tipi di oggetto non riescono a eseguire l'operazione.
 
 
@@ -60,7 +60,7 @@ L'API funziona come segue:
 +
 --
 
-NOTE: I volumi associati ai backend o alle classi di storage continueranno ad esistere; questi devono essere cancellati separatamente. Per ulteriori informazioni, vedere link:../trident-managing-k8s/tridentctl.html["Gestisci Astra Trident usando tridentctl"].
+NOTE: I volumi associati ai backend o alle classi di storage continueranno ad esistere; questi devono essere cancellati separatamente. Per ulteriori informazioni, fare riferimento a. link:../trident-managing-k8s/tridentctl.html["Gestisci Astra Trident usando tridentctl"].
 
 --
 

@@ -223,7 +223,7 @@ Questi attributi non hanno alcun impatto sulla selezione dei pool/backend di sto
 |===
 [TIP]
 ====
-* Il `fsType` Il parametro viene utilizzato per controllare il tipo di file system desiderato per LE LUN SAN. Inoltre, Kubernetes utilizza anche la presenza di `fsType` in una classe di storage per indicare l'esistenza di un file system. La proprietà del volume può essere controllata tramite `fsGroup` contesto di sicurezza di un pod solo se `fsType` è impostato. Vedere link:https://kubernetes.io/docs/tasks/configure-pod-container/security-context/["Kubernetes: Consente di configurare un contesto di protezione per un Pod o un container"^] per una panoramica sull'impostazione della proprietà del volume mediante `fsGroup` contesto. Kubernetes applicherà il `fsGroup` valore solo se:
+* Il `fsType` Il parametro viene utilizzato per controllare il tipo di file system desiderato per LE LUN SAN. Inoltre, Kubernetes utilizza anche la presenza di `fsType` in una classe di storage per indicare l'esistenza di un file system. La proprietà del volume può essere controllata tramite `fsGroup` contesto di sicurezza di un pod solo se `fsType` è impostato. Fare riferimento a. link:https://kubernetes.io/docs/tasks/configure-pod-container/security-context/["Kubernetes: Consente di configurare un contesto di protezione per un Pod o un container"^] per una panoramica sull'impostazione della proprietà del volume mediante `fsGroup` contesto. Kubernetes applicherà il `fsGroup` valore solo se:
 +
 ** `fsType` viene impostato nella classe di storage.
 ** La modalità di accesso PVC è RWO.
@@ -232,7 +232,7 @@ Questi attributi non hanno alcun impatto sulla selezione dei pool/backend di sto
 +
 Per i driver di storage NFS, esiste già un filesystem come parte dell'esportazione NFS. Per l'utilizzo `fsGroup` la classe di storage deve ancora specificare un `fsType`. È possibile impostarlo su `nfs` o qualsiasi valore non nullo.
 
-* Vedere link:https://docs.netapp.com/us-en/trident/trident-use/vol-expansion.html["Espandere i volumi"] per ulteriori dettagli sull'espansione dei volumi.
+* Fare riferimento a. link:https://docs.netapp.com/us-en/trident/trident-use/vol-expansion.html["Espandere i volumi"] per ulteriori dettagli sull'espansione dei volumi.
 * Il bundle del programma di installazione Trident fornisce diverse definizioni di classi di storage di esempio da utilizzare con Trident in ``sample-input/storage-class-*.yaml``. L'eliminazione di una classe di storage Kubernetes comporta l'eliminazione anche della classe di storage Trident corrispondente.
 
 
@@ -296,7 +296,7 @@ I CRD sono un costrutto Kubernetes. Gli oggetti delle risorse sopra definite ven
 Ecco alcuni punti da tenere a mente sui CRD di Trident:
 
 * Una volta installato Trident, viene creato un set di CRD che possono essere utilizzati come qualsiasi altro tipo di risorsa.
-* Quando si disinstalla Trident utilizzando `tridentctl uninstall` Comando, i pod Trident vengono cancellati ma i CRD creati non vengono ripuliti. Vedere link:../trident-managing-k8s/uninstall-trident.html["Disinstallare Trident"] Per capire come Trident può essere completamente rimosso e riconfigurato da zero.
+* Quando si disinstalla Trident utilizzando `tridentctl uninstall` Comando, i pod Trident vengono cancellati ma i CRD creati non vengono ripuliti. Fare riferimento a. link:../trident-managing-k8s/uninstall-trident.html["Disinstallare Trident"] Per capire come Trident può essere completamente rimosso e riconfigurato da zero.
 
 
 
@@ -321,7 +321,7 @@ I backend rappresentano i provider di storage in cima ai quali Trident esegue il
 
 NOTE: Si tratta di uno dei due tipi di oggetti creati e gestiti dall'utente. L'altro è Kubernetes `StorageClass` oggetto.
 
-Per ulteriori informazioni sulla creazione di questi oggetti, vedere link:../trident-use/backends.html["configurazione dei backend"].
+Per ulteriori informazioni su come costruire questi oggetti, fare riferimento a. link:../trident-use/backends.html["configurazione dei backend"].
 
 
 
@@ -468,7 +468,7 @@ spec:
          scopeName: PriorityClass
          values: ["system-node-critical"]
 ----
-Per ulteriori informazioni sulle quote delle risorse, vedere link:https://kubernetes.io/docs/concepts/policy/resource-quotas/["Kubernetes: Quote delle risorse"^].
+Per ulteriori informazioni sulle quote delle risorse, fare riferimento a. link:https://kubernetes.io/docs/concepts/policy/resource-quotas/["Kubernetes: Quote delle risorse"^].
 
 
 
