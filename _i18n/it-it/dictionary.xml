@@ -848,7 +848,6 @@
   <block id="606b9e83fb467a43b3065d4fd5037094" category="list-text"><block ref="606b9e83fb467a43b3065d4fd5037094" category="inline-link-rx"></block></block>
   <block id="a93e9e44b7a375a4236260f5ff2b251e" category="inline-link">Astra Trident 21.07</block>
   <block id="3830d427e146a8a64454dc373d9b1502" category="list-text"><block ref="3830d427e146a8a64454dc373d9b1502" category="inline-link-rx"></block></block>
-  <block id="55559f520040667d3f8931728b37ef07" category="paragraph">Versioni precedenti alla 21.07, reindirizzare al sito di documentazione legacy.</block>
   <block id="5ee08ab883e000ce6b739dbb0b6ff376" category="summary">Scopri di più sulle parti del sistema Kubernetes.</block>
   <block id="607ae6360b32f1bd6e559e915d414fab" category="doc">Concetti di Kubernetes</block>
   <block id="d60f0fff1c23a02458849862f593357e" category="inline-link">Sistema Kubernetes</block>
@@ -3784,7 +3783,6 @@ La crittografia LUKS non è supportata per NVMe/TCP.</block>
   <block id="c2b105e6592336c26afd4f39319a222e" category="list-text">Conversione fissa del nome FlexVol per ONTAP-NAS-Economy.</block>
   <block id="a78c2c1c722d3e8b3abc0e050b914850" category="list-text">Risolto il problema di inizializzazione di Astra Trident su un nodo Windows quando il nodo viene riavviato.</block>
   <block id="b680f5ddc32b78c78329f3f15a836381" category="paragraph">Aggiunto supporto per Kubernetes 1,28.</block>
-  <block id="f82695aea6527ed53f785b9c22ba480f" category="list-text">Aggiunto supporto per l'utilizzo di Azure Managed Identity (AMI) con driver di storage Azure-netapp-Files.</block>
   <block id="be1e775eed9a7023c7facbd3f3cd32cd" category="list-text">Aggiunto supporto per NVMe su TCP per il driver ONTAP-SAN.</block>
   <block id="24a3b687404991a8b5d83740bfde9f9c" category="inline-link-macro">Problema n. 558</block>
   <block id="86826a04ec735c436222d55949b27e52" category="list-text">Aggiunta la possibilità di sospendere il provisioning di un volume quando il backend è impostato sullo stato sospeso dall'utente (<block ref="4ad3a18b49b4979346d26b5940c21a0f" category="inline-link-macro-rx"></block>).</block>
@@ -4118,4 +4116,5 @@ Fare riferimento a. <block ref="5cdb093a3afb814148505ae9813b18af" category="inli
   <block id="bf0fdd660f8a7559f356435f0a8efe3e" category="list-text">Utilizzare<block ref="0562418e6d9a76d0dd22b2f186a2203d" prefix=" " category="inline-code"></block> e specificare un nome per la distribuzione e la posizione del registro delle immagini. Il tuo <block ref="57de9a35aeedde82408b1e047030d221" category="inline-link-macro-rx"></block> Può trovarsi in un registro o in registri diversi, ma tutte le immagini CSI devono trovarsi nello stesso registro. Negli esempi,<block ref="32d61ffcee709121c5ce040022324539" prefix=" " category="inline-code"></block> È la versione di Astra Trident che si sta installando.</block>
   <block id="4b1c6f609d27cc18df4b1605f9aa7b1b" category="paragraph">Ad esempio, per modificare il valore predefinito di<block ref="ad42f6697b035b7580e4fef93be20b4d" prefix=" " category="inline-code"></block>, eseguire quanto segue<block ref="8b5806248570dbb13e7d3bc5e6c0ee37" prefix=" " category="inline-code"></block> comando dove<block ref="32d61ffcee709121c5ce040022324539" prefix=" " category="inline-code"></block> È la versione di Astra Trident che si sta installando:</block>
   <block id="88c15f1888721229de466ebf2206b1c8" category="list-text">Utilizzare<block ref="0562418e6d9a76d0dd22b2f186a2203d" prefix=" " category="inline-code"></block> e specificare un nome per la distribuzione come nell'esempio seguente dove<block ref="32d61ffcee709121c5ce040022324539" prefix=" " category="inline-code"></block> È la versione di Astra Trident che si sta installando.</block>
+  <block id="2284dc5d4add6f82e5bc0121aa82a816" category="list-text">Aggiunto supporto per l'utilizzo di Azure Managed Identity (AMI) con driver di storage Azure-netapp-Files.</block>
 </blocks>

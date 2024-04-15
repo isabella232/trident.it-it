@@ -85,9 +85,6 @@ link:https://docs.netapp.com/us-en/trident-2107/index.html["21,07"^]
 | -- | -- | Luglio 2024 
 |===
 
-NOTE: Versioni precedenti alla 21.07, reindirizzare al sito di documentazione legacy.
-
-
 
 == Supporto autonomo
 
