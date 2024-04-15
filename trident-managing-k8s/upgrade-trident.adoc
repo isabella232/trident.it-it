@@ -62,7 +62,7 @@ Per determinare la versione utilizzata per installare Astra Trident:
 ** Se è presente un pod operatore, Astra Trident è stato installato utilizzando l'operatore Trident manualmente o utilizzando Helm.
 
 
-. Se è presente un pod per l'operatore, utilizzare `kubectl describe tproc trident` Per determinare se Astra Trident è stato installato utilizzando Helm.
+. Se è presente un pod per l'operatore, utilizzare `kubectl describe torc` Per determinare se Astra Trident è stato installato utilizzando Helm.
 +
 ** Se è presente un'etichetta Helm, Astra Trident è stato installato utilizzando Helm.
 ** Se non è presente alcuna etichetta Helm, Astra Trident è stato installato manualmente utilizzando l'operatore Trident.
