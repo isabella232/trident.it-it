@@ -22,7 +22,7 @@ Trova le risposte alle domande frequenti sull'installazione, la configurazione, 
 
 === Con quale frequenza viene rilasciato Astra Trident?
 
-Astra Trident viene rilasciato ogni tre mesi: Gennaio, aprile, luglio e ottobre. Questo è un mese dopo il rilascio di Kubernetes.
+A partire dalla release 24,02, Astra Trident viene rilasciato ogni quattro mesi: Febbraio, giugno e ottobre. Questo è un mese dopo il rilascio di Kubernetes.
 
 
 
