@@ -230,9 +230,6 @@ NOTE: Per Ubuntu 18.04, è necessario rilevare le porte di destinazione con `isc
 --
 ====
 
-WARNING: Riavviare i nodi di lavoro dopo aver installato gli strumenti iSCSI per evitare errori durante il collegamento dei volumi ai container.
-
-
 
 == Volumi NVMe/TCP
 
