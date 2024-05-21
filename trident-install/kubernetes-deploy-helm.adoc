@@ -209,6 +209,12 @@ Questa tabella e il `values.yaml` Il file, che fa parte del grafico Helm, fornis
 
 
 | `cloudIdentity` | Impostare sull'identità del workload ("Azure.workload.Identity/client-id: Xxxxxxxx-xxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx") quando si utilizza l'identità cloud su un cluster AKS. Impostato sul ruolo AWS IAM ("'eks.amazonaws.com/role-arn: arn:AWS:iam::123456:role/astratadent-role'") quando si utilizza l'identità cloud su un cluster EKS. | `""` 
+
+
+| `iscsiSelfHealingInterval` | Intervallo in cui viene richiamata la riparazione automatica iSCSI. | `5m0s` 
+
+
+| `iscsiSelfHealingWaitTime` | La durata dopo la quale l'autoriparazione iSCSI avvia un tentativo di risolvere una sessione obsoleta eseguendo una disconnessione e un login successivo. | `7m0s` 
 |===
 
 
