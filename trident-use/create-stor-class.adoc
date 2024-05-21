@@ -18,7 +18,7 @@ Configurare un oggetto Kubernetes StorageClass e creare una classe storage per i
 
 == Configurare un oggetto Kubernetes StorageClass
 
-Il https://kubernetes.io/docs/concepts/storage/storage-classes/["Oggetto Kubernetes StorageClass"^] Identifica Astra Trident come provisioner utilizzato per quella classe istruisce Astra Trident su come eseguire il provisioning di un volume. Ad esempio:
+Il https://kubernetes.io/docs/concepts/storage/storage-classes/["Oggetto Kubernetes StorageClass"^] Identifica Astra Trident come provisioner utilizzato per quella classe e istruisce Astra Trident su come eseguire il provisioning di un volume. Ad esempio:
 
 [listing]
 ----
