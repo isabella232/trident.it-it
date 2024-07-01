@@ -19,7 +19,54 @@ WARNING: Il `tridentctl` Il file binario per Linux fornito nel file zip del prog
 
 
 
-== Novità del 24,02
+== Novità del 24,06
+
+
+
+=== Miglioramenti
+
+* **IMPORTANTE**: Il `limitVolumeSize` parametro ora limita le dimensioni di qtree/LUN nei driver ONTAP economy. Utilizzare il nuovo  `limitVolumePoolSize` parametro per controllare le dimensioni FlexVol in tali driver. (link:https://github.com/NetApp/trident/issues/341["Problema n. 341"]).
+* È stata aggiunta la capacità di autoriparazione iSCSI di avviare scansioni SCSI con l'ID LUN esatto se sono in uso igroup deprecati (link:https://github.com/NetApp/trident/issues/883["Problema n. 883"]).
+* Supporto aggiunto per le operazioni di cloning e ridimensionamento del volume da consentire anche quando il backend è in modalità sospesa.
+* È stata aggiunta la possibilità di propagare le impostazioni di registro configurate dall'utente per il controller Trident ai pod di nodo Astra Trident.
+* È stato aggiunto il supporto in Astra Trident per usare REST per impostazione predefinita invece di ZAPI per ONTAP versioni 9.15.1 e successive.
+* Aggiunto supporto per nomi di volumi e metadati personalizzati sui backend di storage ONTAP per nuovi volumi persistenti.
+* Migliorato il `azure-netapp-files` driver (ANF) per abilitare automaticamente la directory snapshot per impostazione predefinita quando le opzioni di montaggio NFS sono impostate per utilizzare NFS versione 4.x
+* Aggiunto supporto Bottlerocket per volumi NFS.
+* Aggiunto il supporto dell'anteprima tecnica per Google Cloud NetApp Volumes.
+
+
+
+
+==== Kubernetes
+
+* Aggiunta la possibilità per Astra Trident DaemonSet di pulire i montaggi zombie e i file di tracciamento residui all'avvio (link:https://github.com/NetApp/trident/issues/883["Problema n. 883"]).
+* Aggiunta annotazione PVC `trident.netapp.io/luksEncryption` per l'importazione dinamica dei volumi LUKS (link:https://github.com/NetApp/trident/issues/849["Problema n. 849"]).
+* Aggiunta della conoscenza della topologia al driver ANF.
+
+
+
+
+=== Correzioni
+
+* Risolti i problemi di installazione di Astra Trident a causa di transazioni obsolete.
+* Corretto tridentctl per ignorare i messaggi di avviso da Kubernetes (link:https://github.com/NetApp/trident/issues/892["Problema n. 892"]).
+* La priorità del controller Astra Trident è stata modificata `SecurityContextConstraint` in `0` (link:https://github.com/NetApp/trident/issues/887["Problema n. 887"]).
+* I driver ONTAP accettano dimensioni del volume inferiori a 20MiB GB (link:https://github.com/NetApp/trident/issues/885["Problema[#885"]).
+* È stato corretto Astra Trident per impedire la riduzione di Flexvol durante l'operazione di ridimensionamento per il driver ONTAP-SAN.
+* Risolto un errore di importazione del volume ANF con NFS v4,1.
+
+
+
+
+=== Dipendenze
+
+* Rimosso il supporto per Windows Server 2019 EOL.
+
+
+
+
+== Modifiche nel 24,02
 
 
 

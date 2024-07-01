@@ -12,8 +12,9 @@ summary: È possibile utilizzare il selettore della versione per passare dalla v
 
 
 [role="lead"]
-Se non utilizzi Astra Trident 24,02, la documentazione per le release precedenti è disponibile in base a. link:get-help.html["Ciclo di vita del supporto di Astra Trident"].
+Se non si utilizza Astra Trident 24,06, la documentazione per le versioni precedenti è disponibile in base a link:get-help.html["Ciclo di vita del supporto di Astra Trident"].
 
+* https://docs.netapp.com/us-en/trident-2402/index.html["Astra Trident 24,02"^]
 * https://docs.netapp.com/us-en/trident-2310/index.html["Astra Trident 23,10"^]
 * https://docs.netapp.com/us-en/trident-2307/index.html["Astra Trident 23,07"^]
 * https://docs.netapp.com/us-en/trident-2304/index.html["Astra Trident 23,04"^]

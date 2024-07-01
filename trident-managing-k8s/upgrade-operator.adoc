@@ -26,8 +26,8 @@ NOTE: Per l'aggiornamento da Astra Trident che è stato installato usando l'oper
 .A proposito di questa attività
 Trident fornisce un file bundle da utilizzare per installare l'operatore e creare oggetti associati per la versione di Kubernetes.
 
-* Per i cluster che eseguono Kubernetes 1.24 o versioni precedenti, utilizzare link:https://github.com/NetApp/trident/tree/stable/v24.02/deploy/bundle_pre_1_25.yaml["bundle_pre_1_25.yaml"^].
-* Per i cluster che eseguono Kubernetes 1.25 o versioni successive, utilizzare link:https://github.com/NetApp/trident/tree/stable/v24.02/deploy/bundle_post_1_25.yaml["bundle_post_1_25.yaml"^].
+* Per i cluster che eseguono Kubernetes 1,24, utilizzare link:https://github.com/NetApp/trident/tree/stable/v24.06/deploy/bundle_pre_1_25.yaml["bundle_pre_1_25.yaml"^].
+* Per i cluster che eseguono Kubernetes 1,25 o versione successiva, utilizzare link:https://github.com/NetApp/trident/tree/stable/v24.06/deploy/bundle_post_1_25.yaml["bundle_post_1_25.yaml"^].
 
 
 .Prima di iniziare
@@ -47,12 +47,12 @@ Assicurarsi di utilizzare un cluster Kubernetes in esecuzione link:../trident-ge
 kubectl delete -f 23.07.0/trident-installer/deploy/<bundle.yaml> -n trident
 ----
 . Se l'installazione iniziale è stata personalizzata utilizzando `TridentOrchestrator` è possibile modificare `TridentOrchestrator` oggetto per modificare i parametri di installazione. Ciò potrebbe includere le modifiche apportate per specificare i registri di immagini Trident e CSI mirrorati per la modalità offline, abilitare i registri di debug o specificare i segreti di pull delle immagini.
-. Installare Astra Trident utilizzando il file YAML del bundle corretto per il proprio ambiente, dove _<bundle.yaml>_ è
-`bundle_pre_1_25.yaml` oppure `bundle_post_1_25.yaml` In base alla versione di Kubernetes. Ad esempio, se stai installando Astra Trident 24,02, esegui il seguente comando:
+. Installa Astra Trident usando il file YAML del bundle corretto per il tuo ambiente, dove _<bundle.yaml>_ si trova
+`bundle_pre_1_25.yaml` o `bundle_post_1_25.yaml` si basa sulla tua versione di Kubernetes. Ad esempio, se stai installando Astra Trident 24,06, esegui il seguente comando:
 +
 [listing]
 ----
-kubectl create -f 24.02.0/trident-installer/deploy/<bundle.yaml> -n trident
+kubectl create -f 24.06.0/trident-installer/deploy/<bundle.yaml> -n trident
 ----
 
 
@@ -69,11 +69,11 @@ WARNING: Quando si aggiorna un cluster Kubernetes dalla versione 1.24 alla 1.25 
 . Se link:../trident-get-started/kubernetes-deploy-helm.html#deploy-the-trident-operator-and-install-astra-trident-using-helm["Installato Astra Trident utilizzando Helm"], è possibile utilizzare `helm upgrade trident netapp-trident/trident-operator --version 100.2402.0` per eseguire l'aggiornamento in un solo passaggio. Se non è stato aggiunto il repo Helm o non è possibile utilizzarlo per l'aggiornamento:
 +
 .. Scarica la versione più recente di Astra Trident da link:https://github.com/NetApp/trident/releases/latest["La sezione _Assets_ su GitHub"^].
-.. Utilizzare `helm upgrade` comando dove `trident-operator-24.02.0.tgz` indica la versione alla quale si desidera eseguire l'aggiornamento.
+.. Utilizzare il `helm upgrade` comando dove riflette la versione a cui `trident-operator-24.06.0.tgz` si desidera eseguire l'aggiornamento.
 +
 [listing]
 ----
-helm upgrade <name> trident-operator-24.02.0.tgz
+helm upgrade <name> trident-operator-24.06.0.tgz
 ----
 +
 
@@ -98,11 +98,11 @@ NOTE: Prima di passare da un metodo di installazione all'altro, vedere link:../t
 +
 [listing]
 ----
-# Download the release required [24.020.0]
-mkdir 24.02.0
-cd 24.02.0
-wget https://github.com/NetApp/trident/releases/download/v24.02.0/trident-installer-24.02.0.tar.gz
-tar -xf trident-installer-24.02.0.tar.gz
+# Download the release required [24.060.0]
+mkdir 24.06.0
+cd 24.06.0
+wget https://github.com/NetApp/trident/releases/download/v24.06.0/trident-installer-24.06.0.tar.gz
+tar -xf trident-installer-24.06.0.tar.gz
 cd trident-installer
 ----
 . Creare il `tridentorchestrator` CRD dal manifesto.
@@ -159,6 +159,6 @@ kubectl describe torc trident | grep Message -A 3
 Message:                Trident installed
 Namespace:              trident
 Status:                 Installed
-Version:                v24.02.0
+Version:                v24.06.0
 ----
 

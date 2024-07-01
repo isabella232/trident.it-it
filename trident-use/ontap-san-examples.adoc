@@ -108,13 +108,10 @@ Per uno switchover perfetto del MetroCluster, consulta il <<mcc-best>>. | "10.0.
 Non utilizzare a meno che non si stia eseguendo la risoluzione dei problemi e non si richieda un dump dettagliato del log. | `null` 
 
 
-| `useREST` | Parametro booleano per l'utilizzo delle API REST di ONTAP. *Anteprima tecnica*
-
-`useREST` viene fornito come **anteprima tecnica** consigliata per ambienti di test e non per carichi di lavoro di produzione. Quando è impostato su `true`, Astra Trident utilizzerà le API REST di ONTAP per comunicare con il backend. Questa funzione richiede ONTAP 9.11.1 e versioni successive. Inoltre, il ruolo di accesso ONTAP utilizzato deve avere accesso a. `ontap` applicazione. Ciò è soddisfatto dal predefinito `vsadmin` e. `cluster-admin` ruoli.
-
-`useREST` Non è supportato con MetroCluster.
-
-`useREST` È pienamente qualificato per NVMe/TCP. | `false` 
+| `useREST` | Parametro booleano per l'utilizzo delle API REST di ONTAP. 
+`useREST` Quando impostato su `true`, Astra Trident utilizzerà le API REST ONTAP per comunicare con il backend; quando impostato su `false`, Astra Trident utilizzerà le chiamate ZAPI ONTAP per comunicare con il backend. Questa funzione richiede ONTAP 9.11.1 e versioni successive. Inoltre, il ruolo di accesso ONTAP utilizzato deve avere accesso all' `ontap` applicazione. Ciò è soddisfatto dai ruoli predefiniti `vsadmin` e `cluster-admin` . A partire dalla release Astra Trident 24,06 e da ONTAP 9.15.1 o versioni successive, `userREST` è impostato su `true` per impostazione predefinita; passare a per utilizzare le chiamate ONTAP ZAPI.
+`useREST` `false` 
+`useREST` È pienamente qualificato per NVMe/TCP. | `true` Per ONTAP 9.15.1 o versioni successive, altrimenti `false`. 
 
 
 | `sanType` | Utilizzare per selezionare `iscsi` Per iSCSI o. `nvme` Per NVMe/TCP. | `iscsi` se vuoto 
@@ -163,6 +160,9 @@ La crittografia LUKS non è supportata per NVMe/TCP. | ""
 
 
 | `tieringPolicy` | Criterio di tiering da utilizzare "nessuno" | "Solo Snapshot" per la configurazione SVM-DR pre-ONTAP 9,5 
+
+
+| `nameTemplate` | Modello per creare nomi di volume personalizzati. | "" 
 |===
 
 
@@ -251,8 +251,11 @@ username: vsadmin
 password: <password>
 ----
 ====
-.Esempio MetroCluster
-[#mcc-best%collapsible]
+[[mcc-best]]
+. esempio
+
+
+[]
 ====
 È possibile configurare il backend per evitare di dover aggiornare manualmente la definizione del backend dopo lo switchover e lo switchback durante link:../trident-reco/backup.html#svm-replication-and-recovery["Replica e recovery di SVM"].
 
@@ -349,6 +352,25 @@ username: vsadmin
 password: password
 sanType: nvme
 useREST: true
+----
+====
+.Esempio di configurazione backend con nameTemplate
+[%collapsible]
+====
+[listing]
+----
+---
+version: 1
+storageDriverName: ontap-san
+backendName: ontap-san-backend
+managementLIF: <ip address>
+svm: svm0
+username: <admin>
+password: <password>
+defaults: {
+    "nameTemplate": "{{.volume.Name}}_{{.labels.cluster}}_{{.volume.Namespace}}_{{.volume.RequestName}}"
+},
+"labels": {"cluster": "ClusterA", "PVC": "{{.volume.Namespace}}_{{.volume.RequestName}}"}
 ----
 ====
 

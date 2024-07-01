@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-managing-k8s/upgrade-trident.html 
 keywords: upgrade, trident, methods, operator, tridentctl, helm 
-summary: 'Astra Trident segue una cadenza di rilascio trimestrale, fornendo quattro release principali ogni anno di calendario. Ogni nuova release si basa sulle release precedenti, fornendo nuove funzionalità e miglioramenti delle performance, oltre a correzioni di bug e miglioramenti. Ti consigliamo di eseguire l"upgrade almeno una volta all"anno per sfruttare le nuove funzionalità di Astra Trident.' 
+summary: 'Astra Trident segue una cadenza di quattro mesi per le release, fornendo tre release principali ogni anno solare. Ogni nuova release si basa sulle release precedenti, fornendo nuove funzionalità e miglioramenti delle performance, oltre a correzioni di bug e miglioramenti. Ti consigliamo di eseguire l"upgrade almeno una volta all"anno per sfruttare le nuove funzionalità di Astra Trident.' 
 ---
 = Aggiorna Astra Trident
 :hardbreaks:
@@ -38,11 +38,11 @@ Quando si esegue l'aggiornamento all'ultima release di Astra Trident, considerar
 
 Le versioni di Astra Trident seguono una data-based `YY.MM` Convenzione di naming, dove "YY" è l'ultima cifra dell'anno e "MM" è il mese. I rilasci di punti seguono un `YY.MM.X` convention, dove "X" è il livello di patch. Selezionare la versione a cui eseguire l'aggiornamento in base alla versione da cui si sta eseguendo l'aggiornamento.
 
-* È possibile eseguire un aggiornamento diretto a qualsiasi release di destinazione che si trova all'interno di una finestra di quattro release della versione installata. Ad esempio, è possibile aggiornare direttamente da 23,01 (o qualsiasi versione a 23,01 punti) a 24,02.
-* Se si sta eseguendo l'aggiornamento da una release al di fuori della finestra a quattro release, eseguire un aggiornamento in più fasi. Seguire le istruzioni di aggiornamento di link:../earlier-versions.html["versione precedente"] si sta eseguendo l'aggiornamento alla versione più recente che si adatta alla finestra a quattro release. Ad esempio, se si utilizza 22,01 e si desidera eseguire l'aggiornamento a 24,02:
+* È possibile eseguire un aggiornamento diretto a qualsiasi release di destinazione che si trova all'interno di una finestra di quattro release della versione installata. Ad esempio, è possibile aggiornare direttamente da 23,04 (o qualsiasi versione a 23,04 punti) a 24,06.
+* Se si sta eseguendo l'aggiornamento da una release al di fuori della finestra a quattro release, eseguire un aggiornamento in più fasi. Utilizzare le istruzioni di aggiornamento per il link:../earlier-versions.html["versione precedente"] quale si sta eseguendo l'aggiornamento per passare alla versione più recente adatta alla finestra a quattro release. Ad esempio, se si utilizza 22,01 e si desidera eseguire l'aggiornamento a 24,06:
 +
-.. Primo aggiornamento da 22,01 a 23,01.
-.. Quindi, eseguire l'aggiornamento da 23,01 a 24,02.
+.. Primo aggiornamento da 22,07 a 23,04.
+.. Quindi, eseguire l'aggiornamento da 23,04 a 24,06.
 
 
 
