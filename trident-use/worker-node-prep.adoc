@@ -256,7 +256,7 @@ Il seguente esempio imposta l'intervallo di riparazione automatica iSCSI su 3 mi
 
 [listing]
 ----
-helm install trident trident-operator-100.2402.0.tgz --set iscsiSelfHealingInterval=3m0s --set iscsiSelfHealingWaitTime=6m0s -n trident
+helm install trident trident-operator-100.2406.0.tgz --set iscsiSelfHealingInterval=3m0s --set iscsiSelfHealingWaitTime=6m0s -n trident
 ----
 --
 .tridentctl

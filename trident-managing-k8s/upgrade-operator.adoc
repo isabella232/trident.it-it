@@ -66,7 +66,7 @@ kubectl create -f 24.06.0/trident-installer/deploy/<bundle.yaml> -n trident
 WARNING: Quando si aggiorna un cluster Kubernetes dalla versione 1.24 alla 1.25 o successiva su cui è installato Astra Trident, è necessario aggiornare values.yaml per impostarlo `excludePodSecurityPolicy` a. `true` oppure aggiungi `--set excludePodSecurityPolicy=true` al `helm upgrade` prima di aggiornare il cluster.
 
 .Fasi
-. Se link:../trident-get-started/kubernetes-deploy-helm.html#deploy-the-trident-operator-and-install-astra-trident-using-helm["Installato Astra Trident utilizzando Helm"], è possibile utilizzare `helm upgrade trident netapp-trident/trident-operator --version 100.2402.0` per eseguire l'aggiornamento in un solo passaggio. Se non è stato aggiunto il repo Helm o non è possibile utilizzarlo per l'aggiornamento:
+. Se si link:../trident-get-started/kubernetes-deploy-helm.html#deploy-the-trident-operator-and-install-astra-trident-using-helm["Installato Astra Trident utilizzando Helm"]utilizza , è possibile utilizzare `helm upgrade trident netapp-trident/trident-operator --version 100.2406.0` per eseguire l'aggiornamento in un solo passaggio. Se non è stato aggiunto il repo Helm o non è possibile utilizzarlo per l'aggiornamento:
 +
 .. Scarica la versione più recente di Astra Trident da link:https://github.com/NetApp/trident/releases/latest["La sezione _Assets_ su GitHub"^].
 .. Utilizzare il `helm upgrade` comando dove riflette la versione a cui `trident-operator-24.06.0.tgz` si desidera eseguire l'aggiornamento.

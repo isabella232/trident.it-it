@@ -79,7 +79,7 @@ Nell'esempio seguente vengono installati i set Astra Trident `cloudProvider` In 
 
 [listing]
 ----
-helm install trident trident-operator-100.2402.0.tgz --create-namespace --namespace <trident-namespace> --set cloudProvider=$CP
+helm install trident trident-operator-100.2406.0.tgz --create-namespace --namespace <trident-namespace> --set cloudProvider=$CP
 ----
 --
 .<code>tridentctl</code>
@@ -139,7 +139,7 @@ Nell'esempio seguente viene installato e impostato Astra Trident `cloudProvider`
 
 [listing]
 ----
-helm install trident trident-operator-100.2402.0.tgz --set cloudProvider=$CP --set cloudIdentity=$CI
+helm install trident trident-operator-100.2406.0.tgz --set cloudProvider=$CP --set cloudIdentity=$CI
 ----
 --
 .<code>tridentctl</code>

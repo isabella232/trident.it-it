@@ -49,7 +49,7 @@ Oltre a link:../trident-get-started/kubernetes-deploy.html#before-you-deploy["pr
 ----
 helm repo add netapp-trident https://netapp.github.io/trident-helm-chart
 ----
-. Utilizzare `helm install` e specificare un nome per la distribuzione e la posizione del registro delle immagini. Il tuo link:../trident-get-started/requirements.html#container-images-and-corresponding-kubernetes-versions["Immagini Trident e CSI"] Può trovarsi in un registro o in registri diversi, ma tutte le immagini CSI devono trovarsi nello stesso registro. Negli esempi, `100.2402.0` È la versione di Astra Trident che si sta installando.
+. Utilizzare `helm install` e specificare un nome per la distribuzione e la posizione del Registro di sistema dell'immagine. Lo link:../trident-get-started/requirements.html#container-images-and-corresponding-kubernetes-versions["Immagini Trident e CSI"] può trovarsi in un registro o in registri diversi, ma tutte le immagini CSI devono trovarsi nello stesso registro. Negli esempi, `100.2406.0` è la versione di Astra Trident che stai installando.
 +
 [role="tabbed-block"]
 ====
@@ -98,7 +98,7 @@ Specificare un file YAML con override. Questo valore può essere specificato pi�
 Specificare le sostituzioni sulla riga di comando.
 
 |===
-Ad esempio, per modificare il valore predefinito di `debug`, eseguire quanto segue `--set` comando dove `100.2402.0` È la versione di Astra Trident che si sta installando:
+Ad esempio, per modificare il valore predefinito di `debug`, eseguire il comando seguente `--set` dove si trova `100.2406.0` la versione di Astra Trident che si sta installando:
 
 [listing]
 ----
