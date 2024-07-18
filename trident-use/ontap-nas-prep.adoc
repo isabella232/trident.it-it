@@ -301,7 +301,7 @@ WARNING: Per creare un, è necessario configurare entrambi i protocolli NFS e SM
 .Prima di iniziare
 Prima di eseguire il provisioning di volumi SMB, è necessario disporre di quanto segue.
 
-* Un cluster Kubernetes con un nodo controller Linux e almeno un nodo di lavoro Windows che esegue Windows Server 2019. Astra Trident supporta volumi SMB montati su pod eseguiti solo su nodi Windows.
+* Un cluster Kubernetes con un nodo controller Linux e almeno un nodo di lavoro Windows che esegue Windows Server 2022. Astra Trident supporta volumi SMB montati su pod eseguiti solo su nodi Windows.
 * Almeno un segreto Astra Trident contenente le credenziali Active Directory. Per generare un segreto `smbcreds`:
 +
 [listing]

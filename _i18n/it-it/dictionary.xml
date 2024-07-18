@@ -621,7 +621,6 @@
   <block id="362997bacf08e019288e372d8ae1f070" category="list-text">Versioni di RedHat CoreOS (RHCOS) supportate da OpenShift Container Platform (AMD64 e ARM64)</block>
   <block id="a3460163c4a2854c79a419dda57ac917" category="list-text">RHEL 8+ (AMD64 E ARM64)</block>
   <block id="f51a58a0cffb9f9953edce6411578b53" category="list-text">Ubuntu 22.04 o versione successiva (AMD64 e ARM64)</block>
-  <block id="1285a056fd837828136d15f7e76d09cc" category="list-text">Windows Server 2019 (AMD64)</block>
   <block id="57b3e1695eb7d16642702fbce3837b86" category="paragraph">Per impostazione predefinita, Astra Trident viene eseguito in un container e, di conseguenza, viene eseguito su qualsiasi worker Linux. Tuttavia, questi lavoratori devono essere in grado di montare i volumi forniti da Astra Trident utilizzando il client NFS standard o iSCSI Initiator, a seconda dei backend utilizzati.</block>
   <block id="11ea58814ce429c3e3254a63f8cde7a4" category="paragraph">Il<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block> Utility può essere eseguita anche su una qualsiasi di queste distribuzioni di Linux.</block>
   <block id="13d80777c8fd43e555c1f5b1b72d7ef0" category="section-title">Configurazione dell'host</block>
@@ -1590,7 +1589,6 @@
   <block id="227e516e7258b6dcab3e7bcb4148f7f1" category="paragraph">Per creare un volume SMB, è necessario disporre di:</block>
   <block id="d8c74c31c4550aed073521ba0fb8984a" category="inline-link-macro">Microsoft: Creazione e gestione delle connessioni Active Directory per Azure NetApp Files</block>
   <block id="6bb7e9dc5268dcbdde1a91b151d9a94b" category="list-text">Active Directory configurato e connesso a Azure NetApp Files. Fare riferimento a. <block ref="2f3bcda54aaf4e8e45316bb04708293f" category="inline-link-macro-rx"></block>.</block>
-  <block id="1f43150a13f29c496f07ed4a9750b2ff" category="list-text">Un cluster Kubernetes con un nodo controller Linux e almeno un nodo di lavoro Windows che esegue Windows Server 2019. Astra Trident supporta volumi SMB montati su pod eseguiti solo su nodi Windows.</block>
   <block id="3742b45a8312c4721cad63322a4932ac" category="list-text">Almeno un segreto di Astra Trident contenente le credenziali di Active Directory in modo che Azure NetApp Files possa autenticarsi in Active Directory. Per generare un segreto<block ref="e47a193687dde960f6b6f80d394142a3" prefix=" " category="inline-code"></block>:</block>
   <block id="7595de66780a622cdd37b4823afebc07" category="inline-link-macro">GitHub: Proxy CSI</block>
   <block id="c680a0c023a6d45186b9752a07e9938c" category="inline-link-macro">GitHub: Proxy CSI per Windows</block>
@@ -4199,4 +4197,6 @@ Fare riferimento a. <block ref="5cdb093a3afb814148505ae9813b18af" category="inli
   <block id="154898f748dc50cea11a3146dff4d65e" category="paragraph">Ad esempio, per modificare il valore predefinito di<block ref="ad42f6697b035b7580e4fef93be20b4d" prefix=" " category="inline-code"></block>, eseguire il comando seguente<block ref="8b5806248570dbb13e7d3bc5e6c0ee37" prefix=" " category="inline-code"></block> dove si trova<block ref="c59465995fc272118d0b7650dbcd42b5" prefix=" " category="inline-code"></block> la versione di Astra Trident che si sta installando:</block>
   <block id="d588a6cd560d80c03fbbe7c2df56c53d" category="list-text">USA<block ref="0562418e6d9a76d0dd22b2f186a2203d" prefix=" " category="inline-code"></block> e specifica un nome per la tua implementazione come nel seguente esempio dove si trova<block ref="cfc6108aad8813450ddf86899993aac8" prefix=" " category="inline-code"></block> la versione di Astra Trident che stai installando.</block>
   <block id="2dd7e74e47b2fea3bc13eda279fe6caa" category="list-text">Se si <block ref="701383cb184d92daac13becc67e9c1be" category="inline-link-macro-rx"></block>utilizza , è possibile utilizzare<block ref="aa057bb2523e090dc6e3052f2e88741e" prefix=" " category="inline-code"></block> per eseguire l'aggiornamento in un solo passaggio. Se non è stato aggiunto il repo Helm o non è possibile utilizzarlo per l'aggiornamento:</block>
+  <block id="bd97885496639b0f4498d4131198ac36" category="list-text">Aggiunto supporto per nodi Windows Server 2022.</block>
+  <block id="f0d0d71ad406bc532f207cda7d40e0bf" category="list-text">Un cluster Kubernetes con un nodo controller Linux e almeno un nodo di lavoro Windows che esegue Windows Server 2022. Astra Trident supporta volumi SMB montati su pod eseguiti solo su nodi Windows.</block>
 </blocks>
