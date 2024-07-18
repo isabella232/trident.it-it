@@ -213,7 +213,7 @@ Questi attributi non hanno alcun impatto sulla selezione dei pool/backend di sto
 | Attributo | Tipo | Valori | Descrizione | Driver pertinenti | Versione di Kubernetes 
 
 
-| Fstype | stringa | ext4, ext3, xfs, ecc. | Il tipo di file system per i volumi a blocchi | solidfire-san, ontap-nas, ontap-nas-economy, ontap-nas-flexgroup, ontap-san, ontap-san-economy | Tutto 
+| Fstype | stringa | ext4, ext3, xfs | Il tipo di file system per i volumi a blocchi | solidfire-san, ontap-nas, ontap-nas-economy, ontap-nas-flexgroup, ontap-san, ontap-san-economy | Tutto 
 
 
 | AllowVolumeExpansion | booleano | vero, falso | Abilitare o disabilitare il supporto per aumentare le dimensioni del PVC | ontap-nas, ontap-nas-economy, ontap-nas-flexgroup, ontap-san, ontap-san-economy, solidfire-san, gcp-cvs, azure-netapp-files | 1.11+ 
