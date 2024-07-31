@@ -1687,7 +1687,6 @@
   <block id="5224919a4ae5ccf610fb0ee74e4e7a94" category="inline-link">Trident AutoSupport</block>
   <block id="a84a64b02579dc14f89cbfdf30b6e938" category="list-text">È possibile specificare il periodo di conservazione dei log con<block ref="86339c2ed773d5bd944b82d3086d3477" prefix=" " category="inline-code"></block> allarme. Ad esempio:<block ref="e238339d491d4840f7d8e509bdbb7b63" prefix=" " category="inline-code"></block>. Queste informazioni vengono raccolte e inviate tramite un<block ref="9d80ca17f097c8e365550f4036ccf0e3" prefix=" " category="inline-code"></block> Container installato insieme ad Astra Trident. È possibile ottenere l'immagine del contenitore in<block ref="1b00454f0ab35dcec2ee1a0061efc6e5" category="inline-link-rx"></block>.</block>
   <block id="53084cad3d11df800502598c11e2d10b" category="inline-link">EULA</block>
-  <block id="b9a52e8d1e9b14b8825c6ea01c0ce6d6" category="list-text">Trident AutoSupport non raccoglie né trasmette dati personali o di identificazione personale (PII). Viene fornito con un<block ref="173a360b412944768c2ab13e6c8fd1c7" category="inline-link-rx"></block> Non applicabile all'immagine del contenitore Trident. Scopri di più sull'impegno di NetApp per la sicurezza e la fiducia dei dati<block ref="8470ff535916bda3f4ea4723647a7135" category="inline-link-rx"></block>.</block>
   <block id="89f0f2832f60f480805faf638848c5b7" category="paragraph">Un payload di esempio inviato da Astra Trident è simile al seguente:</block>
   <block id="d2ec86f126f845e79aff07e70bf89472" category="list-text">I messaggi AutoSupport vengono inviati all'endpoint AutoSupport di NetApp. Se si utilizza un registro privato per memorizzare le immagini container, è possibile utilizzare<block ref="53b228c1c8295f49b0c35325e14fcd6a" prefix=" " category="inline-code"></block> allarme.</block>
   <block id="86c5a11fba83815412aec79f67f2d276" category="list-text">È inoltre possibile configurare gli URL proxy generando i file YAML di installazione. Per eseguire questa operazione, utilizzare<block ref="758aee5ba3aed3d4e9a31a16ea04b47a" prefix=" " category="inline-code"></block> Per creare i file YAML e aggiungere<block ref="46f08f4431bbd907a039e14ddf39cf5f" prefix=" " category="inline-code"></block> argomento per<block ref="9d80ca17f097c8e365550f4036ccf0e3" prefix=" " category="inline-code"></block> container in<block ref="eb6cdeddd28243c1552ea3b1061b4410" prefix=" " category="inline-code"></block>.</block>
@@ -1862,7 +1861,6 @@
   <block id="f1cfea5f1444de607dfa549b3aa57010" category="inline-link-macro">Condivisione di volumi tra spazi dei nomi: Dai il benvenuto all'accesso a volumi tra spazi dei nomi</block>
   <block id="2780f690b7670efc296ac19ef3029d0c" category="list-text">Visitare il sito <block ref="b0d29f1b2abb2cc552e4cc47177582ef" category="inline-link-macro-rx"></block>.</block>
   <block id="96e1384807331548bf745acde0fe1b73" category="inline-link-macro">NetAppTV</block>
-  <block id="414883f8b6ef58c7b3b37e66fbfd482f" category="list-text">Guarda la demo su <block ref="1945a2d4809e81668f29485f6ae1bbc8" category="inline-link-macro-rx"></block>.</block>
   <block id="fd05c90de484dbc1cb963df796886af4" category="doc">Prepararsi a configurare un backend con i driver NAS ONTAP</block>
   <block id="00b8b321c68facfb94b31690cbd23e00" category="list-text">Per tutti i backend ONTAP, Astra Trident richiede almeno un aggregato assegnato alla SVM.</block>
   <block id="ffd4000c9e43a23d97e231d47f99dcd4" category="list-text">È possibile eseguire più di un driver e creare classi di storage che puntano all'una o all'altra. Ad esempio, è possibile configurare una classe Gold che utilizza<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> Driver e una classe Bronze che utilizza<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block> uno.</block>
@@ -2572,7 +2570,6 @@
   <block id="65840df7365892d2abe1280cb6cdb1d2" category="paragraph">Di seguito sono elencate alcune delle Best practice. Eseguire una ricerca in<block ref="4caccef7312f2c398bfbb419629c1a78" category="inline-link-rx"></block> per le versioni più recenti.</block>
   <block id="d911b17f4f4cdcca62a04ad77aa9403d" category="paragraph">*ONTAP*</block>
   <block id="f9dd52d280693dc59e53b6e1fb7bd801" category="inline-link">Guida alle Best practice e all'implementazione di NFS</block>
-  <block id="40bb23d54df7f59219c18f15a346d9e5" category="list-text"><block ref="40bb23d54df7f59219c18f15a346d9e5" category="inline-link-rx"></block></block>
   <block id="a76193f5d9397d9c49ca283a20ccf649" category="inline-link">GUIDA all'amministrazione SAN</block>
   <block id="5bc9b097037d45aff954bf9bd632d4a4" category="list-text"><block ref="c745f55eb0c9991966e63f0608541bb1" category="inline-link-rx"></block> (Per iSCSI)</block>
   <block id="5ca34d6ffc2a555b689542e3fbeeb7af" category="inline-link">Configurazione iSCSI Express per RHEL</block>
@@ -2587,15 +2584,11 @@
   <block id="9d0da73b02655dd7861121905db229e2" category="list-text"><block ref="9d0da73b02655dd7861121905db229e2" category="inline-link-rx"></block></block>
   <block id="9aaca8cfd79770bc4944ccc477e37141" category="paragraph">*Informazioni sulle Best practice applicative*</block>
   <block id="27a5e02bc2fadee43ace94805739a0c8" category="inline-link">Best practice per MySQL su ONTAP</block>
-  <block id="40d2eaf9adabe99a601c57eabf49e4d3" category="list-text"><block ref="40d2eaf9adabe99a601c57eabf49e4d3" category="inline-link-rx"></block></block>
   <block id="17efdd7d210511985714be299d595292" category="inline-link">Best practice per MySQL su SolidFire</block>
   <block id="d03b53d8ec563c37e16ee8c900a75b96" category="list-text"><block ref="d03b53d8ec563c37e16ee8c900a75b96" category="inline-link-rx"></block></block>
   <block id="3aefe1a041af945f1fe8673bf775057b" category="inline-link">NetApp SolidFire e Cassandra</block>
-  <block id="7e2b19f6f6bd1332efe1f7a698984670" category="list-text"><block ref="7e2b19f6f6bd1332efe1f7a698984670" category="inline-link-rx"></block></block>
   <block id="6e580111d3a8c12cdcd9522a4d3484c6" category="inline-link">Best practice Oracle su SolidFire</block>
-  <block id="6db96715cefe9c4950ef722865494128" category="list-text"><block ref="6db96715cefe9c4950ef722865494128" category="inline-link-rx"></block></block>
   <block id="6448cf37496207be126495e5b05851de" category="inline-link">Best practice PostgreSQL su SolidFire</block>
-  <block id="eb2c92a9d2d39fa7191d6e84d5c33bb5" category="list-text"><block ref="eb2c92a9d2d39fa7191d6e84d5c33bb5" category="inline-link-rx"></block></block>
   <block id="b062996d6ca590abe798d3db75561f79" category="paragraph">Non tutte le applicazioni hanno linee guida specifiche, è importante collaborare con il team NetApp e utilizzare<block ref="4caccef7312f2c398bfbb419629c1a78" category="inline-link-rx"></block> per trovare la documentazione più aggiornata.</block>
   <block id="748c130a6179b02d614cf9a027294302" category="doc">Integrare Astra Trident</block>
   <block id="79126799d841fcc6275e2d0dd60f9d39" category="paragraph">Per integrare Astra Trident, è necessario integrare i seguenti elementi di progettazione e architettura: Selezione e implementazione dei driver, progettazione della classe di storage, progettazione del pool virtuale, impatto del PVC (Persistent Volume Claim) sul provisioning dello storage, sulle operazioni dei volumi e sull'implementazione dei servizi OpenShift utilizzando Astra Trident.</block>
@@ -4201,4 +4194,11 @@ Fare riferimento a. <block ref="5cdb093a3afb814148505ae9813b18af" category="inli
   <block id="88a2f4201bf0a82365ef81af5f2afeac" category="cell">v1.24.0, v1.25.0, v1.26.0, v1.27.0, v1.28.0, v1.29.0, v1.30.0</block>
   <block id="b443358b172ce4f75319c7828483fb8b" category="list-text">Kubernetes 1,30 è ora supportato in Astra Trident. Aggiornare Trident prima di aggiornare Kubernetes.</block>
   <block id="e422e290c66eca7f882976f830b781b4" category="list-text">Aggiunto supporto per Kubernetes 1,30.</block>
+  <block id="190dbae19c88b1e68bf03f7783c5d5d1" category="list-text"><block ref="190dbae19c88b1e68bf03f7783c5d5d1" category="inline-link-rx"></block></block>
+  <block id="430c6bcb8516befc45fb8173b0ca4e1f" category="list-text"><block ref="430c6bcb8516befc45fb8173b0ca4e1f" category="inline-link-rx"></block></block>
+  <block id="d7d36869f2f4aa1eb99a10008e153f20" category="list-text"><block ref="d7d36869f2f4aa1eb99a10008e153f20" category="inline-link-rx"></block></block>
+  <block id="f8b52d963f246a75dc6c8b78c954a4fd" category="list-text"><block ref="f8b52d963f246a75dc6c8b78c954a4fd" category="inline-link-rx"></block></block>
+  <block id="b6780b7b2561935ff862fe7126cde751" category="list-text"><block ref="b6780b7b2561935ff862fe7126cde751" category="inline-link-rx"></block></block>
+  <block id="b9a641d903e611a87a5e68ac7fdb0b84" category="list-text">Trident AutoSupport non raccoglie né trasmette dati personali o di identificazione personale (PII). Viene fornito con un<block ref="173a360b412944768c2ab13e6c8fd1c7" category="inline-link-rx"></block> che non è applicabile all'immagine contenitore Trident stessa. Puoi saperne di più sull'impegno di NetApp nei confronti della sicurezza e della fiducia dei dati<block ref="d3cc55401bc8303e01c6b0c43ba0733f" category="inline-link-rx"></block>.</block>
+  <block id="5ff83dbc70e496ea22b38ea61bb69f05" category="list-text">Guarda la demo su <block ref="c27441bbbe62adf51ae6ecec41fde8bd" category="inline-link-macro-rx"></block>.</block>
 </blocks>
