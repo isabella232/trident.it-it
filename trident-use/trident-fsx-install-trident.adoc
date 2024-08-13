@@ -1,0 +1,228 @@
+---
+sidebar: sidebar 
+permalink: trident-use/trident-fsx-install-trident.html 
+keywords: Amazon FSx for NetApp ONTAP, FSx for ONTAP, deploy Trident, integrate Trident, Trident add-on, Astra Trident EKS add-on, Trident AWS EKS add-on 
+summary: 'Utilizzando Astra Trident con Amazon FSX per NetApp ONTAP, puoi garantire che i cluster Kubernetes in esecuzione in Amazon Elastic Kubernetes Service (EKS) possano eseguire il provisioning di volumi persistenti di blocchi e file supportati da ONTAP.' 
+---
+= Installare Astra Trident
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Astra Trident ottimizza la gestione dello storage di Amazon FSX per NetApp ONTAP in Kubernetes per permettere a sviluppatori e amministratori di concentrarsi sull'implementazione dell'applicazione.
+
+Puoi installare Astra Trident utilizzando uno dei seguenti metodi:
+
+* Timone
+* Componente aggiuntivo EKS
+
+
+[listing]
+----
+If you want to make use of the snapshot functionality, install the CSI snapshot controller add-on. Refer to https://docs.aws.amazon.com/eks/latest/userguide/csi-snapshot-controller.html.
+----
+
+
+== Installa Astra Trident tramite helm
+
+Impostare i valori per i flag *cloud provider* e *cloud Identity* utilizzando le seguenti variabili di ambiente:
+
+`export CP="AWS"`
+`export CI="'eks.amazonaws.com/role-arn: arn:aws:iam::<accountID>:role/<AmazonEKS_FSxN_CSI_DriverRole>'"`
+
+Nell'esempio seguente viene installato Astra Trident e impostato l' `cloud-provider` contrassegna come `$CP`, e. `cloud-identity` a. `$CI`:
+
+[listing]
+----
+helm install trident trident-operator-100.2406.0.tgz --set cloudProvider=$CP --set cloudIdentity=$CI -–namespace trident
+----
+
+
+== Installa Astra Trident tramite il componente aggiuntivo EKS
+
+Il componente aggiuntivo Astra Trident EKS include le più recenti patch di sicurezza, correzioni di bug ed è convalidato da AWS per funzionare con Amazon EKS. Il componente aggiuntivo EKS ti consente di garantire in modo coerente che i tuoi cluster Amazon EKS siano sicuri e stabili e di ridurre la quantità di lavoro da svolgere per installare, configurare e aggiornare i componenti aggiuntivi.
+
+
+
+=== Prerequisiti
+
+Prima di configurare il componente aggiuntivo Astra Trident per AWS EKS, assicurati di disporre di quanto segue:
+
+* Un account cluster Amazon EKS con abbonamento add-on
+* Autorizzazioni AWS nel marketplace AWS:
+`"aws-marketplace:ViewSubscriptions",
+"aws-marketplace:Subscribe",
+"aws-marketplace:Unsubscribe`
+* Tipo di ami: Amazon Linux 2 (AL2_x86_64) o Amazon Linux 2 Arm (AL2_ARM_64)
+* Tipo di nodo: AMD o ARM
+* Un file system Amazon FSX per NetApp ONTAP esistente
+
+
+
+
+=== Attiva il componente aggiuntivo Astra Trident per AWS
+
+[role="tabbed-block"]
+====
+.Cluster EKS
+--
+I seguenti comandi di esempio installano il componente aggiuntivo Astra Trident EKS:
+
+`eksctl create addon --cluster clusterName --name netapp_trident-operator --version v24.02.0-eksbuild.`
+`eksctl create addon --cluster clusterName --name netapp_trident-operator --version v24.02.0-eksbuild.1` (con una versione dedicata)
+
+--
+.Console di gestione
+--
+. Aprire la console Amazon EKS all'indirizzo https://console.aws.amazon.com/eks/home#/clusters[].
+. Nel riquadro di spostamento a sinistra, fare clic su *cluster*.
+. Fare clic sul nome del cluster per il quale si desidera configurare il componente aggiuntivo NetApp Trident CSI.
+. Fare clic su *componenti aggiuntivi*, quindi su *Ottieni altri componenti aggiuntivi*.
+. Nella pagina *S*elect add-on*, procedere come segue:
++
+.. Nella sezione AWS Marketplace EKS-addons, selezionare la casella di controllo *Astra Trident by NetApp*.
+.. Fare clic su *Avanti*.
+
+
+. Nella pagina Impostazioni *Configura componenti aggiuntivi selezionati*, effettuare le seguenti operazioni:
++
+.. Selezionare la *versione* che si desidera utilizzare.
+.. Per *Seleziona ruolo IAM*, lasciare il campo *non impostato*.
+.. Espandere le *Impostazioni di configurazione opzionali*, seguire lo schema di configurazione del componente aggiuntivo* e impostare il parametro configurationValues nella sezione *valori di configurazione* sul ruolo-arn creato nel passaggio precedente (il valore deve essere nel seguente formato: `eks.amazonaws.com/role-arn: arn:aws:iam::464262061435:role/AmazonEKS_FSXN_CSI_DriverRole`). Se si seleziona Sovrascrivi per il metodo di risoluzione dei conflitti, una o più impostazioni per il componente aggiuntivo esistente possono essere sovrascritte con le impostazioni del componente aggiuntivo Amazon EKS. Se non si attiva questa opzione e si verifica un conflitto con le impostazioni esistenti, l'operazione non riesce. È possibile utilizzare il messaggio di errore risultante per risolvere il conflitto. Prima di selezionare questa opzione, assicurati che il componente aggiuntivo Amazon EKS non gestisca le impostazioni da gestire in autonomia.
+
+
+. Scegliere *Avanti*.
+. Nella pagina *Rivedi e Aggiungi*, scegliere *Crea*.
++
+Al termine dell'installazione del componente aggiuntivo, viene visualizzato il componente aggiuntivo installato.
+
+
+
+--
+.CLI AWS
+--
+. Creare il `add-on.json` file:
++
+[listing]
+----
+add-on.json
+{
+
+   "clusterName": "<eks-cluster>",
+   "addonName": "netapp_trident-operator",
+   "addonVersion": "v24.2.0-eksbuild.1",
+   "serviceAccountRoleArn": "arn:aws:iam::123456:role/astratrident-role",
+   "configurationValues": "{"cloudIdentity": "'eks.amazonaws.com/role-arn: arn:aws:iam::123456:role/astratrident-role'"}"
+}
+----
+. Installa il componente aggiuntivo Astra Trident EKS"
++
+`aws eks create-addon --cli-input-json file://add-on.json`
+
+
+
+--
+====
+
+
+=== Aggiorna il componente aggiuntivo Astra Trident EKS
+
+[role="tabbed-block"]
+====
+.Cluster EKS
+--
+* Controllare la versione corrente del componente aggiuntivo FSxN Trident CSI. Sostituire `my-cluster` con il nome del cluster.
+`eksctl get addon --name netapp_trident-operator --cluster my-cluster`
++
+*Esempio di output:*
+
+
+
+[listing]
+----
+NAME                        VERSION             STATUS    ISSUES    IAMROLE    UPDATE AVAILABLE    CONFIGURATION VALUES
+netapp_trident-operator    v24.2.0-eksbuild.1    ACTIVE    0       {"cloudIdentity":"'eks.amazonaws.com/role-arn: arn:aws:iam::139763910815:role/AmazonEKS_FSXN_CSI_DriverRole'"}
+----
+* Aggiornare il componente aggiuntivo alla versione restituita in AGGIORNAMENTO DISPONIBILE nell'output del passaggio precedente.
+`eksctl update addon --name netapp_trident-operator --version v24.2.0-eksbuild.1 --cluster my-cluster --force`
++
+Se si rimuove l' `--force` opzione e una delle impostazioni del componente aggiuntivo Amazon EKS è in conflitto con le impostazioni esistenti, l'aggiornamento del componente aggiuntivo Amazon EKS non viene eseguito correttamente; viene visualizzato un messaggio di errore che aiuta a risolvere il conflitto. Prima di specificare questa opzione, assicurati che il componente aggiuntivo Amazon EKS non gestisca le impostazioni da gestire, perché queste impostazioni vengono sovrascritte con questa opzione. Per ulteriori informazioni sulle altre opzioni per questa impostazione, vedere link:https://eksctl.io/usage/addons/["Componenti aggiuntivi"]. Per ulteriori informazioni su Amazon EKS Kubernetes Field management, consulta link:https://docs.aws.amazon.com/eks/latest/userguide/kubernetes-field-management.html["Gestione sul campo di Kubernetes"].
+
+
+
+--
+.Console di gestione
+--
+. Aprire la console Amazon EKS https://console.aws.amazon.com/eks/home#/clusters[].
+. Nel riquadro di spostamento a sinistra, fare clic su *cluster*.
+. Fare clic sul nome del cluster per il quale si desidera aggiornare il componente aggiuntivo NetApp Trident CSI.
+. Fare clic sulla scheda *componenti aggiuntivi*.
+. Fare clic su *Astra Trident by NetApp*, quindi su *Modifica*.
+. Nella pagina *Configura Astra Trident di NetApp*, procedere come segue:
++
+.. Selezionare la *versione* che si desidera utilizzare.
+.. (Facoltativo) è possibile espandere le *impostazioni di configurazione opzionali* e modificarle secondo necessità.
+.. Fare clic su *Save Changes* (Salva modifiche).
+
+
+
+
+--
+.CLI AWS
+--
+Nell'esempio seguente viene aggiornato il componente aggiuntivo EKS:
+
+`aws eks update-addon --cluster-name my-cluster netapp_trident-operator vpc-cni --addon-version v24.2.0-eksbuild.1 \
+    --service-account-role-arn arn:aws:iam::111122223333:role/role-name --configuration-values '{}' --resolve-conflicts --preserve`
+
+--
+====
+
+
+=== Disinstallare/rimuovere il componente aggiuntivo Astra Trident EKS
+
+Hai due opzioni per rimuovere un add-on Amazon EKS:
+
+* *Mantieni il software aggiuntivo sul tuo cluster* – questa opzione rimuove la gestione Amazon EKS di qualsiasi impostazione. Inoltre, rimuove la possibilità per Amazon EKS di informarti degli aggiornamenti e di aggiornare automaticamente il componente aggiuntivo Amazon EKS dopo l'avvio di un aggiornamento. Tuttavia, mantiene il software add-on sul cluster. Questa opzione rende il componente aggiuntivo un'installazione a gestione autonoma, piuttosto che un componente aggiuntivo Amazon EKS. Con questa opzione, il componente aggiuntivo non presenta tempi di inattività. Mantenere l' `--preserve` opzione nel comando per mantenere il componente aggiuntivo.
+* *Rimuovere completamente il software aggiuntivo dal cluster* – si consiglia di rimuovere il componente aggiuntivo Amazon EKS dal cluster solo se non sono presenti risorse del cluster che dipendono da esso. Rimuovere l' `--preserve` opzione dal `delete` comando per rimuovere il componente aggiuntivo.
+
+
+
+NOTE: Se al componente aggiuntivo è associato un account IAM, l'account IAM non viene rimosso.
+
+[role="tabbed-block"]
+====
+.Cluster EKS
+--
+Il seguente comando disinstalla il componente aggiuntivo Astra Trident EKS:
+`eksctl delete addon --cluster K8s-arm --name netapp_trident-operator`
+
+--
+.Console di gestione
+--
+. Aprire la console Amazon EKS all'indirizzo https://console.aws.amazon.com/eks/home#/clusters[].
+. Nel riquadro di spostamento a sinistra, fare clic su *cluster*.
+. Fare clic sul nome del cluster per il quale si desidera rimuovere il componente aggiuntivo NetApp Trident CSI.
+. Fare clic sulla scheda *componenti aggiuntivi*, quindi fare clic su *Astra Trident by NetApp*.*
+. Fare clic su *Rimuovi*.
+. Nella finestra di dialogo *Rimuovi conferma netapp_trident-operator*, esegui quanto segue:
++
+.. Se si desidera che Amazon EKS smetta di gestire le impostazioni del componente aggiuntivo, selezionare *conserva su cluster*. Questa operazione consente di conservare il software aggiuntivo nel cluster in modo da poter gestire da soli tutte le impostazioni del componente aggiuntivo.
+.. Immettere *netapp_trident-operator*.
+.. Fare clic su *Rimuovi*.
+
+
+
+
+--
+.CLI AWS
+--
+Sostituisci `my-cluster` con il nome del cluster ed esegui il seguente comando.
+
+`aws eks delete-addon --cluster-name my-cluster --addon-name netapp_trident-operator --preserve`
+
+--
+====

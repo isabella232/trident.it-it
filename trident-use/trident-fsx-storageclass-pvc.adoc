@@ -1,0 +1,212 @@
+---
+sidebar: sidebar 
+permalink: trident-use/trident-fsx-storageclass-pvc.html 
+keywords: Amazon FSx for NetApp ONTAP, FSx for ONTAP, deploy Trident, integrate Trident, Trident 
+summary: 'Utilizzando Astra Trident con Amazon FSX per NetApp ONTAP, puoi garantire che i cluster Kubernetes in esecuzione in Amazon Elastic Kubernetes Service (EKS) possano eseguire il provisioning di volumi persistenti di blocchi e file supportati da ONTAP.' 
+---
+= Configurare una classe di storage e PVC
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Configurare un oggetto Kubernetes StorageClass e creare una classe storage per istruire Astra Trident su come eseguire il provisioning dei volumi. Creare un PersistentVolume (PV) e un PersistentVolumeClaim (PVC) che utilizza Kubernetes StorageClass configurato per richiedere l'accesso al PV. È quindi possibile montare il PV su un pod.
+
+
+
+== Creare una classe di storage
+
+
+
+=== Configurare un oggetto Kubernetes StorageClass
+
+ https://kubernetes.io/docs/concepts/storage/storage-classes/["Oggetto Kubernetes StorageClass"^]Identifica Astra Trident come provisioner utilizzato per quella classe istruisce Astra Trident su come eseguire il provisioning di un volume. Ad esempio:
+
+[listing]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: ontap-gold
+provisioner: csi.trident.netapp.io
+parameters:
+  backendType: "ontap-nas"
+  media: "ssd"
+  provisioningType: "thin"
+  snapshots: "true"
+----
+Fare riferimento a. link:../trident-reference/objects.html["Kubernetes e Trident Objects"] per informazioni sulle modalità di interazione delle classi di storage con `PersistentVolumeClaim` E parametri per controllare come Astra Trident esegue il provisioning dei volumi.
+
+
+
+=== Creare una classe di storage
+
+.Fasi
+. Si tratta di un oggetto Kubernetes, lo utilizza `kubectl` Per crearlo in Kubernetes.
++
+[listing]
+----
+kubectl create -f storage-class-ontapnas.yaml
+----
+. Ora dovrebbe essere visualizzata una classe di storage *Basic-csi* in Kubernetes e Astra Trident, mentre Astra Trident avrebbe scoperto i pool sul backend.
++
+[listing]
+----
+kubectl get sc basic-csi
+NAME         PROVISIONER             AGE
+basic-csi    csi.trident.netapp.io   15h
+
+----
+
+
+
+
+== Creare PV e PVC
+
+R link:https://kubernetes.io/docs/concepts/storage/persistent-volumes/["_PersistentVolume_"^] (PV) è una risorsa di storage fisico fornita dall'amministratore del cluster su un cluster Kubernetes. Il https://kubernetes.io/docs/concepts/storage/persistent-volumes["_PersistentVolumeClaim_"^] (PVC) è una richiesta di accesso a PersistentVolume sul cluster.
+
+Il PVC può essere configurato per richiedere la memorizzazione di una determinata dimensione o modalità di accesso. Utilizzando StorageClass associato, l'amministratore del cluster può controllare più delle dimensioni di PersistentVolume e della modalità di accesso, ad esempio le prestazioni o il livello di servizio.
+
+Dopo aver creato PV e PVC, è possibile montare il volume in un pod.
+
+
+
+=== Manifesti campione
+
+.Manifesto di esempio di PersistentVolume
+[%collapsible]
+====
+Questo manifesto di esempio mostra un PV di base di 10Gi associato a StorageClass `basic-csi`.
+
+[listing]
+----
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-storage
+  labels:
+    type: local
+spec:
+  storageClassName: basic-csi
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: "/my/host/path"
+----
+====
+.Manifesti di campioni PersistentVolumeClaim
+[%collapsible]
+====
+Questi esempi mostrano le opzioni di configurazione di base del PVC.
+
+.PVC con accesso RWO
+Questo esempio mostra un PVC di base con accesso RWX associato a un StorageClass denominato `basic-csi`.
+
+[listing]
+----
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pvc-storage
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: basic-csi
+----
+.PVC con NVMe/TCP
+Questo esempio mostra un PVC di base per NVMe/TCP con accesso RWO associato a una StorageClass denominata `protection-gold`.
+
+[listing]
+----
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+name: pvc-san-nvme
+spec:
+accessModes:
+  - ReadWriteOnce
+resources:
+  requests:
+    storage: 300Mi
+storageClassName: protection-gold
+----
+====
+
+
+=== Creare PV e PVC
+
+.Fasi
+. Creare il PV.
++
+[listing]
+----
+kubectl create -f pv.yaml
+----
+. Verificare lo stato FV.
++
+[listing]
+----
+kubectl get pv
+NAME        CAPACITY  ACCESS MODES  RECLAIM POLICY  STATUS    CLAIM  STORAGECLASS  REASON  AGE
+pv-storage  4Gi       RWO           Retain          Available                              7s
+----
+. Creare il PVC.
++
+[listing]
+----
+kubectl create -f pvc.yaml
+----
+. Verificare lo stato del PVC.
++
+[listing]
+----
+kubectl get pvc
+NAME        STATUS VOLUME     CAPACITY ACCESS MODES STORAGECLASS AGE
+pvc-storage Bound  pv-name 2Gi      RWO                       5m
+----
+
+
+Fare riferimento a. link:../trident-reference/objects.html["Kubernetes e Trident Objects"] per informazioni sulle modalità di interazione delle classi di storage con `PersistentVolumeClaim` E parametri per controllare come Astra Trident esegue il provisioning dei volumi.
+
+
+
+== Attributi Astra Trident
+
+Questi parametri determinano quali pool di storage gestiti da Astra Trident devono essere utilizzati per il provisioning di volumi di un determinato tipo.
+
+[cols=",,,,,"]
+|===
+| Attributo | Tipo | Valori | Offerta | Richiesta | Supportato da 
+
+
+| supporti^1^ | stringa | hdd, ibrido, ssd | Il pool contiene supporti di questo tipo; ibridi significa entrambi | Tipo di supporto specificato | ontap-nas, ontap-nas-economy, ontap-nas-flexgroup, ontap-san, solidfire-san 
+
+
+| ProvisioningType | stringa | sottile, spesso | Il pool supporta questo metodo di provisioning | Metodo di provisioning specificato | thick: all ONTAP; thin: all ONTAP e solidfire-san 
+
+
+| BackendType | stringa  a| 
+ontap-nas, ontap-nas-economy, ontap-nas-flexgroup, ontap-san, solidfire-san, gcp-cvs, azure-netapp-files, ontap-san-economy
+| Il pool appartiene a questo tipo di backend | Backend specificato | Tutti i driver 
+
+
+| snapshot | bool | vero, falso | Il pool supporta volumi con snapshot | Volume con snapshot attivate | ontap-nas, ontap-san, solidfire-san, gcp-cvs 
+
+
+| cloni | bool | vero, falso | Il pool supporta la clonazione dei volumi | Volume con cloni attivati | ontap-nas, ontap-san, solidfire-san, gcp-cvs 
+
+
+| crittografia | bool | vero, falso | Il pool supporta volumi crittografati | Volume con crittografia attivata | ontap-nas, ontap-nas-economy, ontap-nas-flexgroups, ontap-san 
+
+
+| IOPS | int | intero positivo | Il pool è in grado di garantire IOPS in questa gamma | Volume garantito per questi IOPS | solidfire-san 
+|===
+^1^: Non supportato dai sistemi ONTAP Select

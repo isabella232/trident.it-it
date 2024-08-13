@@ -1,0 +1,73 @@
+---
+sidebar: sidebar 
+permalink: trident-use/trident-fsx-iam-role.html 
+keywords: Amazon FSx for NetApp ONTAP, FSx for ONTAP, deploy Trident, integrate Trident, Trident 
+summary: 'Utilizzando Astra Trident con Amazon FSX per NetApp ONTAP, puoi garantire che i cluster Kubernetes in esecuzione in Amazon Elastic Kubernetes Service (EKS) possano eseguire il provisioning di volumi persistenti di blocchi e file supportati da ONTAP.' 
+---
+= Creare un ruolo IAM e un segreto AWS
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puoi configurare i pod Kubernetes in modo che accedano alle risorse AWS autenticandosi come ruolo AWS IAM invece di fornire credenziali AWS esplicite.
+
+
+NOTE: Per eseguire l'autenticazione usando un ruolo AWS IAM, devi disporre di un cluster Kubernetes implementato utilizzando EKS.
+
+
+
+== Crea un segreto per AWS Secret Manager
+
+Questo esempio crea un segreto per il manager segreto AWS per memorizzare le credenziali Astra Trident CSI:
+
+`aws secretsmanager create-secret --name trident-secret --description "Trident CSI credentials" --secret-string "{"user":"vsadmin","password":"<svmpassword>"}"`
+
+
+
+== Crea criterio IAM
+
+I seguenti esempi creano una policy IAM utilizzando l'interfaccia a riga di comando di AWS:
+
+`aws iam create-policy --policy-name AmazonFSxNCSIDriverPolicy --policy-document file://policy.json --description "This policy grants access to Trident CSI to FSxN and Secret manager"`
+
+*Policy JSON file*:
+
+[listing]
+----
+policy.json:
+{
+    "Statement": [
+        {
+            "Action": [
+                "fsx:DescribeFileSystems",
+                "fsx:DescribeVolumes",
+                "fsx:CreateVolume",
+                "fsx:RestoreVolumeFromSnapshot",
+                "fsx:DescribeStorageVirtualMachines",
+                "fsx:UntagResource",
+                "fsx:UpdateVolume",
+                "fsx:TagResource",
+                "fsx:DeleteVolume"
+            ],
+            "Effect": "Allow",
+            "Resource": "*"
+        },
+        {
+            "Action": "secretsmanager:GetSecretValue",
+            "Effect": "Allow",
+            "Resource": "arn:aws:secretsmanager:<aws-region>:<aws-account-id>:secret:<aws-secret-manager-name>"
+        }
+    ],
+    "Version": "2012-10-17"
+}
+----
+
+
+== Creare e il ruolo IAM per l'account del servizio
+
+Nell'esempio seguente viene creato un ruolo IAM per l'account di servizio in EKS:
+
+`eksctl create iamserviceaccount --name trident-controller --namespace trident --cluster <my-cluster> --role-name <AmazonEKS_FSxN_CSI_DriverRole> --role-only --attach-policy-arn arn:aws:iam::aws:policy/service-role/AmazonFSxNCSIDriverPolicy --approve`
